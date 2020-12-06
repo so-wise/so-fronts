@@ -1,4 +1,4 @@
-# NOTE: These requirements are used for developing code on the repo. 
+# NOTE: These requirements are used for developing code on the repo.
 # As a standard they include certain formatters and linters.
 
 # local package
@@ -11,3 +11,4 @@ mypy                # python type checker
 black               # automatic formatting provider
 isort               # automatic import sorter
 python-dotenv       # environment variable manager
+https://github.com/sdat2/pyxpcm/archive/sof-agu.zip

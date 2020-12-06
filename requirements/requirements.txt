@@ -1,1 +1,3 @@
 # NOTE: Your final requirements for production/publishing the repo go here.
+mkdocs
+https://github.com/sdat2/pyxpcm/archive/sof-agu.zip

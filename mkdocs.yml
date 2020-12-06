@@ -1,0 +1,5 @@
+site_name: AGU20-OS022-08
+nav:
+    - Home: index.md
+    - About: about.md
+theme: readthedocs

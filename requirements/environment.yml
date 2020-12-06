@@ -1,9 +1,19 @@
 prefix: ./env
 channels:
   - conda-forge
+  - anaconda
   - defaults
 dependencies:
   - python=3.8
+  - xarray=0.15.1
+  - scikit-learn
+  - cartopy
+  - netcdf4
+  - matplotlib==3.2.2
+  - pandas
+  - pynio
+  - dask
+  - gsw
   - pip
   - pip:
     - -r file:dev-requirements.txt

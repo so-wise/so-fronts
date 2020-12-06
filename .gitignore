@@ -29,12 +29,17 @@ var/
 *.manifest
 *.spec
 
+# Large data files
+nc/
+*.nc
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
 htmlcov/
+.pytest_cache/
 .tox/
 .coverage
 .coverage.*
@@ -52,6 +57,10 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+# Mkdocs documentation
+site
+
 
 # PyBuilder
 target/
