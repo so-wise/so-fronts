@@ -2,4 +2,6 @@ site_name: AGU20-OS022-08
 nav:
     - Home: index.md
     - About: about.md
+    - Repository: READMES_COPY/MAIN_README.md
+
 theme: readthedocs

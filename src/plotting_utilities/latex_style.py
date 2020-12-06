@@ -12,12 +12,13 @@ sps.ds_for_grahing(ds).plot()
 import numpy as np
 import numpy.linalg as la
 import re
-
-# import cartopy.crs as ccrs
 import matplotlib
 import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import xarray as xr
+from distutils.spawn import find_executable
+
+xr.set_options(keep_attrs=True)
 
 
 def mpl_params(quality="high"):
@@ -27,7 +28,7 @@ def mpl_params(quality="high"):
     and choose the correct setting.
     :return:
     """
-    if quality == "high":
+    if quality == "high" and find_executable("latex"):
         matplotlib.style.use("seaborn-colorblind")
         param_set = {
             "pgf.texsystem": "pdflatex",

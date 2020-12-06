@@ -1,3 +1,12 @@
+import numpy as np
+import numpy.linalg as la
+import re
+import matplotlib
+import matplotlib.colors as colors
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+
+
 def plot_ellipsoid_trial():
     """
     https://stackoverflow.com/questions/7819498/plotting-ellipsoid-with-matplotlib

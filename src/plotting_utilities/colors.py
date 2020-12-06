@@ -1,3 +1,7 @@
+import matplotlib
+import matplotlib.colors as colors
+
+
 def replacement_color_list(number_of_colors):
     """
 

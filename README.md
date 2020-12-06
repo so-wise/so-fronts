@@ -4,20 +4,21 @@
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
 ## Requirements
+
 - Python 3.8+
 
 ## Getting started
 
  - Make the environment:
-    ```bash
+ 
+    ```
     make env
     ```
 
 - Make the documentation and load it in your web browser:
 
-    ```bash
-    mkdocs build
-    open site/index.html
+    ```
+    make docs
     ```
 
 

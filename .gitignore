@@ -60,6 +60,7 @@ docs/_build/
 
 # Mkdocs documentation
 site
+docs/READMES_COPY/
 
 
 # PyBuilder

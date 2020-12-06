@@ -1,3 +1,8 @@
+import matplotlib.cm as cm
+import cartopy.crs as ccrs
+import cartopy.feature
+
+
 def southern_ocean_axes_setup(ax, fig):
     carree = ccrs.PlateCarree()
     ax.set_extent([-180, 180, -90, -30], carree)
