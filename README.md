@@ -10,7 +10,7 @@
 ## Getting started
 
  - Make the environment:
- 
+
     ```
     make env
     ```
@@ -20,6 +20,14 @@
     ```
     make docs
     ```
+
+- To see the other options in the `Makefile` type:
+
+    ```
+    make help
+    ```
+
+
 
 
 ## Project Organization

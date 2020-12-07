@@ -1,3 +1,5 @@
+import os
+import numpy as np
 import xarray as xr
 import pyxpcm
 from pyxpcm.models import pcm
