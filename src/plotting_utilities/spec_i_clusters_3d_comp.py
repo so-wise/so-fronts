@@ -1,12 +1,21 @@
+import numpy as np
+import numpy.linalg as la
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
+import matplotlib.patches as patch
+import src.models.to_pair_i_metric as tpi
+import src.plotting_utilities.ellipses as pel
+import src.plotting_utilities.latex_style as lsty
+import src.plotting_utilities.colors as col
+
+
 def plot_fig2_mult(weights, means, covariances, ds):
     """
     This will hopefully plot fig2a and fig2b with automatic labelling.
     """
 
-    da = pair_i_metric(ds)
-
-    carree = ccrs.PlateCarree()
-    map_proj = ccrs.SouthPolarStereo()
+    da = tpi.pair_i_metric(ds)
 
     pairs_list = []
     width_ratios = []
@@ -23,7 +32,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
             width_ratios.append(0.05)
             num_pairs += 1
             pairs = da.coords["pair"].values
-            cmap_list = sps.return_list_of_colormaps(len(pairs), fade_to_white=False)
+            cmap_list = col.return_list_of_colormaps(len(pairs), fade_to_white=False)
             pairs_list.append(pairs)
             for width in [1 / num_plots / len(pairs) for x in range(len(pairs))]:
                 width_ratios.append(width)
@@ -74,7 +83,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
 
             used_up_columns += pairs_list[i].shape[0] + 1
 
-        # cmap_list = sps.return_list_of_colormaps(
+        # cmap_list = col.return_list_of_colormaps(
         #    len(pairs_list[i]), fade_to_white=False
         # )
         if i == 0:
@@ -115,7 +124,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
             fig = plt.gcf()
 
             for j in range(number_clusters):
-                fig, ax1 = plot_ellipsoid(
+                fig, ax1 = pel.plot_ellipsoid(
                     fig, ax1, covariances[j], means[j], weights[j], colors[j]
                 )
 

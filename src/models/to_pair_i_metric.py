@@ -1,3 +1,9 @@
+import numpy as np
+import xarray as xr
+
+xr.set_options(keep_attrs=True)
+
+
 # @jit(nopython=True)
 def go_through_with_numba(cart_prod, i_metric, sorted_version, threshold):
     if True:
