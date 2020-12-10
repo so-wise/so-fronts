@@ -8,6 +8,7 @@ virtualenv
 # external requirements
 click           # BSD-3-Clause
 sphinx          # BSD-3-Clause
+mkdocs
 coverage        # MIT
 flake8          # MIT
 python-dotenv   # BSD-3-Clause

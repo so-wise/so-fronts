@@ -1,6 +1,7 @@
 import collections
 import numpy as np
 import xarray as xr
+import src.data_loading.xr_values_loader as xvl
 
 xr.set_options(keep_attrs=True)
 
@@ -48,56 +49,6 @@ def for_loops_with_numba(pair, i_metric, sorted_version, threshold):
     return [pair, pair_i_metric, at_least_one_point]
 
 
-def order_indexes(dataarray, index_list):
-    """
-    [
-        ("time", dataarray.coords["time"].values.shape[0]),
-        ("rank", dataarray.coords["rank"].values.shape[0]),
-        ("x", dataarray.coords["XC"].values.shape[0]),
-        ("y", dataarray.coords["YC"].values.shape[0]),
-    ]
-    """
-
-    coords_list = []
-    for item in index_list:
-        coords_list.append((item, dataarray.coords[item].values.shape[0]))
-
-    coords_d = collections.OrderedDict(coords_list)
-
-    print(coords_d)
-
-    init_position_d = []
-
-    shape = np.shape(dataarray.values)
-
-    for key in coords_d:
-        init_position_d.append((key, shape.index(coords_d[key])))
-
-    init_position_d = collections.OrderedDict(init_position_d)
-
-    print(init_position_d)
-
-    init_list = list(init_position_d.values())
-    fin_list = list(range(len(coords_d.values())))
-
-    # print("y coords", ds.coords["A_B"].values.shape[0])
-
-    # print("ds.A_B.values.shape", ds.A_B.values.shape)
-
-    dataarray_values = np.moveaxis(dataarray.values, init_list, fin_list)
-
-    print(index_list, np.shape(dataarray_values))
-
-    return dataarray_values
-
-    """
-    print("ds.A_B.values.shape new", A_B_values.shape)
-
-    sorted_version = np.sort(A_B_values, axis=1)
-    print("sorted_version.shape", sorted_version.shape)
-    """
-
-
 def pair_i_metric(ds, threshold=0.05):
     """
     # new loading order (to be changed)
@@ -114,7 +65,7 @@ def pair_i_metric(ds, threshold=0.05):
 
     """
 
-    A_B_values = order_indexes(ds.A_B, ["time", "rank", "YC", "XC"])
+    A_B_values = xvl.order_indexes(ds.A_B, ["time", "rank", "YC", "XC"])
 
     sorted_version = np.sort(A_B_values, axis=1)
 
@@ -122,7 +73,7 @@ def pair_i_metric(ds, threshold=0.05):
     # sorted_version (60, 2, 588, 2160)
     # shape (2, 12, 60, 240)
 
-    i_metric = order_indexes(ds.IMETRIC.isel(Imetric=0), ["time", "YC", "XC"])
+    i_metric = xvl.order_indexes(ds.IMETRIC.isel(Imetric=0), ["time", "YC", "XC"])
 
     print("i_metric", i_metric.shape)
     # i_metric (60, 588, 2160)

@@ -1,3 +1,6 @@
+"""
+The purpose of this image is to visualise the
+"""
 import numpy as np
 import numpy.linalg as la
 import matplotlib.cm as cm

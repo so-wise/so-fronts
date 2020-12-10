@@ -1,12 +1,34 @@
+import matplotlib.pyplot as plt
+import src.plotting_utilities.latex_style as lsty
+import src.plotting_utilities.colors as col
+
+
 def profile_plot_cluster_comparison():
     """
     Originally from
     https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
     A program to plot profiles, originally of the original components etc.
     https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
+
+    df.insert(3,'label_sorted',df['label'].map(di))
+
+    # group profiles according to label
+    grouped = df.groupby('label_sorted')
+
+    # calculate mean of all profiles in each class
+    dfg_means = grouped.mean()
+
+    # calculate stdevs of all profiles in each class
+    dfg_stds = grouped.std()
+
+    # number or profiles in each class
+    nprofs = grouped['x'].count().values
+
+    print(dfg_means['15.0'])
+
     """
     fig = plt.gcf()
-    color_list = mps.replacement_color_list(len(data_d["theta_d"].values()))
+    color_list = col.replacement_color_list(len(data_d["theta_d"].values()))
 
     plt.subplot(1, 2, 1)
 
