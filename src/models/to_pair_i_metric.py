@@ -1,3 +1,4 @@
+import collections
 import numpy as np
 import xarray as xr
 
@@ -47,15 +48,81 @@ def for_loops_with_numba(pair, i_metric, sorted_version, threshold):
     return [pair, pair_i_metric, at_least_one_point]
 
 
-def pair_i_metric(ds, threshold=0.05):
+def order_indexes(dataarray, index_list):
+    """
+    [
+        ("time", dataarray.coords["time"].values.shape[0]),
+        ("rank", dataarray.coords["rank"].values.shape[0]),
+        ("x", dataarray.coords["XC"].values.shape[0]),
+        ("y", dataarray.coords["YC"].values.shape[0]),
+    ]
+    """
 
-    print("ds.A_B.values.shape", ds.A_B.values.shape)
+    coords_list = []
+    for item in index_list:
+        coords_list.append((item, dataarray.coords[item].values.shape[0]))
 
-    sorted_version = np.sort(ds.A_B.values, axis=1)
+    coords_d = collections.OrderedDict(coords_list)
+
+    print(coords_d)
+
+    init_position_d = []
+
+    shape = np.shape(dataarray.values)
+
+    for key in coords_d:
+        init_position_d.append((key, shape.index(coords_d[key])))
+
+    init_position_d = collections.OrderedDict(init_position_d)
+
+    print(init_position_d)
+
+    init_list = list(init_position_d.values())
+    fin_list = list(range(len(coords_d.values())))
+
+    # print("y coords", ds.coords["A_B"].values.shape[0])
+
+    # print("ds.A_B.values.shape", ds.A_B.values.shape)
+
+    dataarray_values = np.moveaxis(dataarray.values, init_list, fin_list)
+
+    print(index_list, np.shape(dataarray_values))
+
+    return dataarray_values
+
+    """
+    print("ds.A_B.values.shape new", A_B_values.shape)
+
+    sorted_version = np.sort(A_B_values, axis=1)
     print("sorted_version.shape", sorted_version.shape)
-    # sorted_version (60, 2, 588, 2160)
+    """
 
-    i_metric = ds.IMETRIC.isel(Imetric=0).values
+
+def pair_i_metric(ds, threshold=0.05):
+    """
+    # new loading order (to be changed)
+    ds.A_B.values.shape (2, 12, 60, 240)
+    sorted_version.shape (2, 12, 60, 240)
+    i_metric (12, 60, 240)
+    list_no [0, 1, 2, 3, 4]
+    https://numpy.org/doc/stable/reference/generated/numpy.swapaxes.html
+    https://numpy.org/doc/stable/reference/generated/numpy.moveaxis.html
+    "time"].values.shape[0]),
+    ("rank", dataarray.coords["rank"].values.shape[0]),
+    ("x", dataarray.coords["XC"].values.shape[0]),
+    ("y", dataarray.coords["YC"]
+
+    """
+
+    A_B_values = order_indexes(ds.A_B, ["time", "rank", "YC", "XC"])
+
+    sorted_version = np.sort(A_B_values, axis=1)
+
+    # coords_d in correct order
+    # sorted_version (60, 2, 588, 2160)
+    # shape (2, 12, 60, 240)
+
+    i_metric = order_indexes(ds.IMETRIC.isel(Imetric=0), ["time", "YC", "XC"])
 
     print("i_metric", i_metric.shape)
     # i_metric (60, 588, 2160)
@@ -69,7 +136,8 @@ def pair_i_metric(ds, threshold=0.05):
     cart_prod = [
         np.array([a, b]) for a in list_no for b in list_no if a <= b and a != b
     ]
-    # [array([0, 1]), array([0, 2]), array([0, 3]), array([1, 2]), array([1, 3]), array([2, 3])]
+    # [array([0, 1]), array([0, 2]), array([0, 3]), array([1, 2]),
+    # array([1, 3]), array([2, 3])]
 
     print("cart_prod", cart_prod)
 

@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import src.models.train_i_metric
 import src.plotting_utilities.spec_i_clusters_3d_comp as s3d
 
