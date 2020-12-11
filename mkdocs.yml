@@ -3,5 +3,8 @@ nav:
     - Home: index.md
     - About: about.md
     - Repository: READMES_COPY/MAIN_README.md
+    - Configs: configs.md
+    - Philosophy: philosophy.md
+
 
 theme: readthedocs

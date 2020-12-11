@@ -15,10 +15,23 @@
     make env
     ```
 
-- Make the documentation and load it in your web browser:
+ - Activate the environment:
+
+     ```
+     make ./env
+     ```
+
+ - Make the documentation and load it in your web browser:
 
     ```
     make docs
+    ```
+
+
+ - Make your Jupyter notebooks more functional with timings etc.:
+
+    ```
+    make jupyter_pro
     ```
 
 - To see the other options in the `Makefile` type:
@@ -31,6 +44,7 @@
 
 
 ## Project Organization
+
 ```
 ├── LICENSE
 ├── Makefile           <- Makefile with commands like `make init` or `make lint-requirements`
@@ -51,7 +65,10 @@
 │
 ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
 ├── src                <- Source code for use in this project.
+|   |
 │   ├── __init__.py    <- Makes src a Python module
+|   |
+|   ├── configs        <- config files for hydra (e.g. BSOSE coordinates)
 │   │
 │   ├── data_loading   <- Scripts to download or generate data
 │   │
