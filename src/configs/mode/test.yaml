@@ -1,0 +1,4 @@
+# @package _group_
+train: False # Boolean that describes whether we are training or testing using a trained model.
+batch_size: 2048
+date_range: [] # Custom date range for the test dataset, as a list of two strings.
