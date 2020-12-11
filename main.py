@@ -13,16 +13,18 @@ m, ds = src.models.train_i_metric.train_on_interpolated_year(
     min_depth=300,
     max_depth=2000,
     separate_pca=False,
-    remove_s_and_t=True,
+    remove_s_and_t=False,
 )
 
 
+"""
 s3d.plot_fig2_mult(
     m._classifier.weights_, m._classifier.means_, m._classifier.covariances_, ds
 )
 plt.show()
 plt.clf()
+"""
 
-# cp.profile_plot_cluster_comparison()
+# cp.profile_plot_cluster_comparison(ds)
 
 print(ds)

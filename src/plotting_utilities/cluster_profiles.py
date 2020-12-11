@@ -3,8 +3,26 @@ import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.colors as col
 
 
-def profile_plot_cluster_comparison():
+def profile_plot_cluster_comparison(ds):
     """
+
+    :param ds: the dataset
+
+    Dimensions:     (Imetric: 1, XC: 240, YC: 60, Z: 52, pca: 3, rank: 2, time: 12)
+    Coordinates:
+      * time        (time) datetime64[ns] 2011-08-01T15:12:00 ... 2012-07-01T09:36:00
+      * Z           (Z) float32 -2.1 -6.7 -12.15 -18.55 ... -5000.0 -5400.0 -5800.0
+      * YC          (YC) float64 -77.98 -77.16 -76.35 ... -31.35 -30.53 -29.72
+      * XC          (XC) float64 0.08333 1.589 3.094 4.6 ... 355.4 356.9 358.4 359.9
+    Dimensions without coordinates: Imetric, pca, rank
+    Data variables:
+        SALT        (time, Z, YC, XC) float64 nan nan nan nan ... 0.0 0.0 0.0 0.0
+        THETA       (time, Z, YC, XC) float64 nan nan nan nan ... 0.0 0.0 0.0 0.0
+        PCA_VALUES  (pca, time, YC, XC) float64 nan nan nan ... 8.643 9.195 8.525
+        IMETRIC     (Imetric, time, YC, XC) float64 nan nan nan nan ... 0.0 0.0 0.0
+        A_B         (rank, time, YC, XC) float64 nan nan nan nan ... 4.0 4.0 4.0 4.0
+        PCM_LABELS  (time, YC, XC) float64 nan nan nan nan nan ... 3.0 3.0 3.0 3.0
+
     Originally from
     https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
     A program to plot profiles, originally of the original components etc.

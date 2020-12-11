@@ -5,33 +5,33 @@
 
 ## Requirements
 
-- Python 3.8+
+ - Python 3.8+
 
 ## Getting started
 
  - Make the environment:
 
     ```
-    make env
+     make env
     ```
 
  - Activate the environment:
 
      ```
-     make ./env
+      make ./env
      ```
 
  - Make the documentation and load it in your web browser:
 
     ```
-    make docs
+     make docs
     ```
 
 
  - Make your Jupyter notebooks more functional with timings etc.:
 
     ```
-    make jupyter_pro
+     make jupyter_pro
     ```
 
 - To see the other options in the `Makefile` type:
@@ -101,14 +101,16 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Project layout
 
+```
     mkdocs.yml    # The configuration file.
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
 
-
+```
 
 
 ---
 
-Project template created by the [Cambridge AI4ER Cookiecutter](https://github.com/ai4er-cdt/ai4er-cookiecutter).
+Project template created by the
+[Cambridge AI4ER Cookiecutter](https://github.com/ai4er-cdt/ai4er-cookiecutter).
