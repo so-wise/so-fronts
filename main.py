@@ -2,8 +2,6 @@ import matplotlib.pyplot as plt
 import hydra
 from src import constants
 from src.configs import config
-import src.models.train_i_metric
-import src.plotting_utilities.spec_i_clusters_3d_comp as s3d
 import src.plotting_utilities.cluster_profiles as cp
 import src.make_figures as mf
 
