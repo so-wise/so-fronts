@@ -1,3 +1,11 @@
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
+import cartopy.crs as ccrs
+import src.plotting_utilities.map as map
+import src.plotting_utilities.gen_panels as gp
+import src.plotting_utilities.colors as col
+
+
 def sep_plots(da_list, var_list):
 
     map_proj = ccrs.SouthPolarStereo()
@@ -10,7 +18,7 @@ def sep_plots(da_list, var_list):
     fig, axes = plt.subplots(1, num_da, subplot_kw={"projection": map_proj})
 
     for i in range(num_da):
-        southern_ocean_axes_setup(axes[i], fig)
+        map.southern_ocean_axes_setup(axes[i], fig)
         # sps.ds_for_graphing(da_list[i].to_dataset()).to_array().plot(
         da_list[i].plot(
             transform=carree,  # the data's projection
@@ -26,7 +34,7 @@ def sep_plots(da_list, var_list):
         axes[i].coastlines()
         axes[i].set_title("")
 
-    label_subplots(axes)
+    gp.label_subplots(axes)
 
 
 def plot_single_i_metric(da):
@@ -47,8 +55,8 @@ def plot_single_i_metric(da):
     ax1 = fig.add_subplot(gs[0, :], projection=map_proj)
     cbar_axes = [fig.add_subplot(gs[1, i]) for i in range(pairs)]
 
-    southern_ocean_axes_setup(ax1, fig)
-    cmap_list = sps.return_list_of_colormaps(pairs, fade_to_white=False)
+    map.southern_ocean_axes_setup(ax1, fig)
+    cmap_list = col.return_list_of_colormaps(pairs, fade_to_white=False)
 
     for i in range(pairs):
         im = da.isel(pair=i).plot(

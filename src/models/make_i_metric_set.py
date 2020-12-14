@@ -1,22 +1,28 @@
 import xarray as xr
 import pyxpcm
 from pyxpcm.models import pcm
+import src.constants as cst
+import src.data_loading.io_name_conventions as io
+import src.train_i_metric as tim
 
 xr.set_options(keep_attrs=True)
 
 
-def pca_from_interpolated_year(m, pca=2, K=5, time_i=42, max_depth=2000):
+def pca_from_interpolated_year(
+    m, pca=2, K=5, time_i=42, max_depth=2000, remove_init_var=True
+):
+    """
+    m: the pcm object which has already been trained
+    pca: how many principal components were chosen to be fitted.
+    K: how many Guassians were fitted.
+    max_depth: the maximum_depth (in m) that the data is fitted to.
+    """
 
-    main_dir = "/Users/simon/bsose_monthly/"
-    salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
-    theta = main_dir + "bsose_i106_2008to2012_monthly_Theta.nc"
-    features = {"THETA": "THETA", "SALT": "SALT"}
-
-    salt_nc = xr.open_dataset(salt).isel(time=time_i)
-    theta_nc = xr.open_dataset(theta).isel(time=time_i)
+    salt_nc = xr.open_dataset(cst.SALT_FILE).isel(time=time_i)
+    theta_nc = xr.open_dataset(cst.THETA_FILE).isel(time=time_i)
     big_nc = xr.merge([salt_nc, theta_nc])
-    both_nc = big_nc.where(big_nc.coords["Depth"] > max_depth).drop(
-        ["iter", "Depth", "rA", "drF", "hFacC"]
+    both_nc = big_nc.where(big_nc.coords[cst.DEPTH_NAME] > max_depth).drop(
+        cst.USELESS_LIST
     )
 
     attr_d = {}
@@ -28,34 +34,36 @@ def pca_from_interpolated_year(m, pca=2, K=5, time_i=42, max_depth=2000):
 
     ds = m.find_i_metric(ds, inplace=True)
 
-    ds = m.add_pca_to_xarray(ds, features=features, dim="Z", inplace=True)
+    ds = m.add_pca_to_xarray(ds, features=cst.FEATURES_D, dim=cst.Z_COORD, inplace=True)
 
     def sanitize():
         del ds.IMETRIC.attrs["_pyXpcm_cleanable"]
         del ds.A_B.attrs["_pyXpcm_cleanable"]
         del ds.PCA_VALUES.attrs["_pyXpcm_cleanable"]
 
+    sanitize()
+
     for coord in attr_d:
         ds.coords[coord].attrs = attr_d[coord]
 
-    sanitize()
+    if remove_init_var:
+        ds = ds.drop(cst.VAR_NAME_LIST)
 
-    ds = ds.drop(["SALT", "THETA"])
+    ds = ds.expand_dims(dim=cst.TIME_NAME, axis=None)
 
-    ds = ds.expand_dims(dim="time", axis=None)
+    ds = ds.assign_coords(
+        {cst.TIME_NAME: (cst.TIME_NAME, [salt_nc.coords[cst.TIME_NAME].values])}
+    )
 
-    ds = ds.assign_coords({"time": ("time", [salt_nc.coords["time"].values])})
+    ds.coords[cst.TIME_NAME].attrs = salt_nc.coords[cst.TIME_NAME].attrs
 
-    ds.coords["time"].attrs = salt_nc.coords["time"].attrs
-
-    ds.to_netcdf(_return_folder(K, pca) + str(time_i) + ".nc", format="NETCDF4")
+    ds.to_netcdf(io._return_folder(K, pca) + str(time_i) + ".nc", format="NETCDF4")
 
     # return ds
 
 
-@timeit
 def run_through_joint_two(K=5, pca=3):
-    m, ds = train_on_interpolated_year(
+    m, ds = tim.train_on_interpolated_year(
         time_i=42, K=K, maxvar=pca, min_depth=300, max_depth=2000, separate_pca=False
     )
 
@@ -71,17 +79,17 @@ def run_through_joint_two(K=5, pca=3):
 def merge_and_save_joint(K=5, pca=3):
 
     pca_ds = xr.open_mfdataset(
-        _return_folder(K, pca) + "*.nc",
-        concat_dim="time",
+        io._return_folder(K, pca) + "*.nc",
+        concat_dim=cst.TIME_NAME,
         combine="by_coords",
-        chunks={"time": 1},
+        chunks={cst.TIME_NAME: 1},
         data_vars="minimal",
         # parallel=True,
         coords="minimal",
         compat="override",
     )  # this is too intense for memory
 
-    xr.save_mfdataset([pca_ds], [_return_name(K, pca) + ".nc"], format="NETCDF4")
+    xr.save_mfdataset([pca_ds], [io._return_name(K, pca) + ".nc"], format="NETCDF4")
 
 
 def run_through():

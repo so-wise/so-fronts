@@ -5,7 +5,9 @@ from src.configs import config
 import src.models.train_i_metric
 import src.plotting_utilities.spec_i_clusters_3d_comp as s3d
 import src.plotting_utilities.cluster_profiles as cp
+import src.make_figures as mf
 
+"""
 m, ds = src.models.train_i_metric.train_on_interpolated_year(
     time_i=42,
     K=5,
@@ -13,8 +15,12 @@ m, ds = src.models.train_i_metric.train_on_interpolated_year(
     min_depth=300,
     max_depth=2000,
     separate_pca=False,
-    remove_s_and_t=False,
+    remove_init_var=False,
 )
+
+"""
+
+mf.make_all_figures_in_sequence()
 
 
 """
@@ -27,4 +33,4 @@ plt.clf()
 
 # cp.profile_plot_cluster_comparison(ds)
 
-print(ds)
+# print(ds)

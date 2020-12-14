@@ -1,13 +1,12 @@
-import collections
 import numpy as np
 import xarray as xr
 import src.data_loading.xr_values_loader as xvl
+import src.constants as cst
 
 xr.set_options(keep_attrs=True)
 
 
-# @jit(nopython=True)
-def go_through_with_numba(cart_prod, i_metric, sorted_version, threshold):
+def make_all_pair_i_metric(cart_prod, i_metric, sorted_version, threshold):
     if True:
         pair_i_metric_list = []
 
@@ -15,9 +14,7 @@ def go_through_with_numba(cart_prod, i_metric, sorted_version, threshold):
 
         for pair in cart_prod:
             print("pair", pair)
-            """pair [0 1] pair [0 2] pair [0 3]
-               pair [1 2] pair [1 3] pair [2 3]"""
-            temp_list = for_loops_with_numba(pair, i_metric, sorted_version, threshold)
+            temp_list = make_one_pair_i_metric(pair, i_metric, sorted_version, threshold)
             if temp_list[2] == True:
                 pair_list.append(temp_list[0])
                 pair_i_metric_list.append(temp_list[1])
@@ -29,7 +26,7 @@ def go_through_with_numba(cart_prod, i_metric, sorted_version, threshold):
 
 
 # @jit(nopython=True)
-def for_loops_with_numba(pair, i_metric, sorted_version, threshold):
+def make_one_pair_i_metric(pair, i_metric, sorted_version, threshold):
     shape = np.shape(sorted_version)
     print("shape", shape)
     # shape (60, 2, 588, 2160)
@@ -65,7 +62,7 @@ def pair_i_metric(ds, threshold=0.05):
 
     """
 
-    A_B_values = xvl.order_indexes(ds.A_B, ["time", "rank", "YC", "XC"])
+    A_B_values = xvl.order_indexes(ds.A_B, [cst.TIME_NAME, "rank", cst.Y_COORD, cst.X_COORD])
 
     sorted_version = np.sort(A_B_values, axis=1)
 
@@ -73,7 +70,7 @@ def pair_i_metric(ds, threshold=0.05):
     # sorted_version (60, 2, 588, 2160)
     # shape (2, 12, 60, 240)
 
-    i_metric = xvl.order_indexes(ds.IMETRIC.isel(Imetric=0), ["time", "YC", "XC"])
+    i_metric = xvl.order_indexes(ds.IMETRIC.isel(Imetric=0), [cst.TIME_NAME, cst.Y_COORD, cst.X_COORD])
 
     print("i_metric", i_metric.shape)
     # i_metric (60, 588, 2160)
@@ -92,7 +89,7 @@ def pair_i_metric(ds, threshold=0.05):
 
     print("cart_prod", cart_prod)
 
-    pair_i_metric_list, pair_list = go_through_with_numba(
+    pair_i_metric_list, pair_list = make_all_pair_i_metric(
         cart_prod, i_metric, sorted_version, threshold
     )
 
@@ -121,7 +118,7 @@ def pair_i_metric(ds, threshold=0.05):
 
     da = xr.DataArray(
         pair_i_metric_array,
-        dims=["pair", "time", "YC", "XC"],
+        dims=["pair", cst.TIME_NAME, cst.Y_COORD, cst.X_COORD],
         coords={
             "XC": ds.coords["XC"].values,
             "YC": ds.coords["YC"].values,

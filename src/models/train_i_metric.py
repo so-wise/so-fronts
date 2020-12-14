@@ -3,6 +3,8 @@ import numpy as np
 import xarray as xr
 import pyxpcm
 from pyxpcm.models import pcm
+import src.configs as cfg
+
 
 xr.set_options(keep_attrs=True)
 
@@ -14,33 +16,29 @@ def train_on_interpolated_year(
     min_depth=300,
     max_depth=2000,
     separate_pca=True,
-    remove_s_and_t=True,
+    remove_init_var=True,
 ):
-    """
-    TODO: Stop hard coding file locations
-    """
-
-    main_dir = "/Users/simon/bsose_monthly/"
-    salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
-    theta = main_dir + "bsose_i106_2008to2012_monthly_Theta.nc"
+    """"""
 
     z = np.arange(-min_depth, -max_depth, -10.0)
-    features_pcm = {"THETA": z, "SALT": z}
-    features = {"THETA": "THETA", "SALT": "SALT"}
-    fname = "nc/interp.nc"
+    features_pcm = {}
+    for var in cfg.VAR_NAME_LIST:
+        features_pcm[var] = z
+    features = cfg.FEATURES_D
+    fname = cfg.INTERP_FILE_NAME
     if not os.path.isfile(fname):
-        salt_nc = xr.open_dataset(salt).isel(time=slice(time_i, time_i + 12))
-        theta_nc = xr.open_dataset(theta).isel(time=slice(time_i, time_i + 12))
+        salt_nc = xr.open_dataset(cfg.SALT_FILE).isel(time=slice(time_i, time_i + 12))
+        theta_nc = xr.open_dataset(cfg.THETA_FILE).isel(time=slice(time_i, time_i + 12))
         big_nc = xr.merge([salt_nc, theta_nc])
-        both_nc = big_nc.where(big_nc.coords["Depth"] > max_depth).drop(
-            ["iter", "Depth", "rA", "drF", "hFacC"]
+        both_nc = big_nc.where(big_nc.coords[cfg.DEPTH_NAME] > max_depth).drop(
+            cfg.USELESS_LIST
         )
 
         lons_new = np.linspace(both_nc.XC.min(), both_nc.XC.max(), 60 * 4)
         lats_new = np.linspace(both_nc.YC.min(), both_nc.YC.max(), 60)
 
         ds = both_nc.interp(
-            coords={"YC": lats_new, "XC": lons_new}
+            coords={cfg.Y_COORD: lats_new, cfg.X_COORD: lons_new}
         )  # , method='cubic')
         ds.to_netcdf(fname)
     else:
@@ -54,19 +52,17 @@ def train_on_interpolated_year(
         timeit_verb=1,
     )
 
-    m.fit(ds, features=features, dim="Z")
-
-    m.add_pca_to_xarray(ds, features=features, dim="Z", inplace=True)
-
+    m.fit(ds, features=features, dim=cfg.Z_COORD)
+    m.add_pca_to_xarray(ds, features=features, dim=cfg.Z_COORD, inplace=True)
     m.find_i_metric(ds, inplace=True)
-    m.predict(ds, features=features, dim="Z", inplace=True)
+    m.predict(ds, features=features, dim=cfg.Z_COORD, inplace=True)
 
     del ds.PCA_VALUES.attrs["_pyXpcm_cleanable"]
     del ds.IMETRIC.attrs["_pyXpcm_cleanable"]
     del ds.A_B.attrs["_pyXpcm_cleanable"]
     del ds.PCM_LABELS.attrs["_pyXpcm_cleanable"]
 
-    if remove_s_and_t:
-        ds = ds.drop(["THETA", "SALT"])
+    if remove_init_var:
+        ds = ds.drop(cfg.VAR_NAME_LIST)
 
     return m, ds

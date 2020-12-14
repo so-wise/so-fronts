@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.colors as col
@@ -46,11 +47,14 @@ def profile_plot_cluster_comparison(ds):
 
     """
     fig = plt.gcf()
-    color_list = col.replacement_color_list(len(data_d["theta_d"].values()))
+
+    # color_list = col.replacement_color_list(len(data_d["theta_d"].values()))
 
     plt.subplot(1, 2, 1)
 
     ax1 = plt.gca()
+
+    """
 
     for key in data_d["depths_d"]:
         assert len(data_d["depths_d"][key]) == len(data_d["theta_d"][key])
@@ -85,6 +89,7 @@ def profile_plot_cluster_comparison(ds):
             alpha=0.5,
             label="Mean Profile",
         )
+    """
 
     ax1.set_xlabel(
         r"Potential Temperature, $\theta$ / $^{\circ}\mathrm{C}$", color="black"
@@ -95,6 +100,8 @@ def profile_plot_cluster_comparison(ds):
 
     plt.subplot(1, 2, 2)
     ax2 = plt.gca()
+
+    """
 
     for key in data_d["depths_d"]:
 
@@ -129,6 +136,7 @@ def profile_plot_cluster_comparison(ds):
             alpha=0.5,
             label="Mean Profile",
         )
+    """
 
     ax2.set_xlabel(r"Salinity, $S$ / PSU", color="black")
     plt.ylim([-2.008, 0])
@@ -144,5 +152,6 @@ def profile_plot_cluster_comparison(ds):
     )
 
     plt.tight_layout()
-    plt.savefig(style_d["file_name"], bbox_inches="tight")
-    plt.clf()
+    # plt.savefig(style_d["file_name"], bbox_inches="tight")
+    # plt.clf()
+    plt.show()

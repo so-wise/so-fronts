@@ -2,9 +2,12 @@ import numpy as np
 import numpy.linalg as la
 import re
 import matplotlib
-import matplotlib.colors as colors
+# import matplotlib.colors as colors
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
+# import matplotlib.cm as cm
+from matplotlib import patches
+# from matplotlib.patches import Patch as patch
+import src.plotting_utilities.gen_panels as gp
 
 
 def plot_ellipsoid_trial():
@@ -123,8 +126,10 @@ def ellispes(m, ax1):
             # plt.plot(m._classifier.means_[:, 0], m._classifier.means_[:, 1], "x")
             angle = np.arctan2(rotation[1, 0], rotation[0, 0]) / np.pi * 180
 
-            e1 = patch.Ellipse(
-                mean, radii[0], radii[1], angle=angle, alpha=alpha, color=color_array[i]
+
+
+            e1 = patches.Ellipse(
+                mean, radii[0], radii[1], angle=angle, alpha=alpha,  # color=color_array[i]
             )
             ax1.add_patch(e1)
-            label_subplots([ax1], start_from=1)
+            gp.label_subplots([ax1], start_from=1)

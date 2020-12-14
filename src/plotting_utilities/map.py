@@ -1,6 +1,8 @@
+import numpy as np
 import matplotlib.cm as cm
 import cartopy.crs as ccrs
 import cartopy.feature
+import matplotlib.path as mpath
 
 
 def southern_ocean_axes_setup(ax, fig):
