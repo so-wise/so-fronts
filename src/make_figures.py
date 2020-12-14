@@ -13,6 +13,10 @@ relating to the new repository.
 TODO: change from hard coded to non-hardcoded links.
 
 i.e move most of the file-names to the first repository.
+
+TODO move the figure naming from numbered to descriptive
+TODO make a shell scripts which copies descriptively labelled plots to LaTeX repo.
+
 """
 import numpy as np
 import numpy.ma as ma
@@ -26,13 +30,11 @@ import src.plotting_utilities.xarray_panels as xp
 import src.models.train_i_metric
 import src.plotting_utilities.spec_i_clusters_3d_comp as s3d
 import src.models.to_pair_i_metric as tpi
-
-# import src.plotting_utilities.
-
-# import src.plotting_utilities.
 import src.data_loading.io_name_conventions as io
+import src.time_wrapper as twr
 
 
+@twr.timeit
 def return_pair_i_metric(K=5, pca=3, save_nc=True):
 
     link_to_netcdf = io._return_name(K, pca) + ".nc"
@@ -56,6 +58,7 @@ def return_pair_i_metric(K=5, pca=3, save_nc=True):
     return da
 
 
+@twr.timeit
 def make_all_figures_in_sequence():
 
     # FIGURE 1

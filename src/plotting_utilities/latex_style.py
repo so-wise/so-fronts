@@ -17,10 +17,12 @@ import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import xarray as xr
 from distutils.spawn import find_executable
+import src.time_wrapper as twr
 
 xr.set_options(keep_attrs=True)
 
 
+@twr.timeit
 def mpl_params(quality="high"):
     """
     Apply my plotting style to produce nice looking figures.
@@ -66,6 +68,7 @@ def mpl_params(quality="high"):
     matplotlib.rcParams.update(param_set)
 
 
+@twr.timeit
 def tex_escape(text):
     """
     It is better to plot in TeX, but this involves escaping strings.
@@ -99,6 +102,7 @@ def tex_escape(text):
     return regex.sub(lambda match: conv[match.group()], text)
 
 
+@twr.timeit
 def proper_units(text):
     conv = {
         "degK": r"K",
@@ -117,6 +121,7 @@ def proper_units(text):
     return regex.sub(lambda match: conv[match.group()], text)
 
 
+@twr.timeit
 def ds_for_graphing(dsA):
     ds = dsA.copy()
 

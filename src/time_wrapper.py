@@ -16,6 +16,9 @@ def timeit(method):
     assert part != particles
     spin_round_time[key].append(tmp_log_data['SPIN_FORWARD'])
     TODO make this function user friendly for getting the data from.
+    USAGE:
+    import src.time_wrapper as twr
+    @twr.timeit
     """
 
     @wraps(method)

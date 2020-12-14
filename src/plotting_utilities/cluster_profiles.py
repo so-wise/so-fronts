@@ -2,8 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.colors as col
+import src.time_wrapper as twr
 
 
+@twr.timeit
 def profile_plot_cluster_comparison(ds):
     """
 

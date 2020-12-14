@@ -4,8 +4,10 @@ import cartopy.crs as ccrs
 import src.plotting_utilities.map as map
 import src.plotting_utilities.gen_panels as gp
 import src.plotting_utilities.colors as col
+import src.time_wrapper as twr
 
 
+@twr.timeit
 def sep_plots(da_list, var_list):
 
     map_proj = ccrs.SouthPolarStereo()
@@ -37,6 +39,7 @@ def sep_plots(da_list, var_list):
     gp.label_subplots(axes)
 
 
+@twr.timeit
 def plot_single_i_metric(da):
     carree = ccrs.PlateCarree()
     map_proj = ccrs.SouthPolarStereo()
@@ -78,6 +81,7 @@ def plot_single_i_metric(da):
     ax1.coastlines()
 
 
+@twr.timeit
 def plot_several_pair_i_metrics(da_list):
     """
     USAGE:

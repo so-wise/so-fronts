@@ -1,7 +1,9 @@
 import matplotlib
 import matplotlib.colors as colors
+import src.time_wrapper as twr
 
 
+@twr.timeit
 def replacement_color_list(number_of_colors):
     """
 
@@ -100,6 +102,7 @@ def replacement_color_list(number_of_colors):
     return color_list
 
 
+@twr.timeit
 def return_list_of_colormaps(number, fade_to_white=True):
     color_list = replacement_color_list(number)
     cmap_list = []
@@ -112,6 +115,7 @@ def return_list_of_colormaps(number, fade_to_white=True):
     return cmap_list
 
 
+@twr.timeit
 def _fading_colormap_name(from_name, fade_to_white=True):
     """
     Takes a python color name and returns a fading color map.
@@ -123,6 +127,7 @@ def _fading_colormap_name(from_name, fade_to_white=True):
     return _fading_colormap_rgb((red, green, blue), fade_to_white=fade_to_white)
 
 
+@twr.timeit
 def _fading_colormap_hex(from_hex, fade_to_white=True):
     """
     Takes a hex string as input and returns a fading color map as output.
@@ -136,6 +141,7 @@ def _fading_colormap_hex(from_hex, fade_to_white=True):
     )
 
 
+@twr.timeit
 def _fading_colormap_rgb(from_rgb, fade_to_white=True):
     """
     Takes an r g b tuple and returns a fading color map.
@@ -167,6 +173,7 @@ def _fading_colormap_rgb(from_rgb, fade_to_white=True):
     return cmap
 
 
+@twr.timeit
 def fading_colormap(from_color, fade_to_white=True):
     """
     Takes a hex or color name, and returns a fading color map.

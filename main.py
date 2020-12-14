@@ -1,12 +1,17 @@
-import matplotlib.pyplot as plt
-import hydra
+# import hydra
 from src import constants
-from src.configs import config
-import src.plotting_utilities.cluster_profiles as cp
-import src.make_figures as mf
 
-"""
-m, ds = src.models.train_i_metric.train_on_interpolated_year(
+# from src.configs import config
+import src.plotting_utilities.cluster_profiles as cp
+import src.models.train_i_metric as tim
+
+# import src.make_figures as mf
+
+import matplotlib.pyplot as plt
+
+# mf.make_all_figures_in_sequence()
+
+m, ds = tim.train_on_interpolated_year(
     time_i=42,
     K=5,
     maxvar=3,
@@ -16,12 +21,10 @@ m, ds = src.models.train_i_metric.train_on_interpolated_year(
     remove_init_var=False,
 )
 
-"""
-
-mf.make_all_figures_in_sequence()
-
+cp.profile_plot_cluster_comparison(ds)
 
 """
+
 s3d.plot_fig2_mult(
     m._classifier.weights_, m._classifier.means_, m._classifier.covariances_, ds
 )

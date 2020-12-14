@@ -11,8 +11,10 @@ import src.models.to_pair_i_metric as tpi
 import src.plotting_utilities.ellipses as pel
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.colors as col
+import src.time_wrapper as twr
 
 
+@twr.timeit
 def plot_fig2_mult(weights, means, covariances, ds):
     """
     This will hopefully plot fig2a and fig2b with automatic labelling.
