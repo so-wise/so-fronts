@@ -6,6 +6,7 @@ constants_path = os.path.realpath(__file__)
 SRC_PATH = os.path.dirname(constants_path)
 PROJECT_PATH = os.path.dirname(SRC_PATH)
 DATA_PATH = os.path.join(PROJECT_PATH, "nc")
+FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
 
 BSOSE_PATH = os.path.join("/Users", "simon", "bsose_monthly")
 VAR_NAME_LIST = ["SALT", "THETA"]
