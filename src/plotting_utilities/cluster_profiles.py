@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.colors as col
+import src.data_loading.xr_values_loader as xvl
 import src.time_wrapper as twr
 
 
@@ -48,15 +49,63 @@ def profile_plot_cluster_comparison(ds):
     print(dfg_means['15.0'])
 
     """
+    print("\n \n \n SALT Dataarray: \n\n", ds.SALT)
+
+    print("\n \n \n THETA Dataarray: \n\n", ds.THETA)
+
+    print("\n \n \n PCM_LABELS Dataarray: \n\n", ds.PCM_LABELS)
+
+    K_clusters = int(np.nanmax(ds.PCM_LABELS.values) + 1)
+
+    print("K_clusters", K_clusters)
+
+    color_list = col.replacement_color_list(K_clusters)
+
+    height_list = []
+
+    theta_mean_lol = []
+    theta_std_lol = []
+
+    salt_mean_lol = []
+    salt_std_lol = []
+
+    labels = xvl.order_indexes(ds.PCM_LABELS, ["time", "YC", "XC"])
+    salt = xvl.order_indexes(ds.SALT, ["Z", "time", "YC", "XC"])
+    theta = xvl.order_indexes(ds.THETA, ["Z", "time", "YC", "XC"])
+    init_depth_levels = ds.coords["Z"].values
+
+    for k_cluster in range(K_clusters):
+        for list_of_list in [
+            theta_mean_lol,
+            theta_std_lol,
+            salt_mean_lol,
+            salt_std_lol,
+        ]:
+            list_of_list.append([])
+        for depth_index in range(len(init_depth_levels)):
+            depth = init_depth_levels[depth_index]
+            if -300 >= depth >= -2000:
+                theta_filtered = np.where(
+                    labels == k_cluster, theta[depth_index, :, :, :], np.nan
+                )
+                theta_mean_lol[-1].append(np.nanmean(theta_filtered))
+                theta_std_lol[-1].append(np.nanstd(theta_filtered))
+                salt_filtered = np.where(
+                    labels == k_cluster, salt[depth_index, :, :, :], np.nan
+                )
+                salt_mean_lol[-1].append(np.nanmean(salt_filtered))
+                salt_std_lol[-1].append(np.nanstd(salt_filtered))
+                if k_cluster == 0:
+                    height_list.append(depth)
+
+    print("theta_mean_lol", theta_mean_lol)
+    print("salt_mean_lol", salt_mean_lol)
+    print("height_list", height_list)
+
+
+def break_function():
+
     fig = plt.gcf()
-
-    print('\n \n \n SALT Dataarray: \n\n', ds.SALT)
-
-    print('\n \n \n THETA Dataarray: \n\n', ds.THETA)
-
-    print('\n \n \n PCM_LABELS Dataarray: \n\n', ds.PCM_LABELS)
-
-    # color_list = col.replacement_color_list(len(data_d["theta_d"].values()))
 
     plt.subplot(1, 2, 1)
 
