@@ -18,7 +18,10 @@ def train_on_interpolated_year(
     separate_pca=True,
     remove_init_var=True,
 ):
-    """"""
+    """
+    Put Seed in the CONSTANTS file.
+
+    """
 
     z = np.arange(-min_depth, -max_depth, -10.0)
     features_pcm = {}

@@ -26,12 +26,12 @@ def profile_plot_cluster_comparison(ds):
         A_B         (rank, time, YC, XC) float64 nan nan nan nan ... 4.0 4.0 4.0 4.0
         PCM_LABELS  (time, YC, XC) float64 nan nan nan nan nan ... 3.0 3.0 3.0 3.0
 
-    Originally from
+    Originally from:
     https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
     A program to plot profiles, originally of the original components etc.
     https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
 
-    df.insert(3,'label_sorted',df['label'].map(di))
+    df.insert(3, 'label_sorted', df['label'].map(di))
 
     # group profiles according to label
     grouped = df.groupby('label_sorted')
@@ -49,6 +49,12 @@ def profile_plot_cluster_comparison(ds):
 
     """
     fig = plt.gcf()
+
+    print('\n \n \n SALT Dataarray: \n\n', ds.SALT)
+
+    print('\n \n \n THETA Dataarray: \n\n', ds.THETA)
+
+    print('\n \n \n PCM_LABELS Dataarray: \n\n', ds.PCM_LABELS)
 
     # color_list = col.replacement_color_list(len(data_d["theta_d"].values()))
 
