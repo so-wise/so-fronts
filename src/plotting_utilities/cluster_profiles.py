@@ -4,10 +4,11 @@ import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.colors as col
 import src.data_loading.xr_values_loader as xvl
 import src.time_wrapper as twr
+import xarray as xr
 
 
 @twr.timeit
-def profile_plot_cluster_comparison(ds):
+def make_cluster_profiles(ds):
     """
 
     :param ds: the dataset
@@ -102,8 +103,31 @@ def profile_plot_cluster_comparison(ds):
     print("salt_mean_lol", salt_mean_lol)
     print("height_list", height_list)
 
+    new_ds = xr.Dataset(
+        {
+            "theta_mean": (["cluster", "Z"], np.asarray(theta_mean_lol)),
+            "salt_mean": (["cluster", "Z"], np.asarray(salt_mean_lol)),
+            "theta_std": (["cluster", "Z"], np.asarray(theta_std_lol)),
+            "salt_std": (["cluster", "Z"], np.asarray(salt_std_lol)),
+        },
+        coords={
+            "Z": np.array(height_list),
+            "cluster": range(0, K_clusters),
+        },
+    )
+    print('profile_characteristics', new_ds)
 
-def break_function():
+    return new_ds
+
+
+def plot_profiles_dataset(ds):
+
+    K_clusters = len(ds.coords['cluster'].values)
+
+    print("K_clusters", K_clusters)
+
+    color_list = col.replacement_color_list(K_clusters)
+
 
     fig = plt.gcf()
 
@@ -111,6 +135,12 @@ def break_function():
 
     ax1 = plt.gca()
 
+    for i in range(0, K_clusters):
+        plt.plot(ds.isel(cluster=i).theta_mean,
+                 ds.coords['Z'].values / 1000,
+                 color=color_list[i]
+                )
+        
     """
 
     for key in data_d["depths_d"]:
