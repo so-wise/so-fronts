@@ -14,36 +14,26 @@ def make_cluster_profiles(ds):
     """
     :param ds: the dataset
 
-    Originally from:
-    https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
-    A program to plot profiles, originally of the original components etc.
-    https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
-
     """
-    print("\n \n \n SALT Dataarray: \n\n", ds.SALT)
-
-    print("\n \n \n THETA Dataarray: \n\n", ds.THETA)
-
-    print("\n \n \n PCM_LABELS Dataarray: \n\n", ds.PCM_LABELS)
 
     K_clusters = int(np.nanmax(ds.PCM_LABELS.values) + 1)
-
-    print("K_clusters", K_clusters)
 
     color_list = col.replacement_color_list(K_clusters)
 
     height_list = []
-
     theta_mean_lol = []
     theta_std_lol = []
-
     salt_mean_lol = []
     salt_std_lol = []
 
-    labels = xvl.order_indexes(ds.PCM_LABELS, ["time", "YC", "XC"])
-    salt = xvl.order_indexes(ds.SALT, ["Z", "time", "YC", "XC"])
-    theta = xvl.order_indexes(ds.THETA, ["Z", "time", "YC", "XC"])
-    init_depth_levels = ds.coords["Z"].values
+    labels = xvl.order_indexes(ds.PCM_LABELS, [cst.T_COORD, cst.Y_COORD, cst.X_COORD])
+    salt = xvl.order_indexes(
+        ds.SALT, [cst.Z_COORD, cst.T_COORD, cst.Y_COORD, cst.X_COORD]
+    )
+    theta = xvl.order_indexes(
+        ds.THETA, [cst.Z_COORD, cst.T_COORD, cst.Y_COORD, cst.X_COORD]
+    )
+    init_depth_levels = ds.coords[cst.Z_COORD].values
 
     for k_cluster in range(K_clusters):
         for list_of_list in [
@@ -53,9 +43,10 @@ def make_cluster_profiles(ds):
             salt_std_lol,
         ]:
             list_of_list.append([])
+
         for depth_index in range(len(init_depth_levels)):
             depth = init_depth_levels[depth_index]
-            if -300 >= depth >= -2000:
+            if -cst.MIN_DEPTH >= depth >= -cst.MAX_DEPTH:
                 theta_filtered = np.where(
                     labels == k_cluster, theta[depth_index, :, :, :], np.nan
                 )
@@ -69,20 +60,16 @@ def make_cluster_profiles(ds):
                 if k_cluster == 0:
                     height_list.append(depth)
 
-    print("theta_mean_lol", theta_mean_lol)
-    print("salt_mean_lol", salt_mean_lol)
-    print("height_list", height_list)
-
     new_ds = xr.Dataset(
         {
-            "theta_mean": (["cluster", "Z"], np.asarray(theta_mean_lol)),
-            "salt_mean": (["cluster", "Z"], np.asarray(salt_mean_lol)),
-            "theta_std": (["cluster", "Z"], np.asarray(theta_std_lol)),
-            "salt_std": (["cluster", "Z"], np.asarray(salt_std_lol)),
+            "theta_mean": ([cst.CLUST_COORD, cst.Z_COORD], np.asarray(theta_mean_lol)),
+            "salt_mean": ([cst.CLUST_COORD, cst.Z_COORD], np.asarray(salt_mean_lol)),
+            "theta_std": ([cst.CLUST_COORD, cst.Z_COORD], np.asarray(theta_std_lol)),
+            "salt_std": ([cst.CLUST_COORD, cst.Z_COORD], np.asarray(salt_std_lol)),
         },
         coords={
-            "Z": np.array(height_list),
-            "cluster": range(0, K_clusters),
+            cst.Z_COORD: np.array(height_list),
+            cst.CLUST_COORD: range(0, K_clusters),
         },
     )
     print("profile_characteristics", new_ds)
@@ -92,6 +79,11 @@ def make_cluster_profiles(ds):
 
 def plot_profiles_dataset(ds):
     """
+    Originally from:
+    https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
+    A program to plot profiles, originally of the original components etc.
+    https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
+
     There's a fair deal of duplication in this function.
     Could probably half its length without changing its functionality.
     """
@@ -104,8 +96,8 @@ def plot_profiles_dataset(ds):
 
     fig = plt.gcf()
 
+    # THETA PLOTTING.
     plt.subplot(1, 2, 1)
-
     ax1 = plt.gca()
 
     for i in range(0, K_clusters):
@@ -131,9 +123,9 @@ def plot_profiles_dataset(ds):
         r"Potential Temperature, $\theta$ / $^{\circ}\mathrm{C}$", color="black"
     )
     ax1.set_ylabel("(Negative) Depth / km")
+    ax1.set_ylim([-1.8, -0.3])
 
-    plt.ylim([-1.8, -0.3])
-
+    # SALINITY
     plt.subplot(1, 2, 2)
     ax2 = plt.gca()
 
@@ -157,8 +149,8 @@ def plot_profiles_dataset(ds):
             )
 
     ax2.set_xlabel(r"Salinity, $S$ / PSU", color="black")
-    plt.ylim([-1.8, -0.3])
-    plt.yticks([])
+    ax2.set_ylim([-1.8, -0.3])
+    ax2.set_yticks([])
     plt.setp(ax2.get_yticklabels(), visible=False)
 
     ax1.legend(
@@ -170,7 +162,6 @@ def plot_profiles_dataset(ds):
     )
 
     plt.tight_layout()
-    # plt.show()
     plt.savefig(
         os.path.join(
             cst.FIGURE_PATH,

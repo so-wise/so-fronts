@@ -24,16 +24,12 @@ def pca_from_interpolated_year(
     both_nc = big_nc.where(big_nc.coords[cst.DEPTH_NAME] > max_depth).drop(
         cst.USELESS_LIST
     )
-
     attr_d = {}
-
     for coord in both_nc.coords:
         attr_d[coord] = both_nc.coords[coord].attrs
 
     ds = both_nc
-
     ds = m.find_i_metric(ds, inplace=True)
-
     ds = m.add_pca_to_xarray(ds, features=cst.FEATURES_D, dim=cst.Z_COORD, inplace=True)
 
     def sanitize():
@@ -49,46 +45,33 @@ def pca_from_interpolated_year(
     if remove_init_var:
         ds = ds.drop(cst.VAR_NAME_LIST)
 
-    ds = ds.expand_dims(dim=cst.TIME_NAME, axis=None)
-
+    ds = ds.expand_dims(dim=cst.T_COORD, axis=None)
     ds = ds.assign_coords(
-        {cst.TIME_NAME: (cst.TIME_NAME, [salt_nc.coords[cst.TIME_NAME].values])}
+        {cst.T_COORD: (cst.T_COORD, [salt_nc.coords[cst.T_COORD].values])}
     )
-
-    ds.coords[cst.TIME_NAME].attrs = salt_nc.coords[cst.TIME_NAME].attrs
-
+    ds.coords[cst.T_COORD].attrs = salt_nc.coords[cst.T_COORD].attrs
     ds.to_netcdf(io._return_folder(K, pca) + str(time_i) + ".nc", format="NETCDF4")
-
-    # return ds
 
 
 def run_through_joint_two(K=5, pca=3):
     m, ds = tim.train_on_interpolated_year(
         time_i=42, K=K, maxvar=pca, min_depth=300, max_depth=2000, separate_pca=False
     )
-
-    # m.to_netcdf('nc/pc-joint-m.nc')
-
     for time_i in range(60):
         pca_from_interpolated_year(m, K=K, pca=pca, time_i=time_i)
-
-
-# run_through_joint_two()
 
 
 def merge_and_save_joint(K=5, pca=3):
 
     pca_ds = xr.open_mfdataset(
         io._return_folder(K, pca) + "*.nc",
-        concat_dim=cst.TIME_NAME,
+        concat_dim=cst.T_COORD,
         combine="by_coords",
-        chunks={cst.TIME_NAME: 1},
+        chunks={cst.T_COORD: 1},
         data_vars="minimal",
-        # parallel=True,
         coords="minimal",
         compat="override",
-    )  # this is too intense for memory
-
+    )
     xr.save_mfdataset([pca_ds], [io._return_name(K, pca) + ".nc"], format="NETCDF4")
 
 

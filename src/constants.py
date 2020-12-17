@@ -18,9 +18,16 @@ UVEL_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Uvel.nc")
 Z_COORD = "Z"
 Y_COORD = "YC"
 X_COORD = "XC"
+T_COORD = "time"
+P_COORD = "pair"
+CLUST_COORD = "cluster"
+MIN_DEPTH = 300
+MAX_DEPTH = 2000
+
 DEPTH_NAME = "Depth"
 USELESS_LIST = ["iter", "Depth", "rA", "drF", "hFacC"]
 RUN_NAME = "001"  # TODO --> Make all Data and Figures include RUN_NAME
+SEED = int(RUN_NAME)  # TODO --> Make GMM training function.
 FEATURES_D = {"THETA": "THETA", "SALT": "SALT"}
 DIM_LIST = []
 TIME_NAME = "time"

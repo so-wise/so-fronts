@@ -14,7 +14,9 @@ def make_all_pair_i_metric(cart_prod, i_metric, sorted_version, threshold):
 
         for pair in cart_prod:
             print("pair", pair)
-            temp_list = make_one_pair_i_metric(pair, i_metric, sorted_version, threshold)
+            temp_list = make_one_pair_i_metric(
+                pair, i_metric, sorted_version, threshold
+            )
             if temp_list[2] == True:
                 pair_list.append(temp_list[0])
                 pair_i_metric_list.append(temp_list[1])
@@ -59,54 +61,38 @@ def pair_i_metric(ds, threshold=0.05):
     ("rank", dataarray.coords["rank"].values.shape[0]),
     ("x", dataarray.coords["XC"].values.shape[0]),
     ("y", dataarray.coords["YC"]
-
     """
 
-    A_B_values = xvl.order_indexes(ds.A_B, [cst.TIME_NAME, "rank", cst.Y_COORD, cst.X_COORD])
-
+    A_B_values = xvl.order_indexes(
+        ds.A_B, [cst.T_COORD, "rank", cst.Y_COORD, cst.X_COORD]
+    )
     sorted_version = np.sort(A_B_values, axis=1)
-
-    # coords_d in correct order
-    # sorted_version (60, 2, 588, 2160)
-    # shape (2, 12, 60, 240)
-
-    i_metric = xvl.order_indexes(ds.IMETRIC.isel(Imetric=0), [cst.TIME_NAME, cst.Y_COORD, cst.X_COORD])
-
+    i_metric = xvl.order_indexes(
+        ds.IMETRIC.isel(Imetric=0), [cst.T_COORD, cst.Y_COORD, cst.X_COORD]
+    )
     print("i_metric", i_metric.shape)
     # i_metric (60, 588, 2160)
-
     list_no = [i for i in range(int(np.nanmax(sorted_version)) + 1)]
-
     print("list_no", list_no)
-
-    # list_no [0, 1, 2, 3]
-
     cart_prod = [
         np.array([a, b]) for a in list_no for b in list_no if a <= b and a != b
     ]
-    # [array([0, 1]), array([0, 2]), array([0, 3]), array([1, 2]),
-    # array([1, 3]), array([2, 3])]
-
     print("cart_prod", cart_prod)
 
     pair_i_metric_list, pair_list = make_all_pair_i_metric(
         cart_prod, i_metric, sorted_version, threshold
     )
-
     print("pair_i_metric_list", pair_i_metric_list)
     print("pair_i_metric_list len", len(pair_i_metric_list))
     print("pair_list", pair_list)
     print("pair_list len", len(pair_list))
-
     shape = np.shape(sorted_version)
     # shape (60, 2, 588, 2160)
-
     pair_i_metric_array = np.zeros(
         [len(pair_i_metric_list), shape[0], shape[2], shape[3]]
     )
 
     for i in range(len(pair_i_metric_list)):
-
         pair_i_metric_array[i, :, :, :] = pair_i_metric_list[i][:, :, :]
 
     pair_str_list = []
@@ -118,12 +104,12 @@ def pair_i_metric(ds, threshold=0.05):
 
     da = xr.DataArray(
         pair_i_metric_array,
-        dims=["pair", cst.TIME_NAME, cst.Y_COORD, cst.X_COORD],
+        dims=[cst.P_COORD, cst.T_COORD, cst.Y_COORD, cst.X_COORD],
         coords={
-            "XC": ds.coords["XC"].values,
-            "YC": ds.coords["YC"].values,
-            "time": ds.coords["time"].values,
-            "pair": pair_str_list,
+            cst.X_COORD: ds.coords[cst.X_COORD].values,
+            cst.Y_COORD: ds.coords[cst.Y_COORD].values,
+            cst.T_COORD: ds.coords[cst.T_COORD].values,
+            cst.P_COORD: pair_str_list,
         },
     )
 

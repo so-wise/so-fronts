@@ -1,6 +1,6 @@
 def _return_name(K, pca):
 
-    return "nc/i-metric-joint-k-" + str(K) + "-d-" + str(pca)
+    return "../pyxpcm/nc/i-metric-joint-k-" + str(K) + "-d-" + str(pca)
 
 
 def _return_plot_folder(K, pca):
