@@ -95,13 +95,21 @@ def make_all_figures_in_sequence():
     profile_ds = xr.open_dataset(profiles_name)
     print(profile_ds)
     cp.plot_profiles_dataset(profile_ds)
-
+    profiles_plot_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "profiles_plot_name.png"
+    )
+    plt.savefig(profiles_plot_name, bbox_inches="tight", dpi=700)
     plt.clf()
 
     # FIGURE 2
     s3d.plot_fig2_mult(
         m._classifier.weights_, m._classifier.means_, m._classifier.covariances_, ds
     )
+    s3d_plot_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_s3d_clusters.png"
+    )
+    # "../FBSO-Report/images/fig2-3d.png"
+    plt.savefig(s3d_plot_name, bbox_inches="tight", dpi=700)
     plt.clf()
 
     # FIGURE 3
@@ -129,7 +137,11 @@ def make_all_figures_in_sequence():
     plt.savefig(imetric_single_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
+    """
+
     # FIGURE 5
+
+    """
     xp.plot_several_pair_i_metrics(
         [return_pair_i_metric(K=2).isel(time=0), return_pair_i_metric(K=4).isel(time=0)]
     )
@@ -140,7 +152,7 @@ def make_all_figures_in_sequence():
     )
     plt.savefig(imetric_comp_name, dpi=900, bbox_inches="tight")
     plt.clf()
-    
+
     """
 
     # FIGURE 6
@@ -172,12 +184,12 @@ def make_all_figures_in_sequence():
     )
 
     pc_y_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_y_grad.png"
     )
 
-    plt.savefig(
-        "../FBSO-Report/images/compare-sobel-with-U.png", dpi=900, bbox_inches="tight"
-    )
+    # "../FBSO-Report/images/compare-sobel-with-U.png"
+
+    plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
@@ -201,8 +213,6 @@ def make_all_figures_in_sequence():
     plt.ylabel("Correlation coefficient")
     plt.xlim([0, 59])
     plt.title("Correlation between PC1 y-grad and $U$")
-    # plt.savefig('')
-
     plt.clf()
 
     cor = ma.corrcoef(
@@ -216,7 +226,7 @@ def make_all_figures_in_sequence():
     print(cor)
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
+    # ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
     pca_ds = (
         xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
         .isel(pca=0)
@@ -237,4 +247,8 @@ def make_all_figures_in_sequence():
     plt.ylabel("Correlation coefficient")
     plt.xlim([0, 59])
     plt.title("Correlation between PC1 x-grad and $V$")
+    pc_x_grad_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad.png"
+    )
+    plt.savefig(pc_x_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()

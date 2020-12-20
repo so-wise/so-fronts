@@ -159,4 +159,4 @@ def plot_fig2_mult(weights, means, covariances, ds):
 
     # plt.tight_layout()
     # label_subplots(primary_axes_list)
-    plt.savefig("../FBSO-Report/images/fig2-3d.png", bbox_inches="tight", dpi=700)
+    # plt.savefig("../FBSO-Report/images/fig2-3d.png", bbox_inches="tight", dpi=700)
