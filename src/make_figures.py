@@ -33,8 +33,10 @@ import src.models.to_pair_i_metric as tpi
 
 # import src.plotting_utilities.
 import src.data_loading.io_name_conventions as io
+import src.time_wrapper as twr
 
 
+@twr.timeit
 def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
     link_to_netcdf = io._return_name(K, pca) + ".nc"
@@ -58,7 +60,9 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
     return da
 
 
+@twr.timeit
 def make_all_figures_in_sequence():
+    print('Starting make_all_figures_in_sequence, should take about about 5 minutes.')
 
     # FIGURE 1
 
@@ -96,7 +100,7 @@ def make_all_figures_in_sequence():
     print(profile_ds)
     cp.plot_profiles_dataset(profile_ds)
     profiles_plot_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "profiles_plot_name.png"
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_profiles.png"
     )
     plt.savefig(profiles_plot_name, bbox_inches="tight", dpi=700)
     plt.clf()
