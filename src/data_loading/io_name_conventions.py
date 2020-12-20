@@ -11,7 +11,6 @@ def _return_plot_folder(K, pca):
 
 
 def _return_folder(K, pca):
-
     folder = _return_name(K, pca) + "/"
     if not os.path.exists(folder):
         os.makedirs(folder)

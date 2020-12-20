@@ -35,7 +35,7 @@ import src.models.to_pair_i_metric as tpi
 import src.data_loading.io_name_conventions as io
 
 
-def return_pair_i_metric(K=5, pca=3, save_nc=True):
+def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
     link_to_netcdf = io._return_name(K, pca) + ".nc"
     ds = xr.open_dataset(link_to_netcdf)
@@ -69,21 +69,24 @@ def make_all_figures_in_sequence():
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
         ["PC1", "PC2", "PC3"],
     )
-    plt.savefig("../FBSO-Report/images/fig1-new.png", dpi=900, bbox_inches="tight")
+    pc_maps_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_map.png"
+    )
+    plt.savefig(pc_maps_name, dpi=900, bbox_inches="tight")
 
     plt.clf()
 
-    ##### FIGURE 1.5 ## make panels.
+    # FIGURE 1.5 ## make panels.
     temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
     profiles_name = os.path.join(
         cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_profiles_temp.nc"
     )
     m, ds = tim.train_on_interpolated_year(
         time_i=42,
-        K=5,
-        maxvar=3,
-        min_depth=300,
-        max_depth=2000,
+        K=cst.K_CLUSTERS,
+        maxvar=cst.D_PCS,
+        min_depth=cst.MIN_DEPTH,
+        max_depth=cst.MAX_DEPTH,
         separate_pca=False,
         remove_init_var=False,
     )
@@ -98,16 +101,18 @@ def make_all_figures_in_sequence():
 
     # FIGURE 2
     s3d.plot_fig2_mult(
-        m._classifier.weights_, m._classifier.means_, m._classifier.covariances_, ds
+        m._classifier.weights_,
+        m._classifier.means_,
+        m._classifier.covariances_, ds
     )
     plt.clf()
 
-    ##### FIGURE 3
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
+    # FIGURE 3
+    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
     xp.sep_plots(
         [
             ds.IMETRIC.isel(Imetric=0, time=40),
-            ds.IMETRIC.isel(Imetric=0).mean(dim=cst.TIME_NAME, skipna=True),
+            ds.IMETRIC.isel(Imetric=0).mean(dim=cst.T_COORD, skipna=True),
         ],
         ["$\mathcal{I}$-metric ", "$\mathcal{I}$-metric"],
     )
@@ -137,9 +142,9 @@ def make_all_figures_in_sequence():
     plt.savefig("../FBSO-Report/images/fig6-new.png", dpi=900, bbox_inches="tight")
     plt.clf()
 
-    ### Appendix
+    # Appendix
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
+    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
     plt.clf()
 
     xp.sep_plots(
@@ -148,8 +153,8 @@ def make_all_figures_in_sequence():
             uvel_ds.UVEL.isel(time=40),
             ds.PCA_VALUES.isel(pca=0)
             .differentiate(cst.Y_COORD)
-            .mean(dim=cst.TIME_NAME, skipna=True),
-            uvel_ds.UVEL.mean(dim=cst.TIME_NAME, skipna=True),
+            .mean(dim=cst.T_COORD, skipna=True),
+            uvel_ds.UVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
         ["PC1 y-grad", r"$U$ (m s$^{-1}$)", "PC1 y-grad", r"$U$ (m s$^{-1}$)"],
     )
@@ -161,7 +166,7 @@ def make_all_figures_in_sequence():
 
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
     pca_ds = (
-        xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
+        xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
         .isel(pca=0)
         .differentiate(cst.Y_COORD)
     )
@@ -186,10 +191,10 @@ def make_all_figures_in_sequence():
 
     cor = ma.corrcoef(
         ma.masked_invalid(
-            uvel_ds.mean(dim=cst.TIME_NAME, skipna=True).UVEL.values.ravel()
+            uvel_ds.mean(dim=cst.T_COORD, skipna=True).UVEL.values.ravel()
         ),
         ma.masked_invalid(
-            pca_ds.mean(dim=cst.TIME_NAME, skipna=True).PCA_VALUES.values.ravel()
+            pca_ds.mean(dim=cst.T_COORD, skipna=True).PCA_VALUES.values.ravel()
         ),
     )
     print(cor)
