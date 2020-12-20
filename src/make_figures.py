@@ -1,26 +1,10 @@
-"""
-make_figures.py
-
-Every plot made in the exploratory notebook should be made
-by this code (ideally).
-
-This would require the data to have been made and put in the
-right place.
-
-TODO: It would also require the functions to be rewritten with imports
-relating to the new repository.
-
-TODO: change from hard coded to non-hardcoded links.
-
-i.e move most of the file-names to the first repository.
+""" make_figures.py - run through all the paper figures and make them - takes roughly 5
+    minutes the first time it is run.
 """
 import os
-import numpy as np
 import numpy.ma as ma
 import xarray as xr
 import matplotlib.pyplot as plt
-import src.plotting_utilities as pu
-import src.data_loading.bsose_loading as bl
 import src.constants as cst
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.xarray_panels as xp
@@ -129,23 +113,23 @@ def make_all_figures_in_sequence():
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_dual.png"
     )
     # "../FBSO-Report/images/fig3-new.png"
+
     plt.savefig(imetric_dual_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
     # FIGURE 4
-    """
+
     da = return_pair_i_metric(K=5)
     xp.plot_single_i_metric(da.isel(time=0))
-    imetric_single_name = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_single.png")
+    imetric_single_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_single.png"
+    )
     # "../FBSO-Report/images/fig4-new.png"
     plt.savefig(imetric_single_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
-    """
-
     # FIGURE 5
 
-    """
     xp.plot_several_pair_i_metrics(
         [return_pair_i_metric(K=2).isel(time=0), return_pair_i_metric(K=4).isel(time=0)]
     )
@@ -156,8 +140,6 @@ def make_all_figures_in_sequence():
     )
     plt.savefig(imetric_comp_name, dpi=900, bbox_inches="tight")
     plt.clf()
-
-    """
 
     # FIGURE 6
     da_temp = ds.PCA_VALUES.isel(time=40).differentiate(cst.Y_COORD)
