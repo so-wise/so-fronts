@@ -15,3 +15,24 @@ not obvious. In some sense, it might be easier to justify a categorisation of
 the ocean if its purpose was to predict some obvious physical variable, i.e.
 `supervised learning`, which provides either a clear cost function to optimise,
 or a series of similar cost functions that could be maximised.
+
+## Possible objectives
+
+The fronts of the Southern Ocean could correspond to:
+
+  (a) The boundary between different water masses in the Southern Ocean.
+
+     - where bondaries are distinct masses of water with distinct histories.
+
+     - and there are a small number `K` of regions of water.
+
+   _*or*_ 
+
+  (b) The regions at which properties change suddenly, which could correspond 
+      to those points at which the thermal wind balance leads to a jet.
+
+   _*or*_
+
+  (c) The regions where there is a great deal of mixing upwards, and therefore there is 
+      a greater ammount of biological productivity, leading to a source of food for the 
+      Southern Ocean ecosystem.

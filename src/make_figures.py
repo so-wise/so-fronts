@@ -62,7 +62,7 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
 @twr.timeit
 def make_all_figures_in_sequence():
-    print('Starting make_all_figures_in_sequence, should take about about 5 minutes.')
+    print("Starting make_all_figures_in_sequence, should take about about 5 minutes.")
 
     # FIGURE 1
 
