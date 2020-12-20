@@ -62,16 +62,14 @@ def make_all_figures_in_sequence():
 
     # FIGURE 1
 
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
+    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
 
     da_temp = ds.PCA_VALUES.isel(time=40)
     xp.sep_plots(
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
         ["PC1", "PC2", "PC3"],
     )
-    pc_maps_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_map.png"
-    )
+    pc_maps_name = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_map.png")
     plt.savefig(pc_maps_name, dpi=900, bbox_inches="tight")
 
     plt.clf()
@@ -97,13 +95,12 @@ def make_all_figures_in_sequence():
     profile_ds = xr.open_dataset(profiles_name)
     print(profile_ds)
     cp.plot_profiles_dataset(profile_ds)
+
     plt.clf()
 
     # FIGURE 2
     s3d.plot_fig2_mult(
-        m._classifier.weights_,
-        m._classifier.means_,
-        m._classifier.covariances_, ds
+        m._classifier.weights_, m._classifier.means_, m._classifier.covariances_, ds
     )
     plt.clf()
 
@@ -114,24 +111,37 @@ def make_all_figures_in_sequence():
             ds.IMETRIC.isel(Imetric=0, time=40),
             ds.IMETRIC.isel(Imetric=0).mean(dim=cst.T_COORD, skipna=True),
         ],
-        ["$\mathcal{I}$-metric ", "$\mathcal{I}$-metric"],
+        [r"$\mathcal{I}$-metric ", r"$\mathcal{I}$-metric"],
     )
-    plt.savefig("../FBSO-Report/images/fig3-new.png", dpi=900, bbox_inches="tight")
+    imetric_dual_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_dual.png"
+    )
+    # "../FBSO-Report/images/fig3-new.png"
+    plt.savefig(imetric_dual_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
     # FIGURE 4
+    """
     da = return_pair_i_metric(K=5)
     xp.plot_single_i_metric(da.isel(time=0))
-    plt.savefig("../FBSO-Report/images/fig4-new.png", dpi=900, bbox_inches="tight")
+    imetric_single_name = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_single.png")
+    # "../FBSO-Report/images/fig4-new.png"
+    plt.savefig(imetric_single_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
     # FIGURE 5
     xp.plot_several_pair_i_metrics(
         [return_pair_i_metric(K=2).isel(time=0), return_pair_i_metric(K=4).isel(time=0)]
     )
+    # "../FBSO-Report/images/fig5-new.png"
     plt.tight_layout()
-    plt.savefig("../FBSO-Report/images/fig5-new.png", dpi=900, bbox_inches="tight")
+    imetric_comp_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
+    )
+    plt.savefig(imetric_comp_name, dpi=900, bbox_inches="tight")
     plt.clf()
+    
+    """
 
     # FIGURE 6
     da_temp = ds.PCA_VALUES.isel(time=40).differentiate(cst.Y_COORD)
@@ -139,14 +149,16 @@ def make_all_figures_in_sequence():
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
         ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
     )
-    plt.savefig("../FBSO-Report/images/fig6-new.png", dpi=900, bbox_inches="tight")
+    pc_y_grad_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
+    )
+    # "../FBSO-Report/images/fig6-new.png"
+    plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
     # Appendix
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
     ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
-    plt.clf()
-
     xp.sep_plots(
         [
             ds.PCA_VALUES.isel(time=40, pca=0).differentiate(cst.Y_COORD),
@@ -157,6 +169,10 @@ def make_all_figures_in_sequence():
             uvel_ds.UVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
         ["PC1 y-grad", r"$U$ (m s$^{-1}$)", "PC1 y-grad", r"$U$ (m s$^{-1}$)"],
+    )
+
+    pc_y_grad_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
     )
 
     plt.savefig(

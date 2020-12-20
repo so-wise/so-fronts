@@ -87,6 +87,17 @@ To automatically format your code, make sure you have `black` installed (`pip in
 ```black . ```
 from within the project directory.
 
+## Reformatting code
+
+Inevitably variables will need to be renamed etc.
+
+One helpful tool is `grep`. An example of using it is:
+
+```
+grep -R 'cst.TIME_NAME' .
+```
+
+This will list all the instances where the name in question occurs in this repository.
 
 ## Documentation formatting
 
