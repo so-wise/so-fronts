@@ -7,6 +7,6 @@ Fronts are ubiquitous in the climate system. In the Southern Ocean, fronts delin
 ![abs_fig](img/abs_fig.png)
 
 
-## Figure caption
+### Figure caption
 
 Two methods for interpretable front detection. Solid lines represent classical fronts. (a) The “inter-class” metric, which indicates the probability that a grid cell is a boundary between two classes. The classes are defined by GMM of principal component values (PCs) derived from both temperature and salinity. The different colors indicate different class boundaries. (b) Sobel edge detection: approximately the magnitude of the spatial gradient of the PCs divided by each field’s standard deviation, which highlights locations of rapid change.

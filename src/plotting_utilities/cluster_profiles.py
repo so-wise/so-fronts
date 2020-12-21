@@ -17,15 +17,11 @@ def make_cluster_profiles(ds):
     """
 
     K_clusters = int(np.nanmax(ds.PCM_LABELS.values) + 1)
-
-    color_list = col.replacement_color_list(K_clusters)
-
     height_list = []
     theta_mean_lol = []
     theta_std_lol = []
     salt_mean_lol = []
     salt_std_lol = []
-
     labels = xvl.order_indexes(ds.PCM_LABELS, [cst.T_COORD, cst.Y_COORD, cst.X_COORD])
     salt = xvl.order_indexes(
         ds.SALT, [cst.Z_COORD, cst.T_COORD, cst.Y_COORD, cst.X_COORD]
@@ -79,6 +75,8 @@ def make_cluster_profiles(ds):
 
 def plot_profiles_dataset(ds):
     """
+
+
     Originally from:
     https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
     A program to plot profiles, originally of the original components etc.
@@ -92,7 +90,7 @@ def plot_profiles_dataset(ds):
 
     print("K_clusters", K_clusters)
 
-    color_list = col.replacement_color_list(K_clusters)
+    color_list = col.cluster_colors(K_clusters)
 
     fig = plt.gcf()
 
@@ -108,7 +106,7 @@ def plot_profiles_dataset(ds):
             alpha=0.5,
             label=str(i + 1),
         )
-        for sig_mult, alpha in [[1, 0.4]]:  # [2, 0.2], [3, 0.1], [4, 0.1]
+        for sig_mult, alpha in [[1, 0.4]]:
             plt.fill_betweenx(
                 ds.coords["Z"].values / 1000,
                 ds.isel(cluster=i).theta_mean
@@ -122,7 +120,7 @@ def plot_profiles_dataset(ds):
     ax1.set_xlabel(
         r"Potential Temperature, $\theta$ / $^{\circ}\mathrm{C}$", color="black"
     )
-    ax1.set_ylabel("(Negative) Depth / km")
+    ax1.set_ylabel("Height / km")
     ax1.set_ylim([-1.8, -0.3])
 
     # SALINITY
@@ -137,7 +135,7 @@ def plot_profiles_dataset(ds):
             alpha=0.5,
             label=str(i + 1),
         )
-        for sig_mult, alpha in [[1, 0.4]]:  # [2, 0.2], [3, 0.1], [4, 0.1]
+        for sig_mult, alpha in [[1, 0.4]]:
             plt.fill_betweenx(
                 ds.coords["Z"].values / 1000,
                 ds.isel(cluster=i).salt_mean
@@ -162,11 +160,3 @@ def plot_profiles_dataset(ds):
     )
 
     plt.tight_layout()
-    plt.savefig(
-        os.path.join(
-            cst.FIGURE_PATH,
-            "RUN_" + cst.RUN_NAME + "_profiles_K_" + str(K_clusters) + ".png",
-        ),
-        bbox_inches="tight",
-        dpi=700,
-    )

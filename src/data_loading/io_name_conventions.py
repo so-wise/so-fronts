@@ -1,3 +1,6 @@
+import os
+
+
 def _return_name(K, pca):
 
     return "../pyxpcm/nc/i-metric-joint-k-" + str(K) + "-d-" + str(pca)

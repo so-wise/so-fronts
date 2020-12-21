@@ -1,6 +1,16 @@
-import matplotlib
+import matplotlib.cm as cm
 import matplotlib.colors as colors
 import src.time_wrapper as twr
+
+
+@twr.timeit
+def cluster_colors(number_clusters):
+    """
+
+    :param number_clusters: The number of clusters.
+    :return:
+    """
+    return cm.get_cmap("Set1", number_clusters).colors
 
 
 @twr.timeit
@@ -27,7 +37,7 @@ def replacement_color_list(number_of_colors):
             "orange",
             "r",
             "darkred",
-            "deeppink",  #'#fe019a'
+            "deeppink",
         ],
         9: [
             "navy",

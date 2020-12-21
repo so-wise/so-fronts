@@ -113,7 +113,6 @@ def make_all_figures_in_sequence():
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_dual.png"
     )
     # "../FBSO-Report/images/fig3-new.png"
-
     plt.savefig(imetric_dual_name, dpi=900, bbox_inches="tight")
     plt.clf()
 

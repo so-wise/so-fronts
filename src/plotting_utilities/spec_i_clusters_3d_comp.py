@@ -2,13 +2,12 @@
 The purpose of this image is to visualise the
 """
 import numpy as np
-import numpy.linalg as la
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
-import matplotlib.patches as patch
+from matplotlib.gridspec import GridSpec
 import src.models.to_pair_i_metric as tpi
 import src.plotting_utilities.ellipses as pel
+import src.plotting_utilities.gen_panels as gp
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.colors as col
 import src.time_wrapper as twr
@@ -54,7 +53,6 @@ def plot_fig2_mult(weights, means, covariances, ds):
     )
 
     fig = plt.gcf()
-    # fig.set_inches((5*num_plots, 5))
     fig.set_size_inches(7 * num_plots + 1 * num_plots, 7 * 1.2)
 
     used_up_columns = 0
@@ -77,7 +75,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
                 used_up_columns + pairs_list[i].shape[0],
             )
             ax1 = fig.add_subplot(
-                gs[0, used_up_columns : used_up_columns + pairs_list[i].shape[0]],
+                gs[0, used_up_columns: used_up_columns + pairs_list[i].shape[0]],
                 projection="3d",
             )
 
@@ -88,9 +86,6 @@ def plot_fig2_mult(weights, means, covariances, ds):
 
             used_up_columns += pairs_list[i].shape[0] + 1
 
-        # cmap_list = col.return_list_of_colormaps(
-        #    len(pairs_list[i]), fade_to_white=False
-        # )
         if i == 0:
 
             PCS = ds.PCA_VALUES
@@ -124,7 +119,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
 
             number_clusters = np.shape(means)[0]
 
-            colors = cm.get_cmap("Set1", number_clusters).colors
+            colors = col.cluster_colors(number_clusters)
 
             fig = plt.gcf()
 
@@ -158,5 +153,5 @@ def plot_fig2_mult(weights, means, covariances, ds):
             ax1.set_zlabel("PC3")
 
     # plt.tight_layout()
-    # label_subplots(primary_axes_list)
+    # gp.label_subplots(primary_axes_list)
     # plt.savefig("../FBSO-Report/images/fig2-3d.png", bbox_inches="tight", dpi=700)
