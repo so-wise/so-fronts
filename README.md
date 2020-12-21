@@ -3,9 +3,15 @@
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
+## Short description.
+
+A `python3` repository which should reproduce `OS022-08` from AGU 2020.
+
 ## Requirements
 
  - Python 3.8+
+ - Anaconda, with `conda` working in shell.
+ - `pdflatex` for high quality figures (should still work without).
 
 ## Getting started
 
@@ -15,10 +21,10 @@
      make env
     ```
 
- - Activate the environment:
+ - Activate the environment in conda:
 
      ```
-      make ./env
+      conda activate ./env
      ```
 
  - Make the documentation and load it in your web browser:

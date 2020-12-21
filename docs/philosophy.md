@@ -44,3 +44,6 @@ The fronts of the Southern Ocean could correspond to:
   _*or*_
 
   (d) The divisions between different distinct ecological communities.
+
+
+(a) and (d), (b) and (c) are quite closely related.
