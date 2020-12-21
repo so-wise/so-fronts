@@ -12,10 +12,6 @@ import src.models.train_i_metric as tim
 import src.plotting_utilities.spec_i_clusters_3d_comp as s3d
 import src.plotting_utilities.cluster_profiles as cp
 import src.models.to_pair_i_metric as tpi
-
-# import src.plotting_utilities.
-
-# import src.plotting_utilities.
 import src.data_loading.io_name_conventions as io
 import src.time_wrapper as twr
 
@@ -46,7 +42,7 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
 @twr.timeit
 def make_all_figures_in_sequence():
-    print("Starting make_all_figures_in_sequence, should take about about 5 minutes.")
+    print("Starting make_all_figures_in_sequence, should take about about 8 minutes.")
 
     # FIGURE 1
 
@@ -167,13 +163,9 @@ def make_all_figures_in_sequence():
         ],
         ["PC1 y-grad", r"$U$ (m s$^{-1}$)", "PC1 y-grad", r"$U$ (m s$^{-1}$)"],
     )
-
     pc_y_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_y_grad.png"
     )
-
-    # "../FBSO-Report/images/compare-sobel-with-U.png"
-
     plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
@@ -198,6 +190,10 @@ def make_all_figures_in_sequence():
     plt.ylabel("Correlation coefficient")
     plt.xlim([0, 59])
     plt.title("Correlation between PC1 y-grad and $U$")
+    pc_y_grad_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_y_grad_corr.png"
+    )
+    plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
     cor = ma.corrcoef(
@@ -211,7 +207,6 @@ def make_all_figures_in_sequence():
     print(cor)
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
-    # ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
     pca_ds = (
         xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-4-d-3.nc")
         .isel(pca=0)
@@ -233,7 +228,26 @@ def make_all_figures_in_sequence():
     plt.xlim([0, 59])
     plt.title("Correlation between PC1 x-grad and $V$")
     pc_x_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad.png"
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad_corr.png"
     )
     plt.savefig(pc_x_grad_name, dpi=900, bbox_inches="tight")
+    plt.clf()
+
+    vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
+    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
+    xp.sep_plots(
+        [
+            ds.PCA_VALUES.isel(time=40, pca=0).differentiate(cst.X_COORD),
+            vvel_ds.VVEL.isel(time=40),
+            ds.PCA_VALUES.isel(pca=0)
+            .differentiate(cst.Y_COORD)
+            .mean(dim=cst.T_COORD, skipna=True),
+            vvel_ds.VVEL.mean(dim=cst.T_COORD, skipna=True),
+        ],
+        ["PC1 x-grad", r"$V$ (m s$^{-1}$)", "PC1 x-grad", r"$V$ (m s$^{-1}$)"],
+    )
+    pc_y_grad_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad.png"
+    )
+    plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
