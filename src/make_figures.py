@@ -45,8 +45,6 @@ def make_all_figures_in_sequence():
 
     print("Starting make_all_figures_in_sequence, should take about about 8 minutes.")
 
-    """
-
     # FIGURE 1
 
     ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
@@ -59,7 +57,6 @@ def make_all_figures_in_sequence():
     pc_maps_name = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_map.png")
     plt.savefig(pc_maps_name, dpi=900, bbox_inches="tight")
     plt.clf()
-    """
 
     # FIGURE 1.5 ## make panels.
     temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
@@ -98,8 +95,6 @@ def make_all_figures_in_sequence():
     # "../FBSO-Report/images/fig2-3d.png"
     plt.savefig(s3d_plot_name, bbox_inches="tight", dpi=700)
     plt.clf()
-
-    """
 
     # FIGURE 3
     ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
@@ -140,6 +135,8 @@ def make_all_figures_in_sequence():
     )
     plt.savefig(imetric_comp_name, dpi=900, bbox_inches="tight")
     plt.clf()
+
+    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
 
     # FIGURE 6
     da_temp = ds.PCA_VALUES.isel(time=40).differentiate(cst.Y_COORD)
@@ -190,10 +187,10 @@ def make_all_figures_in_sequence():
         )
         cor_list.append(cor[1, 0])
 
-    plt.plot(range(0, 60), cor_list)
+    plt.plot(uvel_ds.coords["time"].values, cor_list)
     plt.xlabel("Time")
     plt.ylabel("Correlation coefficient")
-    plt.xlim([0, 59])
+    plt.xlim([uvel_ds.coords["time"].values[0], uvel_ds.coords["time"].values[59]])
     plt.title("Correlation between PC1 y-grad and $U$")
     pc_y_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_y_grad_corr.png"
@@ -227,10 +224,10 @@ def make_all_figures_in_sequence():
         )
         cor_list.append(cor[1, 0])
 
-    plt.plot(range(0, 60), cor_list)
+    plt.plot(uvel_ds.coords["time"].values, cor_list)
     plt.xlabel("Time")
     plt.ylabel("Correlation coefficient")
-    plt.xlim([0, 59])
+    plt.xlim([uvel_ds.coords["time"].values[0], uvel_ds.coords["time"].values[59]])
     plt.title("Correlation between PC1 x-grad and $V$")
     pc_x_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad_corr.png"
@@ -239,7 +236,6 @@ def make_all_figures_in_sequence():
     plt.clf()
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
     xp.sep_plots(
         [
             ds.PCA_VALUES.isel(time=40, pca=0).differentiate(cst.X_COORD),
@@ -256,4 +252,3 @@ def make_all_figures_in_sequence():
     )
     plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
-    """

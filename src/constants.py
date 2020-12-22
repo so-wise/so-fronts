@@ -51,7 +51,7 @@ INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
 
 import numpy as np
 
-RUN_NAME = "005"  # TODO --> Make all Data and Figures include RUN_NAME
+RUN_NAME = "001"  # TODO --> Make all Data and Figures include RUN_NAME
 SEED = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
 np.random.seed(SEED)
 MIN_DEPTH = 300  # TODO --> make this feed the keyword argument defaults
