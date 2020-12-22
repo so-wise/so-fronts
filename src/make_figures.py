@@ -42,7 +42,10 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
 @twr.timeit
 def make_all_figures_in_sequence():
+
     print("Starting make_all_figures_in_sequence, should take about about 8 minutes.")
+
+    """
 
     # FIGURE 1
 
@@ -55,8 +58,8 @@ def make_all_figures_in_sequence():
     )
     pc_maps_name = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_map.png")
     plt.savefig(pc_maps_name, dpi=900, bbox_inches="tight")
-
     plt.clf()
+    """
 
     # FIGURE 1.5 ## make panels.
     temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
@@ -95,6 +98,8 @@ def make_all_figures_in_sequence():
     # "../FBSO-Report/images/fig2-3d.png"
     plt.savefig(s3d_plot_name, bbox_inches="tight", dpi=700)
     plt.clf()
+
+    """
 
     # FIGURE 3
     ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
@@ -240,7 +245,7 @@ def make_all_figures_in_sequence():
             ds.PCA_VALUES.isel(time=40, pca=0).differentiate(cst.X_COORD),
             vvel_ds.VVEL.isel(time=40),
             ds.PCA_VALUES.isel(pca=0)
-            .differentiate(cst.Y_COORD)
+            .differentiate(cst.X_COORD)
             .mean(dim=cst.T_COORD, skipna=True),
             vvel_ds.VVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
@@ -251,3 +256,4 @@ def make_all_figures_in_sequence():
     )
     plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
+    """
