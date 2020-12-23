@@ -1,4 +1,3 @@
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 import src.plotting_utilities.latex_style as lsty
@@ -92,7 +91,7 @@ def plot_profiles_dataset(ds):
 
     color_list = col.cluster_colors(K_clusters)
 
-    fig = plt.gcf()
+    ylim = [-1.8, -0.3]
 
     # THETA PLOTTING.
     plt.subplot(1, 2, 1)
@@ -121,7 +120,7 @@ def plot_profiles_dataset(ds):
         r"Potential Temperature, $\theta$ / $^{\circ}\mathrm{C}$", color="black"
     )
     ax1.set_ylabel("Height / km")
-    ax1.set_ylim([-1.8, -0.3])
+    ax1.set_ylim(ylim)
 
     # SALINITY
     plt.subplot(1, 2, 2)
@@ -147,7 +146,7 @@ def plot_profiles_dataset(ds):
             )
 
     ax2.set_xlabel(r"Salinity, $S$ / PSU", color="black")
-    ax2.set_ylim([-1.8, -0.3])
+    ax2.set_ylim(ylim)
     ax2.set_yticks([])
     plt.setp(ax2.get_yticklabels(), visible=False)
 
