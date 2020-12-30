@@ -18,29 +18,29 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
  - Make the environment:
 
     ```
-     make env
+    make env
     ```
 
  - Activate the environment in conda:
 
      ```
-      conda activate ./env
+     conda activate ./env
      ```
 
  - Make the documentation and load it in your web browser:
 
     ```
-     make docs
+    make docs
     ```
 
 
  - Make your Jupyter notebooks more functional with timings etc.:
 
     ```
-     make jupyter_pro
+    make jupyter_pro
     ```
 
-- To see the other options in the `Makefile` type:
+ - To see the other options in the `Makefile` type:
 
     ```
     make help
@@ -78,10 +78,9 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 │   │
 │   ├── data_loading   <- Scripts to download or generate data
 │   │
-│   ├── preprocessing  <- Scripts to turn raw data into clean data and features for modeling
+│   ├── simulation     <- Scripts to turn raw data into clean data and features for modeling
 |   |
-│   ├── models         <- Scripts to train models and then use trained models to make
-│   │                     predictions
+│   ├── plotting       <- plotting
 │   │
 │   └── tests          <- Scripts for unit tests of your functions
 │
@@ -99,8 +98,8 @@ Inevitably variables will need to be renamed etc.
 
 One helpful tool is `grep`. An example of using it is:
 
-```
-grep -R 'cst.TIME_NAME' .
+```bash
+grep -R 'cst.TIME_NAME' src
 ```
 
 This will list all the instances where the name in question occurs in this repository.

@@ -1,4 +1,5 @@
 # Place all your constants here
+import numpy as np
 import os
 
 # Note: constants should be UPPER_CASE
@@ -42,6 +43,7 @@ USELESS_LIST = ["iter", "Depth", "rA", "drF", "hFacC"]
 VAR_NAME_LIST = ["SALT", "THETA"]
 FEATURES_D = {"THETA": "THETA", "SALT": "SALT"}
 
+
 # Naming of intermediate files
 
 INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
@@ -49,9 +51,7 @@ INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
 
 # Chosen hyperparameters in the model run:
 
-import numpy as np
-
-RUN_NAME = "006 "  # TODO --> Make all Data and Figures include RUN_NAME
+RUN_NAME = "006"  # TODO --> Make all Data and Figures include RUN_NAME
 SEED = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
 np.random.seed(SEED)
 MIN_DEPTH = 300  # TODO --> make this feed the keyword argument defaults

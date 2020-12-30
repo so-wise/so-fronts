@@ -8,7 +8,7 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def sep_plots(da_list, var_list):
+def sep_plots(da_list, var_list, min_max_list=None):
 
     map_proj = ccrs.SouthPolarStereo()
     carree = ccrs.PlateCarree()

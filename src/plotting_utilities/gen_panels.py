@@ -4,6 +4,10 @@ import src.time_wrapper as twr
 
 @twr.timeit
 def label_subplots(axs, start_from=0, fontsize=13):
+    """
+    :param axs:
+    """
+
     if isinstance(axs, list):
         axs = np.asarray(axs)
 

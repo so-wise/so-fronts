@@ -74,8 +74,6 @@ def make_cluster_profiles(ds):
 
 def plot_profiles_dataset(ds):
     """
-
-
     Originally from:
     https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
     A program to plot profiles, originally of the original components etc.
@@ -84,13 +82,11 @@ def plot_profiles_dataset(ds):
     There's a fair deal of duplication in this function.
     Could probably half its length without changing its functionality.
     """
-
-    K_clusters = len(ds.coords["cluster"].values)
+    K_clusters = len(ds.coords[cst.CLUST_COORD].values)
 
     print("K_clusters", K_clusters)
 
     color_list = col.cluster_colors(K_clusters)
-
     ylim = [-1.8, -0.3]
 
     # THETA PLOTTING.
@@ -100,14 +96,14 @@ def plot_profiles_dataset(ds):
     for i in range(0, K_clusters):
         plt.plot(
             ds.isel(cluster=i).theta_mean,
-            ds.coords["Z"].values / 1000,
+            ds.coords[cst.Z_COORD].values / 1000,
             color=color_list[i],
             alpha=0.5,
             label=str(i + 1),
         )
         for sig_mult, alpha in [[1, 0.4]]:
             plt.fill_betweenx(
-                ds.coords["Z"].values / 1000,
+                ds.coords[cst.Z_COORD].values / 1000,
                 ds.isel(cluster=i).theta_mean
                 - np.multiply(sig_mult, ds.isel(cluster=i).theta_std),
                 ds.isel(cluster=i).theta_mean
@@ -129,14 +125,14 @@ def plot_profiles_dataset(ds):
     for i in range(0, K_clusters):
         plt.plot(
             ds.isel(cluster=i).salt_mean,
-            ds.coords["Z"].values / 1000,
+            ds.coords[cst.Z_COORD].values / 1000,
             color=color_list[i],
             alpha=0.5,
             label=str(i + 1),
         )
         for sig_mult, alpha in [[1, 0.4]]:
             plt.fill_betweenx(
-                ds.coords["Z"].values / 1000,
+                ds.coords[cst.Z_COORD].values / 1000,
                 ds.isel(cluster=i).salt_mean
                 - np.multiply(sig_mult, ds.isel(cluster=i).salt_std),
                 ds.isel(cluster=i).salt_mean

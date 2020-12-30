@@ -1,13 +1,26 @@
+"""
+map.py by sdat2 - the different maps options.
+============================================
+
+southern_ocean_axes_setup - SO - up to 30 deg South to 90 degrees south.
+
+"""
 import numpy as np
-import matplotlib.cm as cm
 import cartopy.crs as ccrs
-import cartopy.feature
 import matplotlib.path as mpath
 import src.time_wrapper as twr
+# import cartopy.feature
+# import matplotlib.cm as cm
 
 
 @twr.timeit
 def southern_ocean_axes_setup(ax, fig):
+    """
+    This function sets up the subplot so that it is a cartopy map of the southern ocean.
+    :param ax: The axis object to add the map to.
+    :param fig: The figure object for the figure in general.
+    :return: void as the ax and figure objects are pointers not data.
+    """
     carree = ccrs.PlateCarree()
     ax.set_extent([-180, 180, -90, -30], carree)
     fig.subplots_adjust(bottom=0.05, top=0.95, left=0.04, right=0.95, wspace=0.02)

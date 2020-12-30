@@ -1,5 +1,5 @@
 """
-The purpose of this is to visualise it.
+The purpose of this is to visualise the i_metric on the southern ocean map.
 """
 import numpy as np
 import matplotlib.cm as cm
@@ -14,9 +14,11 @@ import src.plotting_utilities.latex_style as lsty
 
 
 @twr.timeit
-def plot_fig2_mult(weights, means, covariances, ds):
+def plot_map_imetric_clusters(ds):
     """
-    This will hopefully plot fig2a and fig2b with automatic labelling.
+
+    :param ds: xarray.dataset object.
+    :return: void (although matplotlib will be storing the figure).
     """
 
     da = tpi.pair_i_metric(ds)
