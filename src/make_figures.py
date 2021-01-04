@@ -41,7 +41,7 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
 
 @twr.timeit
-def make_all_figures_in_sequence():
+def other():
     xp.plot_several_pair_i_metrics(
         [return_pair_i_metric(K=2).isel(time=0), return_pair_i_metric(K=4).isel(time=0)]
     )
@@ -53,8 +53,8 @@ def make_all_figures_in_sequence():
     plt.savefig(imetric_comp_name, dpi=900, bbox_inches="tight")
     plt.clf()
 
-def nother():
 
+def nother():
     # FIGURE 6
     example_time_index = 40
     ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
@@ -71,7 +71,8 @@ def nother():
     plt.clf()
 
 
-def other():
+@twr.timeit
+def make_all_figures_in_sequence():
 
     print("Starting make_all_figures_in_sequence, should take about about 8 minutes.")
 
