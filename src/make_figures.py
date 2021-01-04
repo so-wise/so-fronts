@@ -42,6 +42,36 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
 @twr.timeit
 def make_all_figures_in_sequence():
+    xp.plot_several_pair_i_metrics(
+        [return_pair_i_metric(K=2).isel(time=0), return_pair_i_metric(K=4).isel(time=0)]
+    )
+    # "../FBSO-Report/images/fig5-new.png"
+    plt.tight_layout()
+    imetric_comp_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
+    )
+    plt.savefig(imetric_comp_name, dpi=900, bbox_inches="tight")
+    plt.clf()
+
+def nother():
+
+    # FIGURE 6
+    example_time_index = 40
+    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
+    da_temp = ds.PCA_VALUES.isel(time=example_time_index).differentiate(cst.Y_COORD)
+    xp.sep_plots(
+        [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
+        ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
+    )
+    pc_y_grad_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_y_grad.png"
+    )
+    # "../FBSO-Report/images/fig6-new.png"
+    plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
+    plt.clf()
+
+
+def other():
 
     print("Starting make_all_figures_in_sequence, should take about about 8 minutes.")
 
@@ -151,7 +181,7 @@ def make_all_figures_in_sequence():
         ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
     )
     pc_y_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_y_grad.png"
     )
     # "../FBSO-Report/images/fig6-new.png"
     plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
@@ -162,7 +192,9 @@ def make_all_figures_in_sequence():
     ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
     xp.sep_plots(
         [
-            ds.PCA_VALUES.isel(time=example_time_index, pca=0).differentiate(cst.Y_COORD),
+            ds.PCA_VALUES.isel(time=example_time_index, pca=0).differentiate(
+                cst.Y_COORD
+            ),
             uvel_ds.UVEL.isel(time=example_time_index),
             ds.PCA_VALUES.isel(pca=0)
             .differentiate(cst.Y_COORD)
@@ -244,7 +276,9 @@ def make_all_figures_in_sequence():
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
     xp.sep_plots(
         [
-            ds.PCA_VALUES.isel(time=example_time_index, pca=0).differentiate(cst.X_COORD),
+            ds.PCA_VALUES.isel(time=example_time_index, pca=0).differentiate(
+                cst.X_COORD
+            ),
             vvel_ds.VVEL.isel(time=example_time_index),
             ds.PCA_VALUES.isel(pca=0)
             .differentiate(cst.X_COORD)

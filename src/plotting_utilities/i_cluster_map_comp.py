@@ -77,7 +77,7 @@ def plot_map_imetric_clusters(ds):
                 used_up_columns + pairs_list[i].shape[0],
             )
             ax1 = fig.add_subplot(
-                gs[0, used_up_columns: used_up_columns + pairs_list[i].shape[0]],
+                gs[0, used_up_columns : used_up_columns + pairs_list[i].shape[0]],
                 projection="3d",
             )
 

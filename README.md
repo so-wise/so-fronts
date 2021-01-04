@@ -17,32 +17,32 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 
  - Make the environment:
 
-    ```
+    ```bash
     make env
     ```
 
  - Activate the environment in conda:
 
-     ```
+     ```bash
      conda activate ./env
      ```
 
  - Make the documentation and load it in your web browser:
 
-    ```
+    ```bash
     make docs
     ```
 
 
  - Make your Jupyter notebooks more functional with timings etc.:
 
-    ```
+    ```bash
     make jupyter_pro
     ```
 
  - To see the other options in the `Makefile` type:
 
-    ```
+    ```bash
     make help
     ```
 
@@ -89,7 +89,7 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 
 ## Code formatting
 To automatically format your code, make sure you have `black` installed (`pip install black`) and call
-```black . ```
+``` black . ```
 from within the project directory.
 
 ## Reformatting code

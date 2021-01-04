@@ -8,10 +8,13 @@
 # import src.constants as cst
 # import xarray as xr
 import src.make_figures as mf
+
 # import matplotlib.pyplot as plt
 
 
 mf.make_all_figures_in_sequence()
+
+import src.move_figures as mov
 
 """
 
