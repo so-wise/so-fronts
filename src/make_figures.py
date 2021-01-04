@@ -209,7 +209,6 @@ def make_all_figures_in_sequence():
     )
     plt.savefig(pc_y_grad_name, dpi=900, bbox_inches="tight")
     plt.clf()
-
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
     pca_ds = (
         xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")

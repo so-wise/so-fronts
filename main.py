@@ -1,3 +1,11 @@
+# import src.make_figures as mf
+import src.move_figures as mov
+
+
+# mf.make_all_figures_in_sequence()
+mov.move()
+
+"""
 # import hydra
 # from src import constants
 
@@ -7,16 +15,6 @@
 # import src.models.train_i_metric as tim
 # import src.constants as cst
 # import xarray as xr
-import src.make_figures as mf
-
-# import matplotlib.pyplot as plt
-
-
-mf.make_all_figures_in_sequence()
-
-import src.move_figures as mov
-
-"""
 
 temp_name = os.path.join(cst.DATA_PATH, "run_" + cst.RUN_NAME + "temp.nc")
 profiles_name = os.path.join(cst.DATA_PATH, "run_" + cst.RUN_NAME + "profiles_temp.nc")
@@ -45,8 +43,9 @@ s3d.plot_fig2_mult(
 )
 plt.show()
 plt.clf()
-"""
 
 # cp.profile_plot_cluster_comparison(ds)
 
 # print(ds)
+
+"""
