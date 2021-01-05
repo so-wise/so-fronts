@@ -11,6 +11,7 @@ import src.plotting_utilities.colors as col
 import src.time_wrapper as twr
 import src.plotting_utilities.gen_panels as gp
 import src.plotting_utilities.latex_style as lsty
+import src.constants as cst
 
 
 @twr.timeit
@@ -20,7 +21,6 @@ def plot_fig2_mult(weights, means, covariances, ds):
     """
 
     da = tpi.pair_i_metric(ds)
-
     pairs_list = []
     width_ratios = []
     num_pairs = 0
@@ -35,7 +35,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
         elif i == 1:
             width_ratios.append(0.05)
             num_pairs += 1
-            pairs = da.coords["pair"].values
+            pairs = da.coords[cst.P_COORD].values
             cmap_list = col.return_list_of_colormaps(len(pairs), fade_to_white=False)
             pairs_list.append(pairs)
             for width in [1 / num_plots / len(pairs) for x in range(len(pairs))]:
@@ -87,7 +87,6 @@ def plot_fig2_mult(weights, means, covariances, ds):
             used_up_columns += pairs_list[i].shape[0] + 1
 
         if i == 0:
-
             PCS = ds.PCA_VALUES
             im = ax1.scatter(
                 PCS.isel(pca=0).values.ravel(),
@@ -100,7 +99,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
                 alpha=0.5,
             )
 
-            ##### VIEWING ANGLE #####
+            # VIEWING ANGLE
             ax1.view_init(30, 60)
 
             plt.colorbar(
@@ -118,9 +117,7 @@ def plot_fig2_mult(weights, means, covariances, ds):
         if i == 1:
 
             number_clusters = np.shape(means)[0]
-
             colors = col.cluster_colors(number_clusters)
-
             fig = plt.gcf()
 
             for j in range(number_clusters):
@@ -142,10 +139,10 @@ def plot_fig2_mult(weights, means, covariances, ds):
                 cbar = plt.colorbar(
                     im, cax=cbar_axes[j], orientation="horizontal", ticks=[0, 1]
                 )
-                #### VIEWING ANGLE #####
+                # VIEWING ANGLE
                 ax1.view_init(30, 60)
 
-                cbar.set_label(da.coords["pair"].values[j])
+                cbar.set_label(da.coords[cst.P_COORD].values[j])
 
             primary_axes_list.append(ax1)
             ax1.set_xlabel("PC1")

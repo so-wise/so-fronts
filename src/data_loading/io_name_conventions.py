@@ -21,7 +21,7 @@ def _return_folder(K, pca):
 
 
 def _return_pair_name(K, pca):
-    return "nc/pair-i-metric-k-" + str(K) + "-d-" + str(pca)
+    return "../pyxpcm/" + "nc/pair-i-metric-k-" + str(K) + "-d-" + str(pca)
 
 
 def _return_pair_folder(K, pca):

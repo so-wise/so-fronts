@@ -5,6 +5,7 @@ import src.plotting_utilities.map as map
 import src.plotting_utilities.gen_panels as gp
 import src.plotting_utilities.colors as col
 import src.time_wrapper as twr
+import src.constants as cst
 
 
 @twr.timeit
@@ -12,11 +13,8 @@ def sep_plots(da_list, var_list, min_max_list=None):
 
     map_proj = ccrs.SouthPolarStereo()
     carree = ccrs.PlateCarree()
-
     fig = plt.figure()
-
     num_da = len(da_list)
-
     fig, axes = plt.subplots(1, num_da, subplot_kw={"projection": map_proj})
 
     for i in range(num_da):
@@ -43,7 +41,7 @@ def sep_plots(da_list, var_list, min_max_list=None):
 def plot_single_i_metric(da):
     carree = ccrs.PlateCarree()
     map_proj = ccrs.SouthPolarStereo()
-    pairs = da.coords["pair"].values.shape[0]
+    pairs = da.coords[cst.P_COORD].values.shape[0]
 
     gs = GridSpec(
         nrows=2,
@@ -74,7 +72,7 @@ def plot_single_i_metric(da):
         cbar = plt.colorbar(
             im, cax=cbar_axes[i], orientation="horizontal", ticks=[0, 1]
         )
-        cbar.set_label(da.coords["pair"].values[i])
+        cbar.set_label(da.coords[cst.P_COORD].values[i])
     plt.suptitle("")
     plt.title("")
     ax1.set_title("")
@@ -107,8 +105,8 @@ def plot_several_pair_i_metrics(da_list):
         if i != 0:
             width_ratios.append(0.05)
             num_pairs += 1
-        num_pairs += da_list[i].coords["pair"].values.shape[0]
-        pairs = da_list[i].coords["pair"].values
+        num_pairs += da_list[i].coords[cst.P_COORD].values.shape[0]
+        pairs = da_list[i].coords[cst.P_COORD].values
         pairs_list.append(pairs)
         for width in [1 / num_plots / len(pairs) for x in range(len(pairs))]:
             width_ratios.append(width)
@@ -149,7 +147,7 @@ def plot_several_pair_i_metrics(da_list):
 
         for j in range(len(pairs_list[i])):
             print("pair number", j)
-            print("pair name", da_list[i].coords["pair"].values[j])
+            print("pair name", da_list[i].coords[cst.P_COORD].values[j])
 
             im = (
                 da_list[i]
@@ -172,7 +170,7 @@ def plot_several_pair_i_metrics(da_list):
                 cax=cbar_axes[j],
                 ticks=[0, 1],
             )
-            cbar.set_label(da_list[i].coords["pair"].values[j])
+            cbar.set_label(da_list[i].coords[cst.P_COORD].values[j])
         plt.suptitle("")
         plt.title("")
         ax1.set_title("")

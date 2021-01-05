@@ -10,6 +10,7 @@ import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.xarray_panels as xp
 import src.models.train_i_metric as tim
 import src.plotting_utilities.spec_i_clusters_3d_comp as s3d
+import src.plotting_utilities.i_cluster_map_comp as icm
 import src.plotting_utilities.cluster_profiles as cp
 import src.models.to_pair_i_metric as tpi
 import src.data_loading.io_name_conventions as io
@@ -17,14 +18,28 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
+def great():
+    # FIGURE 4
+    da = return_pair_i_metric(K=5).isel(time=0)
+    da_i = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc").A_B.isel(
+        rank=0, time=40
+    )
+    print(da)
+    icm.plot_map_imetric_clusters(da_i, da)
+    imetric_single_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_map_i_comp.png"
+    )
+    # "../FBSO-Report/images/fig4-new.png"
+    plt.savefig(imetric_single_name, dpi=900, bbox_inches="tight")
+    plt.clf()
 
+
+@twr.timeit
+def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
     link_to_netcdf = io._return_name(K, pca) + ".nc"
     ds = xr.open_dataset(link_to_netcdf)
     print(ds.__str__())
-
     batch_size = 2
-
     for i in range(40, 42, batch_size):
         print("running", i)
         if save_nc:
@@ -33,9 +48,11 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
             )
             print("not saving")
         else:
-            da = xr.open_dataset(
-                io._return_pair_folder(K, pca) + str(i) + ".nc"
-            ).to_array()
+            da = (
+                xr.open_dataset(io._return_pair_name(K, pca) + "..nc")
+                .to_array()
+                .isel(time=slice(i, i + batch_size))
+            )
 
     return da
 
