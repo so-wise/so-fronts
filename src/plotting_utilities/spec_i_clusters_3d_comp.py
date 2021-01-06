@@ -141,7 +141,6 @@ def plot_fig2_mult(weights, means, covariances, ds):
                 )
                 # VIEWING ANGLE
                 ax1.view_init(30, 60)
-
                 cbar.set_label(da.coords[cst.P_COORD].values[j])
 
             primary_axes_list.append(ax1)

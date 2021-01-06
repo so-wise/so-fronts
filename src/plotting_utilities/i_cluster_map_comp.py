@@ -19,15 +19,19 @@ import src.constants as cst
 @twr.timeit
 def plot_map_imetric_clusters(da_i, da):
     """
-    :param ds: xarray.dataset object.
+    :param da_i: xarray.dataarray object.
+    :param da: xarray.dataarray object.
     :return: void (although matplotlib will be storing the figure).
     """
     pairs_list = []
     width_ratios = []
     num_pairs = 0
     num_plots = 2
+    da_i = da_i + 1
     print(da_i)
+    print(da_i.values)
     print(da)
+    print(da.values)
     map_proj = ccrs.SouthPolarStereo()
     carree = ccrs.PlateCarree()
 
@@ -45,10 +49,8 @@ def plot_map_imetric_clusters(da_i, da):
             pairs_list.append(pairs)
             for width in [1 / num_plots / len(pairs) for x in range(len(pairs))]:
                 width_ratios.append(width)
-
         print(pairs_list)
         print(width_ratios)
-
     gs = GridSpec(
         nrows=2,
         ncols=len(width_ratios),
@@ -56,18 +58,13 @@ def plot_map_imetric_clusters(da_i, da):
         height_ratios=[1, 0.05],
         wspace=0.15,
     )
-
     fig = plt.gcf()
     fig.set_size_inches(7 * num_plots + 1 * num_plots, 7 * 1.2)
-
     used_up_columns = 0
     primary_axes_list = []
 
     for i in range(2):
-        print("trying fig", i)
-
         if i == 0:
-
             ax1 = fig.add_subplot(
                 gs[0, 0],
                 projection=map_proj,
@@ -78,35 +75,34 @@ def plot_map_imetric_clusters(da_i, da):
 
         elif i == 1:
             print("used_up_columns", used_up_columns)
-            print(
-                "used_up_columns + pairs_list[i].shape[0]",
-                used_up_columns + pairs_list[i].shape[0]
-            )
+            print("used_up_columns + pairs_list[i].shape[0]",
+                  used_up_columns + pairs_list[i].shape[0])
             ax1 = fig.add_subplot(
                 gs[0, used_up_columns: used_up_columns + pairs_list[i].shape[0]],
                 projection=map_proj,
             )
             mp.southern_ocean_axes_setup(ax1, fig)
-
             cbar_axes = [
                 fig.add_subplot(gs[1, used_up_columns + j])
                 for j in range(len(pairs_list[i]))
             ]
-
             used_up_columns += pairs_list[i].shape[0] + 1
 
         number_clusters = 5
 
         if i == 0:
+            print('da_i', da_i)
+            print('ax1', ax1)
             im = da_i.plot(
                 ax=ax1,
                 add_colorbar=False,
                 cmap=cm.get_cmap("Set1", number_clusters),
                 vmin=0.5,
                 vmax=number_clusters + 0.5,
+                transform=carree,
+                subplot_kws={"projection": map_proj},
                 alpha=0.5,
             )
-
             plt.colorbar(
                 im,
                 cax=cbar_ax,
@@ -119,7 +115,6 @@ def plot_map_imetric_clusters(da_i, da):
             ax1.coastlines()
 
         if i == 1:
-
             fig = plt.gcf()
             for j in range(len(pairs_list[i])):
                 # kim orsi fronts.
@@ -133,7 +128,6 @@ def plot_map_imetric_clusters(da_i, da):
                     subplot_kws={"projection": map_proj},
                     alpha=0.5,
                 )
-
                 cbar = plt.colorbar(
                     im, cax=cbar_axes[j], orientation="horizontal", ticks=[0, 1]
                 )
@@ -143,6 +137,7 @@ def plot_map_imetric_clusters(da_i, da):
             mp.southern_ocean_axes_setup(ax1, fig)
             ax1.set_title("")
             ax1.coastlines()
+    gp.label_subplots(primary_axes_list)
 
 
 # plt.tight_layout()

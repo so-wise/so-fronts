@@ -18,23 +18,6 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def great():
-    # FIGURE 4
-    da = return_pair_i_metric(K=5).isel(time=0)
-    da_i = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc").A_B.isel(
-        rank=0, time=40
-    )
-    print(da)
-    icm.plot_map_imetric_clusters(da_i, da)
-    imetric_single_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_map_i_comp.png"
-    )
-    # "../FBSO-Report/images/fig4-new.png"
-    plt.savefig(imetric_single_name, dpi=900, bbox_inches="tight")
-    plt.clf()
-
-
-@twr.timeit
 def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
     link_to_netcdf = io._return_name(K, pca) + ".nc"
     ds = xr.open_dataset(link_to_netcdf)
@@ -172,6 +155,20 @@ def make_all_figures_in_sequence():
     xp.plot_single_i_metric(da.isel(time=0))
     imetric_single_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_single.png"
+    )
+    # "../FBSO-Report/images/fig4-new.png"
+    plt.savefig(imetric_single_name, dpi=900, bbox_inches="tight")
+    plt.clf()
+
+    # FIGURE 4
+    da = return_pair_i_metric(K=5).isel(time=0)
+    da_i = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc").A_B.isel(
+        rank=0, time=40
+    )
+    print(da)
+    icm.plot_map_imetric_clusters(da_i, da)
+    imetric_single_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_map_i_comp.png"
     )
     # "../FBSO-Report/images/fig4-new.png"
     plt.savefig(imetric_single_name, dpi=900, bbox_inches="tight")
