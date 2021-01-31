@@ -1,15 +1,19 @@
 import src.make_figures as mf
-import src.move_figures as mov
+
+# import src.move_figures as mov
 
 # mf.make_all_figures_in_sequence()
 
-mov.move()
+# mov.move()
 
+import src.plotting_utilities.ko_plot as ko
+
+ko.run_so_map()
 """
 # import hydra
 # from src import constants
 # from src.configs import config
-# import os#
+# import os
 # import src.plotting_utilities.cluster_profiles as cp
 # import src.models.train_i_metric as tim
 # import src.constants as cst

@@ -12,6 +12,7 @@ SRC_PATH = os.path.dirname(constants_path)
 PROJECT_PATH = os.path.dirname(SRC_PATH)
 DATA_PATH = os.path.join(PROJECT_PATH, "nc")
 FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
+KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 
 
 # Paths to different BSOSE-i106 files (unique to my machine):
@@ -51,7 +52,7 @@ INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
 
 # Chosen hyperparameters in the model run:
 
-RUN_NAME = "001"  # TODO --> Make all Data and Figures include RUN_NAME
+RUN_NAME = "009"  # TODO --> Make all Data and Figures include RUN_NAME
 SEED = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
 np.random.seed(SEED)
 MIN_DEPTH = 300  # TODO --> make this feed the keyword argument defaults

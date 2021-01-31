@@ -6,8 +6,6 @@ import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
-import src.models.to_pair_i_metric as tpi
-import src.plotting_utilities.ellipses as pel
 import src.plotting_utilities.colors as col
 import src.time_wrapper as twr
 import src.plotting_utilities.gen_panels as gp
@@ -28,10 +26,6 @@ def plot_map_imetric_clusters(da_i, da):
     num_pairs = 0
     num_plots = 2
     da_i = da_i + 1
-    print(da_i)
-    print(da_i.values)
-    print(da)
-    print(da.values)
     map_proj = ccrs.SouthPolarStereo()
     carree = ccrs.PlateCarree()
 
@@ -75,10 +69,12 @@ def plot_map_imetric_clusters(da_i, da):
 
         elif i == 1:
             print("used_up_columns", used_up_columns)
-            print("used_up_columns + pairs_list[i].shape[0]",
-                  used_up_columns + pairs_list[i].shape[0])
+            print(
+                "used_up_columns + pairs_list[i].shape[0]",
+                used_up_columns + pairs_list[i].shape[0],
+            )
             ax1 = fig.add_subplot(
-                gs[0, used_up_columns: used_up_columns + pairs_list[i].shape[0]],
+                gs[0, used_up_columns : used_up_columns + pairs_list[i].shape[0]],
                 projection=map_proj,
             )
             mp.southern_ocean_axes_setup(ax1, fig)
@@ -91,8 +87,8 @@ def plot_map_imetric_clusters(da_i, da):
         number_clusters = 5
 
         if i == 0:
-            print('da_i', da_i)
-            print('ax1', ax1)
+            print("da_i", da_i)
+            print("ax1", ax1)
             im = da_i.plot(
                 ax=ax1,
                 add_colorbar=False,

@@ -9,9 +9,10 @@ import src.models.to_pair_i_metric as tpi
 import src.plotting_utilities.ellipses as pel
 import src.plotting_utilities.colors as col
 import src.time_wrapper as twr
-import src.plotting_utilities.gen_panels as gp
 import src.plotting_utilities.latex_style as lsty
 import src.constants as cst
+
+# import src.plotting_utilities.gen_panels as gp
 
 
 @twr.timeit
