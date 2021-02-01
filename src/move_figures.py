@@ -24,7 +24,10 @@ def move(copy_command="cp"):  # this is ok for unix.
             cst.FIGURE_PATH, "RUN_" + RUN_NAME + "_i_metric_single.png"
         ): "fig4-new.png",
         os.path.join(
-            cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_map_i_comp.png"
+            cst.FIGURE_PATH,
+            "RUN_"
+            + "010"
+            + "_map_i_comp.png",  # "RUN_" + cst.RUN_NAME + "_map_i_comp.png"
         ): "fig4-comp.png",
         os.path.join(
             cst.FIGURE_PATH, "RUN_" + RUN_NAME + "_i_metric_comp.png"
