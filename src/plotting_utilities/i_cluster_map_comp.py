@@ -10,6 +10,7 @@ import src.plotting_utilities.colors as col
 import src.time_wrapper as twr
 import src.plotting_utilities.gen_panels as gp
 import src.plotting_utilities.latex_style as lsty
+import src.plotting_utilities.ko_plot as ko
 import src.plotting_utilities.map as mp
 import src.constants as cst
 
@@ -133,6 +134,9 @@ def plot_map_imetric_clusters(da_i, da):
             mp.southern_ocean_axes_setup(ax1, fig)
             ax1.set_title("")
             ax1.coastlines()
+            ko.draw_fronts_kim(ax1)
+            ax1.legend()
+
     gp.label_subplots(primary_axes_list)
 
 

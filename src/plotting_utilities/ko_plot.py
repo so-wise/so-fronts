@@ -1,8 +1,7 @@
 """
 A program by sdat2 to plot the Southern Ocean with a variety of fronts.
-Currently plots Kim and Orsi 2014 (KO) & Mackie et al. 2019 (M)
-TODO throw away everything that isn't the main contour
-TODO Measure correlation between KO and M fronts
+Currently plots Kim and Orsi 2014 (KO)
+#  Usage:  ko.draw_fronts_kim(ax)
 """
 import os
 import numpy as np
@@ -12,28 +11,8 @@ import cartopy.feature
 import matplotlib.path as mpath
 import matplotlib.patches as patch
 import src.plotting_utilities.latex_style as sps
+import src.plotting_utilities.map as mp
 import src.constants as cst
-
-
-def southern_ocean_axes_setup():
-    carree = ccrs.PlateCarree()
-    map_proj = ccrs.SouthPolarStereo()
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection=map_proj)
-    # fig, ax = plt.subplots(projection=map_proj)
-    ax.set_extent([-180, 180, -90, -30], carree)
-    fig.subplots_adjust(bottom=0.05, top=0.95, left=0.04, right=0.95, wspace=0.02)
-
-    def plot_boundary():
-        theta = np.linspace(0, 2 * np.pi, 100)
-        center, radius = [0.5, 0.5], 0.45
-        verts = np.vstack([np.sin(theta), np.cos(theta)]).T
-        circle = mpath.Path(verts * radius + center)
-        ax.set_boundary(circle, transform=ax.transAxes)
-
-    ax.coastlines()
-
-    plot_boundary()
 
 
 def is_too_far(lat_A=0.0, lat_B=0.0, lon_A=0.0, lon_B=0.0, max_allowable_square=1):
@@ -90,6 +69,7 @@ def split_into_list_of_lists(max_square=1, list_of_xs=[0.0], list_of_ys=[0.0]):
 
 
 def plot_list_of_lists(
+    ax,
     lol_of_xs=[[0.0], [0.0]],
     lol_of_ys=[[0.0], [0.0]],
     color="red",
@@ -155,7 +135,7 @@ def plot_list_of_lists(
 
             if not_labelled:
                 # only label the first list
-                plt.plot(
+                ax.plot(
                     x_map_temp,
                     y_map_temp,
                     line_type,
@@ -167,7 +147,7 @@ def plot_list_of_lists(
                 )
                 not_labelled = False
             else:
-                plt.plot(
+                ax.plot(
                     x_map_temp,
                     y_map_temp,
                     line_type,
@@ -178,7 +158,7 @@ def plot_list_of_lists(
                 )
 
 
-def draw_fronts_kim():
+def draw_fronts_kim(ax):
     """
     A function to read the Kim and Orsi (2014)
     Data and plot it on SO.
@@ -204,6 +184,7 @@ def draw_fronts_kim():
             )
             # print(lol_xs, lol_ys)
             plot_list_of_lists(
+                ax,
                 lol_of_xs=lol_xs,
                 lol_of_ys=lol_ys,
                 color=color_dict[key],
@@ -263,15 +244,13 @@ def draw_fronts_kim():
 
 
 def run_so_map():
-    southern_ocean_axes_setup()
-    draw_fronts_kim()
-    # draw_fronts_mackie()
-    # draw_gridlines(basemap_object)
-    # annotate_kirguelens(basemap_object)
-    # make_map_right_size()
+    carree = ccrs.PlateCarree()
+    map_proj = ccrs.SouthPolarStereo()
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection=map_proj)
+    mp.southern_ocean_axes_setup(ax, fig)
+    draw_fronts_kim(ax)
     plt.legend()
-    # plt.show()
-
     plt.savefig(os.path.join(cst.FIGURE_PATH, "ko.png"), dpi=600, bbox_inches="tight")
 
 

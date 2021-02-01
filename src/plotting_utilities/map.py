@@ -35,3 +35,4 @@ def southern_ocean_axes_setup(ax, fig):
         ax.set_boundary(circle, transform=ax.transAxes)
 
     plot_boundary()
+    ax.coastlines()

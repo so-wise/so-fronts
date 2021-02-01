@@ -52,7 +52,7 @@ INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
 
 # Chosen hyperparameters in the model run:
 
-RUN_NAME = "009"  # TODO --> Make all Data and Figures include RUN_NAME
+RUN_NAME = "010"  # TODO --> Make all Data and Figures include RUN_NAME
 SEED = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
 np.random.seed(SEED)
 MIN_DEPTH = 300  # TODO --> make this feed the keyword argument defaults
