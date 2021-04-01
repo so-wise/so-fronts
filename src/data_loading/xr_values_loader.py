@@ -1,8 +1,9 @@
-import collections
 import numpy as np
+import xarray as xr
+import collections
 
 
-def order_indexes(dataarray, index_list):
+def order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
     """
     goes from a datarray to a numpy array, ideally guaranteeing that
     the ordering of the numpy array is the same as would be expected.
@@ -25,7 +26,7 @@ def order_indexes(dataarray, index_list):
     return dataarray_values
 
 
-def _old_order_indexes(dataarray, index_list):
+def _old_order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
 
     coords_list = []
     for item in index_list:

@@ -1,9 +1,10 @@
 import numpy as np
+import matplotlib
 import src.time_wrapper as twr
 
 
 @twr.timeit
-def label_subplots(axs, start_from=0, fontsize=13):
+def label_subplots(axs: matplotlib.axes.Axes, start_from: int = 0, fontsize: int = 13):
     """
     :param axs:
     """

@@ -1,3 +1,4 @@
+from typing import Tuple, Sequence
 import numpy as np
 import xarray as xr
 import src.data_loading.xr_values_loader as xvl
@@ -6,7 +7,9 @@ import src.constants as cst
 xr.set_options(keep_attrs=True)
 
 
-def make_all_pair_i_metric(cart_prod, i_metric, sorted_version, threshold):
+def make_all_pair_i_metric(
+    cart_prod, i_metric, sorted_version, threshold
+) -> Tuple[list]:
     if True:
         pair_i_metric_list = []
 
@@ -28,7 +31,9 @@ def make_all_pair_i_metric(cart_prod, i_metric, sorted_version, threshold):
 
 
 # @jit(nopython=True)
-def make_one_pair_i_metric(pair, i_metric, sorted_version, threshold):
+def make_one_pair_i_metric(
+    pair, i_metric, sorted_version, threshold
+) -> Sequence[np.array]:
     shape = np.shape(sorted_version)
     print("shape", shape)
     # shape (60, 2, 588, 2160)
@@ -48,7 +53,7 @@ def make_one_pair_i_metric(pair, i_metric, sorted_version, threshold):
     return [pair, pair_i_metric, at_least_one_point]
 
 
-def pair_i_metric(ds, threshold=0.05):
+def pair_i_metric(ds: xr.Dataset, threshold: float = 0.05) -> xr.DataArray:
     """
     # new loading order (to be changed)
     ds.A_B.values.shape (2, 12, 60, 240)

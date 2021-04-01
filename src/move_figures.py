@@ -4,7 +4,7 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def move(copy_command="cp"):  # this is ok for unix.
+def move(copy_command: str = "cp") -> None:  # this is ok for unix.
     RUN_NAME = "001"
     final_loc = "../FBSO-Report/images"
     name_dict = {

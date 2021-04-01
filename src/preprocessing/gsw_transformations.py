@@ -1,15 +1,34 @@
+"""Preprocessing script to transform to different quantities"""
+from typing import Tuple
 import numpy as np
 import gsw
 import xarray as xr
-import constants as cst
+import src.constants as cst
 
 xr.set_options(keep_attrs=True)
 
 
-def return_density(pt_values, practical_salt_values, lon_values, lat_values, z_values):
+def return_density(
+    pt_values: np.array,
+    practical_salt_values: np.array,
+    lon_values: np.array,
+    lat_values: np.array,
+    z_values: np.array,
+) -> Tuple[np.array, np.array, np.array]:
     """
-    pt_values: grid
-    pt_values: grid
+    Wrapper around the xyz
+
+    [extended_summary]
+
+    Args:
+        pt_values (np.array): [description]
+        practical_salt_values (np.array): [description]
+        lon_values (np.array): [description]
+        lat_values (np.array): [description]
+        z_values (np.array): [description]
+
+    Returns:
+        Tuple[np.array, np.array, np.array]: [description]
     """
 
     lat_mesh, z_mesh = np.meshgrid(lat_values, z_values)
@@ -39,12 +58,28 @@ def return_density(pt_values, practical_salt_values, lon_values, lat_values, z_v
     return rho_values, ct_values, pressure_values
 
 
-def create_datarray(format_dataarray, values, name, v_attr_d):
+def create_datarray(
+    format_dataarray: xr.DataArray, values, name: str, v_attr_d: dict
+) -> xr.DataArray:
+    """
+    [summary]
+
+    [extended_summary]
+
+    Args:
+        format_dataarray (xr.DataArray): [description]
+        values ([type]): [description]
+        name (str): [description]
+        v_attr_d (dict): [description]
+
+    Returns:
+        xr.DataArray: [description]
+    """
 
     c_attr_d = {}
     coord_d = {}
     c_value_l = []
-    dims_l = []
+    # dims_l = []
     for coord in format_dataarray.coords:
         if coord != "time":
             c_attr_d[coord] = format_dataarray.coords[coord].attrs
@@ -78,7 +113,22 @@ def create_datarray(format_dataarray, values, name, v_attr_d):
     return da
 
 
-def create_known_datarray(format_dataarray, values, name):
+def create_known_datarray(
+    format_dataarray, values: np.array, name: str
+) -> xr.DataArray:
+    """
+    [summary]
+
+    [extended_summary]
+
+    Args:
+        format_dataarray ([type]): [description]
+        values (np.array): [description]
+        name (str): [description]
+
+    Returns:
+        xr.DataArray: [description]
+    """
     # TODO Change so that all are more
     # compliant to CMIP6 protocol etec.
 
@@ -120,7 +170,9 @@ def create_known_datarray(format_dataarray, values, name):
     return create_datarray(format_dataarray, values, name, v_attr_d_d[name])
 
 
-def test_density_da(time_i=42, max_depth=2000):
+def test_density_da(
+    time_i: int = 42, max_depth: float = 2000
+) -> Tuple[xr.DataArray, xr.DataArray, xr.DataArray, xr.DataArray]:
 
     main_dir = "/Users/simon/bsose_monthly/"
     salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
@@ -155,7 +207,12 @@ def test_density_da(time_i=42, max_depth=2000):
     return density_da, ct_da, pressure_da, ds.THETA
 
 
-def create_whole_density_netcdf():
+def create_whole_density_netcdf() -> None:
+    """
+    [summary]
+
+    [extended_summary]
+    """
 
     main_dir = "/Users/simon/bsose_monthly/"
     salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
@@ -180,7 +237,15 @@ def create_whole_density_netcdf():
         density_da.to_netcdf("nc/rho/density_" + str(time_i) + ".nc", format="netcdf4")
 
 
-def merge_whole_density_netcdf():
+def merge_whole_density_netcdf() -> xr.DataArray:
+    """
+    [summary]
+
+    [extended_summary]
+
+    Returns:
+        xr.DataArray: [description]
+    """
 
     rho_da = xr.open_mfdataset(
         "nc/rho/*.nc",
@@ -195,17 +260,33 @@ def merge_whole_density_netcdf():
     return rho_da
 
 
-def save_density_netcdf(rho_da):
+def save_density_netcdf(rho_da: xr.DataArray) -> None:
+    """
+    [summary]
+
+    [extended_summary]
+
+    Args:
+        rho_da (xr.DataArray): [description]
+    """
 
     xr.save_mfdataset([rho_da], ["nc/Density.nc"], format="NETCDF4")
 
 
-def reload_density_netcdf():
+def reload_density_netcdf() -> xr.Dataset:
+    """
+    [summary]
+
+    [extended_summary]
+
+    Returns:
+        xr.Dataset: [description]
+    """
 
     return xr.open_dataset("nc/density.nc")
 
 
-def x_grad():
+def x_grad() -> None:
     density_da = xr.open_mfdataset("nc/density.nc", decode_cf=False).astype("float32")
     grad_da = density_da.Density.differentiate("XC").astype("float32")
     density_da["x_grad"] = grad_da
@@ -213,7 +294,7 @@ def x_grad():
     xr.save_mfdataset([grad_ds], ["nc/density_grad_x.nc"], format="NETCDF4")
 
 
-def y_grad(set=False):
+def y_grad(set: bool = False) -> None:
     density_da = xr.open_mfdataset(
         "nc/density.nc", decode_cf=False, parallel=True
     ).astype("float32")
@@ -228,7 +309,9 @@ def y_grad(set=False):
         xr.save_mfdataset([grad_ds], ["nc/density_grad_y.nc"], format="NETCDF4")
 
 
-def take_derivative_density(dimension="YC", typ="float32", engine="h5netcdf"):
+def take_derivative_density(
+    dimension: str = "YC", typ: str = "float32", engine: str = "h5netcdf"
+):
 
     chunk_d = {"time": 1, "Z": 52, "YC": 588, "XC": 2160}
 

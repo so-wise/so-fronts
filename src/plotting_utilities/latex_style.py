@@ -23,7 +23,7 @@ xr.set_options(keep_attrs=True)
 
 
 @twr.timeit
-def mpl_params(quality="high"):
+def mpl_params(quality: str = "high"):
     """
     Apply my plotting style to produce nice looking figures.
     Call this at the start of a script which uses matplotlib,
@@ -69,7 +69,7 @@ def mpl_params(quality="high"):
 
 
 @twr.timeit
-def tex_escape(text):
+def tex_escape(text: str):
     """
     It is better to plot in TeX, but this involves escaping strings.
     from:
@@ -122,7 +122,7 @@ def proper_units(text):
 
 
 @twr.timeit
-def ds_for_graphing(dsA):
+def ds_for_graphing(dsA: xr.Dataset):
     ds = dsA.copy()
 
     for varname, da in ds.data_vars.items():

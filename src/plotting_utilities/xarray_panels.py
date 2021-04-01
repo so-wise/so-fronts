@@ -1,3 +1,5 @@
+from typing as Sequence
+import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
@@ -9,7 +11,8 @@ import src.constants as cst
 
 
 @twr.timeit
-def sep_plots(da_list, var_list, min_max_list=None):
+def sep_plots(da_list: Sequence[xr.DataArray], var_list: list,
+              min_max_list: any = None) -> None:
 
     map_proj = ccrs.SouthPolarStereo()
     carree = ccrs.PlateCarree()
@@ -38,7 +41,7 @@ def sep_plots(da_list, var_list, min_max_list=None):
 
 
 @twr.timeit
-def plot_single_i_metric(da):
+def plot_single_i_metric(da: xr.DataArray) -> None:
     carree = ccrs.PlateCarree()
     map_proj = ccrs.SouthPolarStereo()
     pairs = da.coords[cst.P_COORD].values.shape[0]
@@ -80,7 +83,7 @@ def plot_single_i_metric(da):
 
 
 @twr.timeit
-def plot_several_pair_i_metrics(da_list):
+def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
     """
     USAGE:
     plot_several_pair_i_metrics([run_through_plot(K=2).isel(time=0),

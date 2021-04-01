@@ -9,8 +9,13 @@ xr.set_options(keep_attrs=True)
 
 
 def pca_from_interpolated_year(
-    m, pca=2, K=5, time_i=42, max_depth=2000, remove_init_var=True
-):
+    m: pyxpcm.pcm,
+    pca: int = 2,
+    K: int = 5,
+    time_i: int = 42,
+    max_depth: float = 2000,
+    remove_init_var: bool = True,
+) -> None:
     """
     m: the pcm object which has already been trained
     pca: how many principal components were chosen to be fitted.
@@ -32,7 +37,7 @@ def pca_from_interpolated_year(
     ds = m.find_i_metric(ds, inplace=True)
     ds = m.add_pca_to_xarray(ds, features=cst.FEATURES_D, dim=cst.Z_COORD, inplace=True)
 
-    def sanitize():
+    def sanitize() -> None:
         del ds.IMETRIC.attrs["_pyXpcm_cleanable"]
         del ds.A_B.attrs["_pyXpcm_cleanable"]
         del ds.PCA_VALUES.attrs["_pyXpcm_cleanable"]
@@ -53,7 +58,7 @@ def pca_from_interpolated_year(
     ds.to_netcdf(io._return_folder(K, pca) + str(time_i) + ".nc", format="NETCDF4")
 
 
-def run_through_joint_two(K=5, pca=3):
+def run_through_joint_two(K: int = 5, pca: int = 3) -> None:
     m, ds = tim.train_on_interpolated_year(
         time_i=42, K=K, maxvar=pca, min_depth=300, max_depth=2000, separate_pca=False
     )
@@ -61,7 +66,7 @@ def run_through_joint_two(K=5, pca=3):
         pca_from_interpolated_year(m, K=K, pca=pca, time_i=time_i)
 
 
-def merge_and_save_joint(K=5, pca=3):
+def merge_and_save_joint(K: int = 5, pca: int = 3) -> None:
 
     pca_ds = xr.open_mfdataset(
         io._return_folder(K, pca) + "*.nc",
@@ -75,7 +80,7 @@ def merge_and_save_joint(K=5, pca=3):
     xr.save_mfdataset([pca_ds], [io._return_name(K, pca) + ".nc"], format="NETCDF4")
 
 
-def run_through():
+def run_through() -> None:
     K_list = [4, 2, 10]
     for K in K_list:
         run_through_joint_two(K=K)

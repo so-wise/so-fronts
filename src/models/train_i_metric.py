@@ -10,13 +10,13 @@ xr.set_options(keep_attrs=True)
 
 
 def train_on_interpolated_year(
-    time_i=42,
-    K=5,
-    maxvar=3,
-    min_depth=300,
-    max_depth=2000,
-    separate_pca=True,
-    remove_init_var=True,
+    time_i: int = 42,
+    K: int = 5,
+    maxvar: int = 3,
+    min_depth: float = 300,
+    max_depth: float = 2000,
+    separate_pca: bool = True,
+    remove_init_var: bool = True,
 ):
     """
     Put Seed in the CONSTANTS file.

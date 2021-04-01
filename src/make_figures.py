@@ -18,7 +18,9 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
+def return_pair_i_metric(
+    K: int = cst.K_CLUSTERS, pca: int = cst.D_PCS, save_nc: bool = True
+) -> xr.DataArray:
     link_to_netcdf = io._return_name(K, pca) + ".nc"
     ds = xr.open_dataset(link_to_netcdf)
     print(ds.__str__())
@@ -41,7 +43,7 @@ def return_pair_i_metric(K=cst.K_CLUSTERS, pca=cst.D_PCS, save_nc=True):
 
 
 @twr.timeit
-def other():
+def other() -> None:
     xp.plot_several_pair_i_metrics(
         [return_pair_i_metric(K=2).isel(time=0), return_pair_i_metric(K=4).isel(time=0)]
     )
@@ -54,7 +56,7 @@ def other():
     plt.clf()
 
 
-def nother():
+def nother() -> None:
     # FIGURE 6
     example_time_index = 40
     ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
@@ -72,7 +74,7 @@ def nother():
 
 
 @twr.timeit
-def make_all_figures_in_sequence():
+def make_all_figures_in_sequence() -> None:
 
     print("Starting make_all_figures_in_sequence, should take about about 8 minutes.")
 

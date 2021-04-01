@@ -7,6 +7,7 @@ southern_ocean_axes_setup - SO - up to 30 deg South to 90 degrees south.
 
 """
 import numpy as np
+import matplotlib
 import cartopy.crs as ccrs
 import matplotlib.path as mpath
 import src.time_wrapper as twr
@@ -16,7 +17,9 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def southern_ocean_axes_setup(ax, fig):
+def southern_ocean_axes_setup(
+    ax: matplotlib.pyplot.axes, fig: matplotlib.figure.Figure
+):
     """
     This function sets up the subplot so that it is a cartopy map of the southern ocean.
     :param ax: The axis object to add the map to.

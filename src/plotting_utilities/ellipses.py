@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 # import matplotlib.cm as cm
 from matplotlib import patches
+import pyxpcm
 
 # from matplotlib.patches import Patch as patch
 import src.plotting_utilities.gen_panels as gp
@@ -15,7 +16,7 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def plot_ellipsoid_trial():
+def plot_ellipsoid_trial() -> None:
     """
     https://stackoverflow.com/questions/7819498/plotting-ellipsoid-with-matplotlib
 
@@ -43,14 +44,14 @@ def plot_ellipsoid_trial():
 
 @twr.timeit
 def plot_ellipsoid(
-    fig,
-    ax,
-    covariance_matrix,
-    mean,
-    weight,
-    color,
-    print_properties=False,
-    additional_rotation=np.identity(3),
+    fig: matplotlib.figure.Figure,
+    ax: matplotlib.axes.Axes,
+    covariance_matrix: np.array,
+    mean: np.array,
+    weight: np.array,
+    color: any,
+    print_properties: bool = False,
+    additional_rotation: np.array = np.identity(3),
 ):
     """
     A function for drawing 3d-multivariate guassians with method initially from:
@@ -67,7 +68,7 @@ def plot_ellipsoid(
 
     # I arbitrarily choose some levels to in the multivariate Gaussian to plot.
 
-    if print_properties == True:
+    if print_properties:
         print("weight", weight)
         print("mean", mean)
         print("covariance matrix", covariance_matrix)
@@ -110,8 +111,7 @@ def plot_ellipsoid(
 # plot_ellipsoid_trial()
 
 
-@twr.timeit
-def ellispes(m, ax1):
+def ellispes(m: pyxpcm.pcm, ax1: matplotlib.axes.Axes):
     for i in range(m._classifier.covariances_.shape[0]):
         weight = m._classifier.weights_[i]
         mean = m._classifier.means_[i]

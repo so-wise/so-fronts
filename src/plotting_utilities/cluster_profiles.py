@@ -12,6 +12,8 @@ import xarray as xr
 def make_cluster_profiles(ds):
     """
     :param ds: the dataset
+    TODO: Add sanity check to this step. Look at BSOSE output, and averages the profiles,
+    TODO: using zonal mean including all the longitudinal points, in salinity.
 
     """
 

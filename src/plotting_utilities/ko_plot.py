@@ -1,21 +1,25 @@
-"""
-A program by sdat2 to plot the Southern Ocean with a variety of fronts.
-Currently plots Kim and Orsi 2014 (KO)
+"""A program by sdat2 to plot the Southern Ocean with a variety of fronts.
+   Currently plots Kim and Orsi 2014 (KO)
 #  Usage:  ko.draw_fronts_kim(ax)
 """
 import os
+from typing import Sequence
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
-import cartopy.feature
-import matplotlib.path as mpath
-import matplotlib.patches as patch
 import src.plotting_utilities.latex_style as sps
 import src.plotting_utilities.map as mp
 import src.constants as cst
 
 
-def is_too_far(lat_A=0.0, lat_B=0.0, lon_A=0.0, lon_B=0.0, max_allowable_square=1):
+def is_too_far(
+    lat_A: float = 0.0,
+    lat_B: float = 0.0,
+    lon_A: float = 0.0,
+    lon_B: float = 0.0,
+    max_allowable_square: float = 1,
+):
     """
     Check if points are too far apart to draw a line between
     I suspect it will run into difficulties at the IDL
@@ -69,14 +73,14 @@ def split_into_list_of_lists(max_square=1, list_of_xs=[0.0], list_of_ys=[0.0]):
 
 
 def plot_list_of_lists(
-    ax,
-    lol_of_xs=[[0.0], [0.0]],
-    lol_of_ys=[[0.0], [0.0]],
-    color="red",
-    markersize=0.3,
-    label="UNLABELED",
-    line_type="-",
-):
+    ax: matplotlib.axes.Axes,
+    lol_of_xs: Sequence[list] = [[0.0], [0.0]],
+    lol_of_ys: Sequence[list] = [[0.0], [0.0]],
+    color: str = "red",
+    markersize: float = 0.3,
+    label: str = "UNLABELED",
+    line_type: str = "-",
+) -> None:
     """
     Matlplotlib cannot plot a list of lists
     Addresses none of our questsions, makes no prediction,
@@ -158,14 +162,14 @@ def plot_list_of_lists(
                 )
 
 
-def draw_fronts_kim(ax):
+def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
     """
     A function to read the Kim and Orsi (2014)
     Data and plot it on SO.
     Now also includes the data from Kim (c.1995) for the STF
     """
 
-    def multi_line_map_plot():
+    def multi_line_map_plot() -> None:
         """
         Small function to split into
         list of lists and then plot them
@@ -243,8 +247,7 @@ def draw_fronts_kim(ax):
     multi_line_map_plot()
 
 
-def run_so_map():
-    carree = ccrs.PlateCarree()
+def run_so_map() -> None:
     map_proj = ccrs.SouthPolarStereo()
     fig = plt.figure()
     ax = fig.add_subplot(111, projection=map_proj)

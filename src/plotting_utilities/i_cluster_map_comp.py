@@ -2,6 +2,7 @@
 The purpose of this is to visualise the i_metric on the southern ocean map.
 """
 import numpy as np
+import xarray as xr
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
@@ -16,7 +17,7 @@ import src.constants as cst
 
 
 @twr.timeit
-def plot_map_imetric_clusters(da_i, da):
+def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
     """
     :param da_i: xarray.dataarray object.
     :param da: xarray.dataarray object.

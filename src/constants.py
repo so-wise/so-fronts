@@ -1,9 +1,10 @@
+"""Constants.py program for storing paths and variables names."""
+
 # Place all your constants here
 import numpy as np
 import os
 
 # Note: constants should be UPPER_CASE
-
 
 # Basic location defaults, to be referenced from here:
 

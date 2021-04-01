@@ -2,20 +2,12 @@ import time
 from functools import wraps
 
 
-def timeit(method):
+def timeit(method: any) -> any:
     """
     timeit is a wrapper for performance analysis which should
     return the time taken for a function to run,
     :param method: the function that it takes as an input
     :return: timed
-    example usage:
-    tmp_log_data={}
-    part = spin_forward(400, co, particles=copy.deepcopy(particles),
-                        log_time=tmp_log_d)
-    # chuck it into part to stop interference.
-    assert part != particles
-    spin_round_time[key].append(tmp_log_data['SPIN_FORWARD'])
-    TODO make this function user friendly for getting the data from.
     USAGE:
     import src.time_wrapper as twr
     @twr.timeit
