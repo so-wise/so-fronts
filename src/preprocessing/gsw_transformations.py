@@ -1,9 +1,10 @@
-"""Preprocessing script to transform to different quantities"""
+"""Preprocessing script to transform to different quantities."""
 from typing import Tuple
 import numpy as np
 import gsw
 import xarray as xr
-import src.constants as cst
+
+# import src.constants as cst
 
 xr.set_options(keep_attrs=True)
 
@@ -16,9 +17,7 @@ def return_density(
     z_values: np.array,
 ) -> Tuple[np.array, np.array, np.array]:
     """
-    Wrapper around the xyz
-
-    [extended_summary]
+    Wrapper around the gsw to make it work.
 
     Args:
         pt_values (np.array): [description]
@@ -62,9 +61,9 @@ def create_datarray(
     format_dataarray: xr.DataArray, values, name: str, v_attr_d: dict
 ) -> xr.DataArray:
     """
-    [summary]
+    Creates xarray.datarray from a set of values.
 
-    [extended_summary]
+    Takes format from the format_dataarray.
 
     Args:
         format_dataarray (xr.DataArray): [description]
@@ -76,9 +75,9 @@ def create_datarray(
         xr.DataArray: [description]
     """
 
-    c_attr_d = {}
-    coord_d = {}
-    c_value_l = []
+    c_attr_d = dict()
+    coord_d = dict()
+    c_value_l = list()
     # dims_l = []
     for coord in format_dataarray.coords:
         if coord != "time":
@@ -129,8 +128,7 @@ def create_known_datarray(
     Returns:
         xr.DataArray: [description]
     """
-    # TODO Change so that all are more
-    # compliant to CMIP6 protocol etec.
+    # TODO Change so that all are more compliant to CMIP6 protocol etc.
 
     v_attr_d_d = {
         "SALT": {
@@ -211,7 +209,6 @@ def create_whole_density_netcdf() -> None:
     """
     [summary]
 
-    [extended_summary]
     """
 
     main_dir = "/Users/simon/bsose_monthly/"
@@ -262,9 +259,7 @@ def merge_whole_density_netcdf() -> xr.DataArray:
 
 def save_density_netcdf(rho_da: xr.DataArray) -> None:
     """
-    [summary]
-
-    [extended_summary]
+    passes in density datarray, saves it in a reasonable way.
 
     Args:
         rho_da (xr.DataArray): [description]
@@ -276,8 +271,6 @@ def save_density_netcdf(rho_da: xr.DataArray) -> None:
 def reload_density_netcdf() -> xr.Dataset:
     """
     [summary]
-
-    [extended_summary]
 
     Returns:
         xr.Dataset: [description]
@@ -311,7 +304,7 @@ def y_grad(set: bool = False) -> None:
 
 def take_derivative_density(
     dimension: str = "YC", typ: str = "float32", engine: str = "h5netcdf"
-):
+) -> None:
 
     chunk_d = {"time": 1, "Z": 52, "YC": 588, "XC": 2160}
 

@@ -14,7 +14,7 @@ def timeit(method: any) -> any:
     """
 
     @wraps(method)
-    def timed(*args, **kw):
+    def timed(*args, **kw) -> any:
         ts = time.perf_counter()
         result = method(*args, **kw)
         te = time.perf_counter()

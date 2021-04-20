@@ -1,8 +1,10 @@
 """Constants.py program for storing paths and variables names."""
 
 # Place all your constants here
-import numpy as np
 import os
+import numpy as np
+import pathlib
+
 
 # Note: constants should be UPPER_CASE
 
@@ -15,6 +17,8 @@ DATA_PATH = os.path.join(PROJECT_PATH, "nc")
 FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
 KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 
+# Data directory on GWS
+GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 # Paths to different BSOSE-i106 files (unique to my machine):
 
