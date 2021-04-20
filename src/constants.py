@@ -16,6 +16,9 @@ PROJECT_PATH = os.path.dirname(SRC_PATH)
 DATA_PATH = os.path.join(PROJECT_PATH, "nc")
 FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
 KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
+MAIN_DIR = "/Users/simon/bsose_monthly/"
+SALT = MAIN_DIR + "bsose_i106_2008to2012_monthly_Salt.nc"
+THETA = MAIN_DIR + "bsose_i106_2008to2012_monthly_Theta.nc"
 
 # Data directory on GWS
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
@@ -32,6 +35,7 @@ UVEL_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Uvel.nc")
 # COORDS within BSOSE-i106
 
 Z_COORD = "Z"
+D_COORD = "Depth"
 Y_COORD = "YC"
 X_COORD = "XC"
 T_COORD = "time"

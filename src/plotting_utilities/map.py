@@ -22,6 +22,7 @@ def southern_ocean_axes_setup(
 ):
     """
     This function sets up the subplot so that it is a cartopy map of the southern ocean.
+
     :param ax: The axis object to add the map to.
     :param fig: The figure object for the figure in general.
     :return: void as the ax and figure objects are pointers not data.

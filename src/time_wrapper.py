@@ -1,11 +1,12 @@
+"""Times utilities."""
 import time
 from functools import wraps
 
 
 def timeit(method: any) -> any:
-    """
-    timeit is a wrapper for performance analysis which should
-    return the time taken for a function to run,
+    """This timeit function is a wrapper for performance analysis.
+
+    Should return the time taken for a function to run,
     :param method: the function that it takes as an input
     :return: timed
     USAGE:

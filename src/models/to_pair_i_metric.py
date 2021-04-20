@@ -1,3 +1,4 @@
+"""To pair i metric."""
 from typing import Tuple, Sequence
 import numpy as np
 import xarray as xr

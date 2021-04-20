@@ -5,6 +5,13 @@ import src.time_wrapper as twr
 
 @twr.timeit
 def move(copy_command: str = "cp") -> None:  # this is ok for unix.
+    """
+    Move the files to the project.
+
+    Args:
+        copy_command (str, optional): which command is needed to move files in operating
+            system. Defaults to "cp".
+    """
     RUN_NAME = "001"
     final_loc = "../FBSO-Report/images"
     name_dict = {

@@ -1,3 +1,4 @@
+"""Cluster profiles"""
 import numpy as np
 import matplotlib.pyplot as plt
 import src.plotting_utilities.latex_style as lsty

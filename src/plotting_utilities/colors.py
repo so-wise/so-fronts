@@ -1,3 +1,4 @@
+"""Color utilities."""
 import matplotlib.cm as cm
 import matplotlib.colors as colors
 import src.time_wrapper as twr
@@ -5,7 +6,8 @@ import src.time_wrapper as twr
 
 @twr.timeit
 def cluster_colors(number_clusters: int):
-    """
+    """Cluster colors.
+
     :param number_clusters: The number of clusters.
     :return:
     """
@@ -14,7 +16,8 @@ def cluster_colors(number_clusters: int):
 
 @twr.timeit
 def replacement_color_list(number_of_colors: int):
-    """
+    """Replacement color list.
+
     :param number_of_colors:
     :return:
     """
@@ -125,8 +128,8 @@ def return_list_of_colormaps(number, fade_to_white: bool = True):
 
 @twr.timeit
 def _fading_colormap_name(from_name, fade_to_white: bool = True):
-    """
-    Takes a python color name and returns a fading color map.
+    """Takes a python color name and returns a fading color map.
+
     :param from_name:
     :return:
     """
@@ -137,8 +140,8 @@ def _fading_colormap_name(from_name, fade_to_white: bool = True):
 
 @twr.timeit
 def _fading_colormap_hex(from_hex, fade_to_white: bool = True):
-    """
-    Takes a hex string as input and returns a fading color map as output.
+    """Takes a hex string as input and returns a fading color map as output.
+
     :param from_hex:
     :return:
     """
@@ -151,8 +154,8 @@ def _fading_colormap_hex(from_hex, fade_to_white: bool = True):
 
 @twr.timeit
 def _fading_colormap_rgb(from_rgb, fade_to_white: bool = True):
-    """
-    Takes an r g b tuple and returns a fading color map.
+    """Takes an r g b tuple and returns a fading color map.
+
     :param from_rgb: an r g b tuple
     :return:
     """
@@ -183,8 +186,8 @@ def _fading_colormap_rgb(from_rgb, fade_to_white: bool = True):
 
 @twr.timeit
 def fading_colormap(from_color, fade_to_white: bool = True):
-    """
-    Takes a hex or color name, and returns a fading color map.
+    """Takes a hex or color name, and returns a fading color map.
+
     example usage:
 
     # cmap_a = fading_colormap('blue')

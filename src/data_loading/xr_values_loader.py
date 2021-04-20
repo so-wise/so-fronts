@@ -1,11 +1,13 @@
+"""Xarray values."""
 import numpy as np
 import xarray as xr
 import collections
 
 
 def order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
-    """
-    goes from a datarray to a numpy array, ideally guaranteeing that
+    """Order indices.
+
+    Goes from a datarray to a numpy array, ideally guaranteeing that
     the ordering of the numpy array is the same as would be expected.
 
     :return dataarray_values: the numpy array which has been correctly ordered.

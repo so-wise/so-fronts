@@ -1,16 +1,11 @@
+"""Ellipses."""
 import numpy as np
 import numpy.linalg as la
 import re
 import matplotlib
-
-# import matplotlib.colors as colors
 import matplotlib.pyplot as plt
-
-# import matplotlib.cm as cm
 from matplotlib import patches
 import pyxpcm
-
-# from matplotlib.patches import Patch as patch
 import src.plotting_utilities.gen_panels as gp
 import src.time_wrapper as twr
 

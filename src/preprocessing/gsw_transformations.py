@@ -3,8 +3,7 @@ from typing import Tuple
 import numpy as np
 import gsw
 import xarray as xr
-
-# import src.constants as cst
+import src.constants as cst
 
 xr.set_options(keep_attrs=True)
 
@@ -80,7 +79,7 @@ def create_datarray(
     c_value_l = list()
     # dims_l = []
     for coord in format_dataarray.coords:
-        if coord != "time":
+        if coord != cst.T_COORD:
             c_attr_d[coord] = format_dataarray.coords[coord].attrs
             c_value_l.append(format_dataarray.coords[coord].values)
             # dims_l.append(coord)
@@ -93,7 +92,7 @@ def create_datarray(
     #    print(np.shape(item))
 
     for dim_name in format_dataarray.dims:  # format_dataarray.dims:
-        if dim_name != "time":
+        if dim_name != cst.T_COORD:
             coord_d[dim_name] = (dim_name, format_dataarray.coords[dim_name].values)
 
     da = xr.DataArray(
@@ -112,11 +111,10 @@ def create_datarray(
     return da
 
 
-def create_known_datarray(
+def create_known_dataarray(
     format_dataarray, values: np.array, name: str
 ) -> xr.DataArray:
-    """
-    [summary]
+    """Creat known data
 
     [extended_summary]
 
@@ -171,17 +169,20 @@ def create_known_datarray(
 def test_density_da(
     time_i: int = 42, max_depth: float = 2000
 ) -> Tuple[xr.DataArray, xr.DataArray, xr.DataArray, xr.DataArray]:
+    """Test density DataArray.
 
-    main_dir = "/Users/simon/bsose_monthly/"
-    salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
-    theta = main_dir + "bsose_i106_2008to2012_monthly_Theta.nc"
+    Args:
+        time_i (int, optional): [description]. Defaults to 42.
+        max_depth (float, optional): [description]. Defaults to 2000.
 
-    salt_nc = xr.open_dataset(salt).isel(time=time_i)
-    theta_nc = xr.open_dataset(theta).isel(time=time_i)
+    Returns:
+        Tuple[xr.DataArray, xr.DataArray, xr.DataArray, xr.DataArray]: [description]
+    """
+
+    salt_nc = xr.open_dataset(cst.SALT_FILE).isel(time=time_i)
+    theta_nc = xr.open_dataset(cst.THETA_FILE).isel(time=time_i)
     big_nc = xr.merge([salt_nc, theta_nc])
-    ds = big_nc.where(big_nc.coords["Depth"] > max_depth).drop(
-        ["iter", "Depth", "rA", "drF", "hFacC"]
-    )
+    ds = big_nc.where(big_nc.coords[cst.D_COORD] > max_depth).drop(cst.USELESS_LIST)
 
     rho_values, ct_values, pressure_values = return_density(
         ds.where(ds.THETA != 0.0).THETA.values,
@@ -191,25 +192,15 @@ def test_density_da(
         ds.Z.values,
     )
 
-    # for coord in ds.THETA.coords:
-    #    print(np.shape(ds.THETA.coords[coord].attrs))
-
-    # print(np.shape(ds.THETA.values))
-    # print(np.shape(rho_values))
-    # print(np.shape(ct_values))
-
-    density_da = create_known_datarray(ds.THETA, rho_values, "Density")
-    ct_da = create_known_datarray(ds.THETA, ct_values, "ct")
-    pressure_da = create_known_datarray(ds.THETA, pressure_values, "ct")
+    density_da = create_known_dataarray(ds.THETA, rho_values, "Density")
+    ct_da = create_known_dataarray(ds.THETA, ct_values, "ct")
+    pressure_da = create_known_dataarray(ds.THETA, pressure_values, "ct")
 
     return density_da, ct_da, pressure_da, ds.THETA
 
 
 def create_whole_density_netcdf() -> None:
-    """
-    [summary]
-
-    """
+    """Create density netcdf."""
 
     main_dir = "/Users/simon/bsose_monthly/"
     salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
@@ -235,10 +226,7 @@ def create_whole_density_netcdf() -> None:
 
 
 def merge_whole_density_netcdf() -> xr.DataArray:
-    """
-    [summary]
-
-    [extended_summary]
+    """Merge whole density netcdf.
 
     Returns:
         xr.DataArray: [description]
@@ -258,8 +246,7 @@ def merge_whole_density_netcdf() -> xr.DataArray:
 
 
 def save_density_netcdf(rho_da: xr.DataArray) -> None:
-    """
-    passes in density datarray, saves it in a reasonable way.
+    """Passes in density datarray, saves it in a reasonable way.
 
     Args:
         rho_da (xr.DataArray): [description]
@@ -269,29 +256,40 @@ def save_density_netcdf(rho_da: xr.DataArray) -> None:
 
 
 def reload_density_netcdf() -> xr.Dataset:
-    """
-    [summary]
+    """Reload density netcdf.
 
     Returns:
-        xr.Dataset: [description]
+        xr.Dataset: open the density netcdf.
     """
 
     return xr.open_dataset("nc/density.nc")
 
 
 def x_grad() -> None:
+    """
+    Save x grad.
+    """
     density_da = xr.open_mfdataset("nc/density.nc", decode_cf=False).astype("float32")
-    grad_da = density_da.Density.differentiate("XC").astype("float32")
+    grad_da = density_da.Density.differentiate(cst.X_COORD).astype("float32")
     density_da["x_grad"] = grad_da
     grad_ds = density_da.drop("Density").astype("float32")
     xr.save_mfdataset([grad_ds], ["nc/density_grad_x.nc"], format="NETCDF4")
 
 
 def y_grad(set: bool = False) -> None:
+    """Take y grad.
+
+    Args:
+        set (bool, optional): [description]. Defaults to False.
+    """
     density_da = xr.open_mfdataset(
         "nc/density.nc", decode_cf=False, parallel=True
     ).astype("float32")
-    grad_da = density_da.Density.astype("float32").differentiate("YC").astype("float32")
+    grad_da = (
+        density_da.Density.astype("float32")
+        .differentiate(cst.Y_COORD)
+        .astype("float32")
+    )
     del density_da
     if not set:
         grad_da.to_netcdf("nc/density_grad_y_da.nc", engine="netcdf4")
@@ -303,10 +301,10 @@ def y_grad(set: bool = False) -> None:
 
 
 def take_derivative_density(
-    dimension: str = "YC", typ: str = "float32", engine: str = "h5netcdf"
+    dimension: str = cst.Y_COORD, typ: str = "float32", engine: str = "h5netcdf"
 ) -> None:
 
-    chunk_d = {"time": 1, "Z": 52, "YC": 588, "XC": 2160}
+    chunk_d = {cst.T_COORD: 1, cst.Z_COORD: 52, cst.Y_COORD: 588, cst.X_COORD: 2160}
 
     density_ds = xr.open_mfdataset(
         "nc/density.nc",

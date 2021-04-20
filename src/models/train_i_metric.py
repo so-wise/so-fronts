@@ -1,4 +1,6 @@
+"""Train i metric."""
 import os
+from typing import Tuple
 import numpy as np
 import xarray as xr
 import pyxpcm
@@ -17,10 +19,20 @@ def train_on_interpolated_year(
     max_depth: float = 2000,
     separate_pca: bool = True,
     remove_init_var: bool = True,
-):
-    """
-    Put Seed in the CONSTANTS file.
+) -> Tuple[pyxpcm.pcm, xr.Dataset]:
+    """Train on interpolated year.
 
+    Args:
+        time_i (int, optional): [description]. Defaults to 42.
+        K (int, optional): [description]. Defaults to 5.
+        maxvar (int, optional): [description]. Defaults to 3.
+        min_depth (float, optional): [description]. Defaults to 300.
+        max_depth (float, optional): [description]. Defaults to 2000.
+        separate_pca (bool, optional): [description]. Defaults to True.
+        remove_init_var (bool, optional): [description]. Defaults to True.
+
+    Returns:
+        Tuple[pyxpcm.pcm, xr.Dataset]: [description]
     """
 
     z = np.arange(-min_depth, -max_depth, -10.0)

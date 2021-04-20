@@ -13,6 +13,14 @@ import src.constants as cst
 @twr.timeit
 def sep_plots(da_list: Sequence[xr.DataArray], var_list: list,
               min_max_list: any = None) -> None:
+    """
+    Separate plots.
+
+    Args:
+        da_list (Sequence[xr.DataArray]): [description]
+        var_list (list): [description]
+        min_max_list (any, optional): [description]. Defaults to None.
+    """
 
     map_proj = ccrs.SouthPolarStereo()
     carree = ccrs.PlateCarree()

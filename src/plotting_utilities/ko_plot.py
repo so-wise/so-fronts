@@ -20,8 +20,8 @@ def is_too_far(
     lon_B: float = 0.0,
     max_allowable_square: float = 1,
 ):
-    """
-    Check if points are too far apart to draw a line between
+    """Check if points are too far apart to draw a line between.
+
     I suspect it will run into difficulties at the IDL
     TODO fix this bug
     TODO make this work out the distance in the correct space, without using the
@@ -44,7 +44,8 @@ def is_too_far(
 
 
 def split_into_list_of_lists(max_square=1, list_of_xs=[0.0], list_of_ys=[0.0]):
-    """
+    """Split into list of lists.
+
     :param max_square:
     :param list_of_xs:
     :param list_of_ys:
@@ -163,16 +164,14 @@ def plot_list_of_lists(
 
 
 def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
-    """
-    A function to read the Kim and Orsi (2014)
-    Data and plot it on SO.
+    """A function to read the Kim and Orsi (2014) data and plot it on SO.
+
     Now also includes the data from Kim (c.1995) for the STF
     """
 
     def multi_line_map_plot() -> None:
-        """
-        Small function to split into
-        list of lists and then plot them
+        """split into list of lists and then plot them.
+
         :return:
         """
         for key in keys:

@@ -18,7 +18,8 @@ import src.constants as cst
 
 @twr.timeit
 def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
-    """
+    """Plot map i metric clusters.
+
     :param da_i: xarray.dataarray object.
     :param da: xarray.dataarray object.
     :return: void (although matplotlib will be storing the figure).

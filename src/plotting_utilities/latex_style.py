@@ -24,8 +24,8 @@ xr.set_options(keep_attrs=True)
 
 @twr.timeit
 def mpl_params(quality: str = "high"):
-    """
-    Apply my plotting style to produce nice looking figures.
+    """Apply my plotting style to produce nice looking figures.
+
     Call this at the start of a script which uses matplotlib,
     and choose the correct setting.
     :return:
@@ -42,6 +42,7 @@ def mpl_params(quality: str = "high"):
             "lines.linewidth": 0.75,
             "axes.labelsize": 10,  # 10
             "font.size": 8,
+            "savefig.bbox": "tight",
             "legend.fontsize": 9,
             "xtick.labelsize": 10,  # 10,
             "ytick.labelsize": 10,  # 10,
@@ -59,6 +60,7 @@ def mpl_params(quality: str = "high"):
             "font.sans-serif": ["DejaVu Sans"],
             "axes.labelsize": 10,
             "font.size": 6,
+            "savefig.bbox": "tight",
             "legend.fontsize": 8,
             "xtick.labelsize": 10,
             "ytick.labelsize": 10,
@@ -70,8 +72,8 @@ def mpl_params(quality: str = "high"):
 
 @twr.timeit
 def tex_escape(text: str):
-    """
-    It is better to plot in TeX, but this involves escaping strings.
+    """It is better to plot in TeX, but this involves escaping strings.
+
     from:
         https://stackoverflow.com/questions/16259923/
         how-can-i-escape-latex-special-characters-inside-django-templates
@@ -105,13 +107,13 @@ def tex_escape(text: str):
 @twr.timeit
 def proper_units(text):
     conv = {
-        "degK": r"K",
-        "degC": r"$^{\circ}$C",
-        "degrees\_celsius": r"$^{\circ}$C",
-        "degrees\_north": r"$^{\circ}$N",
-        "degrees\_east": r"$^{\circ}$E",
-        "degrees\_west": r"$^{\circ}$W",
-        "I metric": "$\mathcal{I}$--metric",
+        r"degK": r"K",
+        r"degC": r"$^{\circ}$C",
+        r"degrees\_celsius": r"$^{\circ}$C",
+        r"degrees\_north": r"$^{\circ}$N",
+        r"degrees\_east": r"$^{\circ}$E",
+        r"degrees\_west": r"$^{\circ}$W",
+        r"I metric": r"$\mathcal{I}$--metric",
     }
     regex = re.compile(
         "|".join(
@@ -125,7 +127,7 @@ def proper_units(text):
 def ds_for_graphing(dsA: xr.Dataset):
     ds = dsA.copy()
 
-    for varname, da in ds.data_vars.items():
+    for _, da in ds.data_vars.items():
         for attr in da.attrs:
             if attr in ["units", "long_name"]:
                 da.attrs[attr] = proper_units(tex_escape(da.attrs[attr]))

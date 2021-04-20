@@ -1,5 +1,6 @@
-""" make_figures.py - run through all the paper figures and make them - takes roughly 5
-    minutes the first time it is run.
+""" Make_figures.py - run through all the paper figures and make them.
+
+Takes roughly 5 minutes the first time it is run.
 """
 import os
 import numpy.ma as ma
@@ -21,6 +22,16 @@ import src.time_wrapper as twr
 def return_pair_i_metric(
     K: int = cst.K_CLUSTERS, pca: int = cst.D_PCS, save_nc: bool = True
 ) -> xr.DataArray:
+    """Return pair i metric.
+
+    Args:
+        K (int, optional): [description]. Defaults to cst.K_CLUSTERS.
+        pca (int, optional): [description]. Defaults to cst.D_PCS.
+        save_nc (bool, optional): [description]. Defaults to True.
+
+    Returns:
+        xr.DataArray: [description]
+    """
     link_to_netcdf = io._return_name(K, pca) + ".nc"
     ds = xr.open_dataset(link_to_netcdf)
     print(ds.__str__())
@@ -241,10 +252,12 @@ def make_all_figures_in_sequence() -> None:
         )
         cor_list.append(cor[1, 0])
 
-    plt.plot(uvel_ds.coords["time"].values, cor_list)
+    plt.plot(uvel_ds.coords[cst.T_COORD].values, cor_list)
     plt.xlabel("Time")
     plt.ylabel("Correlation coefficient")
-    plt.xlim([uvel_ds.coords["time"].values[0], uvel_ds.coords["time"].values[59]])
+    plt.xlim(
+        [uvel_ds.coords[cst.T_COORD].values[0], uvel_ds.coords[cst.T_COORD].values[59]]
+    )
     plt.title("Correlation between PC1 y-grad and $U$")
     pc_y_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_y_grad_corr.png"
@@ -278,10 +291,12 @@ def make_all_figures_in_sequence() -> None:
         )
         cor_list.append(cor[1, 0])
 
-    plt.plot(uvel_ds.coords["time"].values, cor_list)
+    plt.plot(uvel_ds.coords[cst.T_COORD].values, cor_list)
     plt.xlabel("Time")
     plt.ylabel("Correlation coefficient")
-    plt.xlim([uvel_ds.coords["time"].values[0], uvel_ds.coords["time"].values[59]])
+    plt.xlim(
+        [uvel_ds.coords[cst.T_COORD].values[0], uvel_ds.coords[cst.T_COORD].values[59]]
+    )
     plt.title("Correlation between PC1 x-grad and $V$")
     pc_x_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad_corr.png"
