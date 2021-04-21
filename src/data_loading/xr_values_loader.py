@@ -29,6 +29,15 @@ def order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
 
 
 def _old_order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
+    """Old order indexes.
+
+    Args:
+        dataarray (xr.DataArray): [description]
+        index_list (list): [description]
+
+    Returns:
+        np.array: [description]
+    """
 
     coords_list = []
     for item in index_list:

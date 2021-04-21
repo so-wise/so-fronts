@@ -23,18 +23,17 @@ def train_on_interpolated_year(
     """Train on interpolated year.
 
     Args:
-        time_i (int, optional): [description]. Defaults to 42.
-        K (int, optional): [description]. Defaults to 5.
-        maxvar (int, optional): [description]. Defaults to 3.
-        min_depth (float, optional): [description]. Defaults to 300.
-        max_depth (float, optional): [description]. Defaults to 2000.
-        separate_pca (bool, optional): [description]. Defaults to True.
-        remove_init_var (bool, optional): [description]. Defaults to True.
+        time_i (int, optional): time index. Defaults to 42.
+        K (int, optional): clusters. Defaults to 5.
+        maxvar (int, optional): num pca. Defaults to 3.
+        min_depth (float, optional): minimum depth for column. Defaults to 300.
+        max_depth (float, optional): maximum depth for column. Defaults to 2000.
+        separate_pca (bool, optional): separate the pca. Defaults to True.
+        remove_init_var (bool, optional): remove initial variables. Defaults to True.
 
     Returns:
-        Tuple[pyxpcm.pcm, xr.Dataset]: [description]
+        Tuple[pyxpcm.pcm, xr.Dataset]: the fitted object and its corresponding dataset.
     """
-
     z = np.arange(-min_depth, -max_depth, -10.0)
     features_pcm = {}
     for var in cst.VAR_NAME_LIST:
@@ -81,4 +80,5 @@ def train_on_interpolated_year(
     if remove_init_var:
         ds = ds.drop(cst.VAR_NAME_LIST)
 
+    # Tuple[pyxpcm.pcm, xr.Dataset]
     return m, ds

@@ -1,3 +1,4 @@
+"""Label subplots."""
 import numpy as np
 import matplotlib
 import src.time_wrapper as twr

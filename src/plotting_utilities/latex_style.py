@@ -1,7 +1,6 @@
-"""
-sithom_plotting_style.py
-========================
-import sithom_plotting_style as sps
+"""Plotting style file.
+
+import src.plotting_utilities.latex_style as lsty
 usage
 
 ds = xr.open_dataset('example.nc')
@@ -23,7 +22,7 @@ xr.set_options(keep_attrs=True)
 
 
 @twr.timeit
-def mpl_params(quality: str = "high"):
+def mpl_params(quality: str = "high") -> None:
     """Apply my plotting style to produce nice looking figures.
 
     Call this at the start of a script which uses matplotlib,
@@ -71,7 +70,7 @@ def mpl_params(quality: str = "high"):
 
 
 @twr.timeit
-def tex_escape(text: str):
+def tex_escape(text: str) -> str:
     """It is better to plot in TeX, but this involves escaping strings.
 
     from:
@@ -124,7 +123,7 @@ def proper_units(text):
 
 
 @twr.timeit
-def ds_for_graphing(dsA: xr.Dataset):
+def ds_for_graphing(dsA: xr.Dataset) -> xr.Dataset:
     ds = dsA.copy()
 
     for _, da in ds.data_vars.items():

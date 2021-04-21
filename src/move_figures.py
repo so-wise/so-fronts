@@ -1,3 +1,4 @@
+"""Move figures."""
 import os
 import src.constants as cst
 import src.time_wrapper as twr

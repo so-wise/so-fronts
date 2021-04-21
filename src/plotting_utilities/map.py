@@ -1,7 +1,4 @@
-"""
-
-map.py by sdat2 - the different maps options.
-============================================
+"""map.py by sdat2 - the different maps options.
 
 southern_ocean_axes_setup - SO - up to 30 deg South to 90 degrees south.
 
@@ -17,9 +14,7 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def southern_ocean_axes_setup(
-    ax: matplotlib.pyplot.axes, fig: matplotlib.figure.Figure
-):
+def southern_ocean_axes_setup(ax: matplotlib.axes.Axes, fig: matplotlib.figure.Figure):
     """
     This function sets up the subplot so that it is a cartopy map of the southern ocean.
 

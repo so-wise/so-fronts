@@ -1,10 +1,9 @@
-"""
-The purpose of this is to visualise it.
-"""
+"""The purpose of this is the algorithm in 3D."""
 import numpy as np
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+import xarray as xr
 import src.models.to_pair_i_metric as tpi
 import src.plotting_utilities.ellipses as pel
 import src.plotting_utilities.colors as col
@@ -16,10 +15,10 @@ import src.constants as cst
 
 
 @twr.timeit
-def plot_fig2_mult(weights, means, covariances, ds):
-    """
-    This will hopefully plot fig2a and fig2b with automatic labelling.
-    """
+def plot_fig2_mult(
+    weights: np.ndarray, means: np.ndarray, covariances: np.ndarray, ds: xr.Dataset
+) -> None:
+    """This will hopefully plot fig2a and fig2b with automatic labelling."""
 
     da = tpi.pair_i_metric(ds)
     pairs_list = []
