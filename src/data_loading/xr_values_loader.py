@@ -10,7 +10,12 @@ def order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
     Goes from a datarray to a numpy array, ideally guaranteeing that
     the ordering of the numpy array is the same as would be expected.
 
-    :return dataarray_values: the numpy array which has been correctly ordered.
+    Args:
+        dataarray (xr.DataArray): [description]
+        index_list (list): [description]
+
+    Returns:
+        np.array: the numpy array which has been correctly ordered.
     """
 
     dim_list = list(dataarray.dims)
@@ -32,7 +37,7 @@ def _old_order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
     """Old order indexes.
 
     Args:
-        dataarray (xr.DataArray): [description]
+        dataarray (xr.DataArray): dataarray to reorder.
         index_list (list): [description]
 
     Returns:

@@ -1,4 +1,4 @@
-"""Cluster profiles"""
+"""Cluster profiles."""
 import numpy as np
 import matplotlib.pyplot as plt
 import src.plotting_utilities.latex_style as lsty
@@ -10,12 +10,18 @@ import xarray as xr
 
 
 @twr.timeit
-def make_cluster_profiles(ds):
+def make_cluster_profiles(ds: xr.Dataset) -> xr.Dataset:
     """
-    :param ds: the dataset
+    Make cluster profiles.
+
     TODO: Add sanity check to this step. Look at BSOSE output, and averages the profiles,
     TODO: using zonal mean including all the longitudinal points, in salinity.
 
+    Args:
+        ds (xr.Dataset): the dataset.
+
+    Returns:
+        [type]: [description]
     """
 
     K_clusters = int(np.nanmax(ds.PCM_LABELS.values) + 1)
@@ -75,7 +81,7 @@ def make_cluster_profiles(ds):
     return new_ds
 
 
-def plot_profiles_dataset(ds):
+def plot_profiles_dataset(ds: xr.Dataset) -> None:
     """
     Originally from:
     https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
