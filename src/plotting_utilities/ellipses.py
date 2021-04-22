@@ -11,11 +11,10 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def plot_ellipsoid_trial() -> None:
+def plot_ellipsoid_test() -> None:
     """
     https://stackoverflow.com/questions/7819498/plotting-ellipsoid-with-matplotlib
 
-    :return:
     """
 
     # your ellipsoid's covariance_matrix and mean in matrix form
@@ -31,7 +30,6 @@ def plot_ellipsoid_trial() -> None:
     plot_ellipsoid(fig, ax, covariance_matrix1, mean1, 1, "g")
     plt.xlabel("x")
     plt.ylabel("y")
-    # plt.zlabel('z')
     ax.set_zlabel("z")
     plt.tight_layout()
     plt.show()
@@ -106,7 +104,7 @@ def plot_ellipsoid(
 # plot_ellipsoid_trial()
 
 
-def ellispes(m: pyxpcm.pcm, ax1: matplotlib.axes.Axes):
+def ellispes(m: pyxpcm.pcm, ax1: matplotlib.axes.Axes) -> None:
     for i in range(m._classifier.covariances_.shape[0]):
         weight = m._classifier.weights_[i]
         mean = m._classifier.means_[i]
@@ -125,7 +123,6 @@ def ellispes(m: pyxpcm.pcm, ax1: matplotlib.axes.Axes):
                 print("rot", rotation)
 
             radii = np.sqrt(s / frac_sigma)
-            # plt.plot(m._classifier.means_[:, 0], m._classifier.means_[:, 1], "x")
             angle = np.arctan2(rotation[1, 0], rotation[0, 0]) / np.pi * 180
 
             e1 = patches.Ellipse(

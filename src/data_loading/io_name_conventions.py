@@ -12,7 +12,7 @@ def _return_name(K: int, pca: int) -> str:
     Returns:
         str: file names.
     """
-    return "../pyxpcm/nc/i-metric-joint-k-" + str(K) + "-d-" + str(pca)
+    return "../pyxpcm_sithom/nc/i-metric-joint-k-" + str(K) + "-d-" + str(pca)
 
 
 def _return_plot_folder(K: int, pca: int) -> str:
@@ -57,7 +57,7 @@ def _return_pair_name(K: int, pca: int) -> str:
     Returns:
         str: file names.
     """
-    return "../pyxpcm/" + "nc/pair-i-metric-k-" + str(K) + "-d-" + str(pca)
+    return "../pyxpcm_sithom/" + "nc/pair-i-metric-k-" + str(K) + "-d-" + str(pca)
 
 
 def _return_pair_folder(K: int, pca: int) -> str:

@@ -1,11 +1,12 @@
 """Color utilities."""
+import numpy as np
 import matplotlib.cm as cm
 import matplotlib.colors as colors
 import src.time_wrapper as twr
 
 
 @twr.timeit
-def cluster_colors(number_clusters: int):
+def cluster_colors(number_clusters: int) -> np.ndarray:
     """Cluster colors.
 
     :param number_clusters: The number of clusters.
@@ -15,7 +16,7 @@ def cluster_colors(number_clusters: int):
 
 
 @twr.timeit
-def replacement_color_list(number_of_colors: int):
+def replacement_color_list(number_of_colors: int) -> list:
     """Replacement color list.
 
     :param number_of_colors:
@@ -114,7 +115,7 @@ def replacement_color_list(number_of_colors: int):
 
 
 @twr.timeit
-def return_list_of_colormaps(number, fade_to_white: bool = True):
+def return_list_of_colormaps(number: int, fade_to_white: bool = True):
     color_list = replacement_color_list(number)
     cmap_list = []
     for i in range(number):
@@ -127,7 +128,7 @@ def return_list_of_colormaps(number, fade_to_white: bool = True):
 
 
 @twr.timeit
-def _fading_colormap_name(from_name, fade_to_white: bool = True):
+def _fading_colormap_name(from_name: str, fade_to_white: bool = True):
     """Takes a python color name and returns a fading color map.
 
     :param from_name:

@@ -9,24 +9,24 @@ xr.set_options(keep_attrs=True)
 
 
 def return_density(
-    pt_values: np.array,
-    practical_salt_values: np.array,
-    lon_values: np.array,
-    lat_values: np.array,
-    z_values: np.array,
-) -> Tuple[np.array, np.array, np.array]:
+    pt_values: np.ndarray,
+    practical_salt_values: np.ndarray,
+    lon_values: np.ndarray,
+    lat_values: np.ndrray,
+    z_values: np.ndarray,
+) -> Tuple[np.array, np.ndarray, np.ndarray]:
     """
     Wrapper around the gsw to make it work.
 
     Args:
-        pt_values (np.array): [description]
-        practical_salt_values (np.array): [description]
-        lon_values (np.array): [description]
-        lat_values (np.array): [description]
-        z_values (np.array): [description]
+        pt_values (np.array): Potential temperature.
+        practical_salt_values (np.array): Salt values.
+        lon_values (np.array): Longitude values.
+        lat_values (np.array): Latitude values.
+        z_values (np.array): Height values.
 
     Returns:
-        Tuple[np.array, np.array, np.array]: [description]
+        Tuple[np.array, np.array, np.array]: rho_values, ct_values, pressure_values
     """
 
     lat_mesh, z_mesh = np.meshgrid(lat_values, z_values)
@@ -303,6 +303,14 @@ def y_grad(set: bool = False) -> None:
 def take_derivative_density(
     dimension: str = cst.Y_COORD, typ: str = "float32", engine: str = "h5netcdf"
 ) -> None:
+    """
+    Take derivative of density.
+
+    Args:
+        dimension (str, optional): [description]. Defaults to cst.Y_COORD.
+        typ (str, optional): [description]. Defaults to "float32".
+        engine (str, optional): [description]. Defaults to "h5netcdf".
+    """
 
     chunk_d = {cst.T_COORD: 1, cst.Z_COORD: 52, cst.Y_COORD: 588, cst.X_COORD: 2160}
 

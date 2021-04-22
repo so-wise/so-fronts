@@ -1,6 +1,7 @@
 """Make figures: run through all the paper figures and make them.
 
-Takes roughly 5 minutes the first time it is run."""
+Takes roughly 5 minutes the first time it is run.
+"""
 import os
 import numpy.ma as ma
 import xarray as xr
@@ -69,7 +70,7 @@ def other() -> None:
 def nother() -> None:
     # FIGURE 6
     example_time_index = 40
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
+    ds = xr.open_dataset("~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc")
     da_temp = ds.PCA_VALUES.isel(time=example_time_index).differentiate(cst.Y_COORD)
     xp.sep_plots(
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
@@ -94,7 +95,7 @@ def make_all_figures_in_sequence() -> None:
 
     # FIGURE 1
 
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
+    ds = xr.open_dataset("~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc")
 
     da_temp = ds.PCA_VALUES.isel(time=example_time_index)
     xp.sep_plots(
@@ -106,6 +107,7 @@ def make_all_figures_in_sequence() -> None:
     plt.clf()
 
     # FIGURE 1.5 ## make panels.
+
     temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
     profiles_name = os.path.join(
         cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_profiles_temp.nc"
@@ -119,16 +121,20 @@ def make_all_figures_in_sequence() -> None:
         separate_pca=False,
         remove_init_var=False,
     )
+
     ds.to_netcdf(path=temp_name)
     ds = xr.open_dataset(temp_name)
     profile_ds = cp.make_cluster_profiles(ds)
     profile_ds.to_netcdf(path=profiles_name)
     profile_ds = xr.open_dataset(profiles_name)
+
     print(profile_ds)
+
     cp.plot_profiles_dataset(profile_ds)
     profiles_plot_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_profiles.png"
     )
+
     plt.savefig(profiles_plot_name, bbox_inches="tight", dpi=700)
     plt.clf()
 
@@ -146,7 +152,7 @@ def make_all_figures_in_sequence() -> None:
 
     # FIGURE 3
 
-    ds = xr.open_dataset("~/pyxpcm/nc/i-metric-joint-k-5-d-3.nc")
+    ds = xr.open_dataset("~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc")
     xp.sep_plots(
         [
             ds.IMETRIC.isel(Imetric=0, time=example_time_index),
@@ -254,6 +260,7 @@ def make_all_figures_in_sequence() -> None:
     plt.plot(uvel_ds.coords[cst.T_COORD].values, cor_list)
     plt.xlabel("Time")
     plt.ylabel("Correlation coefficient")
+
     plt.xlim(
         [uvel_ds.coords[cst.T_COORD].values[0], uvel_ds.coords[cst.T_COORD].values[59]]
     )

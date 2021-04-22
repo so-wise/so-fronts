@@ -48,6 +48,7 @@ def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
                 width_ratios.append(width)
         print(pairs_list)
         print(width_ratios)
+
     gs = GridSpec(
         nrows=2,
         ncols=len(width_ratios),
@@ -55,6 +56,7 @@ def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
         height_ratios=[1, 0.05],
         wspace=0.15,
     )
+
     fig = plt.gcf()
     fig.set_size_inches(7 * num_plots + 1 * num_plots, 7 * 1.2)
     used_up_columns = 0
@@ -102,6 +104,7 @@ def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
                 subplot_kws={"projection": map_proj},
                 alpha=0.5,
             )
+
             plt.colorbar(
                 im,
                 cax=cbar_ax,
@@ -109,12 +112,14 @@ def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
                 ticks=range(1, number_clusters + 1),
                 orientation="horizontal",
             )
+
             primary_axes_list.append(ax1)
             ax1.set_title("")
             ax1.coastlines()
 
         if i == 1:
             fig = plt.gcf()
+
             for j in range(len(pairs_list[i])):
                 # kim orsi fronts.
                 im = da.isel(pair=j).plot(
@@ -127,6 +132,7 @@ def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
                     subplot_kws={"projection": map_proj},
                     alpha=0.5,
                 )
+
                 cbar = plt.colorbar(
                     im, cax=cbar_axes[j], orientation="horizontal", ticks=[0, 1]
                 )

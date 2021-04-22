@@ -1,4 +1,5 @@
-from typing as Sequence
+"""Xarray panels."""
+from typing import Sequence
 import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
@@ -11,14 +12,15 @@ import src.constants as cst
 
 
 @twr.timeit
-def sep_plots(da_list: Sequence[xr.DataArray], var_list: list,
-              min_max_list: any = None) -> None:
+def sep_plots(
+    da_list: Sequence[xr.DataArray], var_list: list, min_max_list: any = None
+) -> None:
     """
     Separate plots.
 
     Args:
-        da_list (Sequence[xr.DataArray]): [description]
-        var_list (list): [description]
+        da_list (Sequence[xr.DataArray]): list of xr.DataArray.
+        var_list (list): list of variable names.
         min_max_list (any, optional): [description]. Defaults to None.
     """
 

@@ -14,7 +14,9 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def southern_ocean_axes_setup(ax: matplotlib.axes.Axes, fig: matplotlib.figure.Figure):
+def southern_ocean_axes_setup(
+    ax: matplotlib.axes.Axes, fig: matplotlib.figure.Figure
+) -> None:
     """
     This function sets up the subplot so that it is a cartopy map of the southern ocean.
 

@@ -5,7 +5,6 @@ import os
 import numpy as np
 import pathlib
 
-
 # Note: constants should be UPPER_CASE
 
 # Basic location defaults, to be referenced from here:

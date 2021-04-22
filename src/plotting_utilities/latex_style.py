@@ -7,6 +7,7 @@ ds = xr.open_dataset('example.nc')
 
 sps.ds_for_grahing(ds).plot()
 """
+from typing import Tuple
 from sys import platform
 import numpy as np
 import numpy.linalg as la
@@ -19,6 +20,80 @@ from distutils.spawn import find_executable
 import src.time_wrapper as twr
 
 xr.set_options(keep_attrs=True)
+
+
+def get_dim(
+    width: float = 398.3386,
+    fraction_of_line_width: float = 1,
+    ratio: float = (5 ** 0.5 - 1) / 2,
+) -> Tuple[float, float]:
+    """Return figure height, width in inches to avoid scaling in latex.
+
+    Default width is `src.constants.REPORT_WIDTH`.
+    Default ratio is golden ratio, with figure occupying full page width.
+
+    Args:
+        width (float, optional): Textwidth of the report to make fontsizes match.
+            Defaults to `src.constants.REPORT_WIDTH`.
+        fraction_of_line_width (float, optional): Fraction of the document width
+            which you wish the figure to occupy.  Defaults to 1.
+        ratio (float, optional): Fraction of figure width that the figure height
+            should be. Defaults to (5 ** 0.5 - 1)/2.
+
+    Returns:
+        fig_dim (tuple):
+            Dimensions of figure in inches
+
+    Example:
+        Here is an example of using this function::
+            >>> dim_tuple = get_dim(fraction_of_line_width=1, ratio=(5 ** 0.5 - 1) / 2)
+
+    """
+
+    # Width of figure
+    fig_width_pt = width * fraction_of_line_width
+
+    # Convert from pt to inches
+    inches_per_pt = 1 / 72.27
+
+    # Figure width in inches
+    fig_width_in = fig_width_pt * inches_per_pt
+    # Figure height in inches
+    fig_height_in = fig_width_in * ratio
+
+    return (fig_width_in, fig_height_in)
+
+
+def set_dim(
+    fig: matplotlib.figure.Figure,
+    width: float = 398.3386,
+    fraction_of_line_width: float = 1,
+    ratio: float = (5 ** 0.5 - 1) / 2,
+) -> None:
+    """Set aesthetic figure dimensions to avoid scaling in latex.
+
+    Default width is `src.constants.REPORT_WIDTH`.
+    Default ratio is golden ratio, with figure occupying full page width.
+
+    Args:
+        fig (matplotlib.figure.Figure): Figure object to resize.
+        width (float): Textwidth of the report to make fontsizes match.
+            Defaults to `src.constants.REPORT_WIDTH`.
+        fraction_of_line_width (float, optional): Fraction of the document width
+            which you wish the figure to occupy.  Defaults to 1.
+        ratio (float, optional): Fraction of figure width that the figure height
+            should be. Defaults to (5 ** 0.5 - 1)/2.
+
+    Returns:
+        void; alters current figure to have the desired dimensions
+
+    Example:
+        Here is an example of using this function::
+            >>> set_dim(fig, fraction_of_line_width=1, ratio=(5 ** 0.5 - 1) / 2)
+    """
+    fig.set_size_inches(
+        get_dim(width=width, fraction_of_line_width=fraction_of_line_width, ratio=ratio)
+    )
 
 
 @twr.timeit
@@ -131,7 +206,7 @@ def tex_escape(text: str) -> str:
 
 
 @twr.timeit
-def proper_units(text):
+def proper_units(text: str) -> str:
     conv = {
         r"degK": r"K",
         r"degC": r"$^{\circ}$C",
