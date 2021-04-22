@@ -6,11 +6,14 @@ import src.time_wrapper as twr
 
 @twr.timeit
 def label_subplots(axs: matplotlib.axes.Axes, start_from: int = 0, fontsize: int = 13):
-    """Label subplots.
-
-    :param axs:
     """
+    Label subplots.
 
+    Args:
+        axs (matplotlib.axes.Axes): [description]
+        start_from (int, optional): [description]. Defaults to 0.
+        fontsize (int, optional): [description]. Defaults to 13.
+    """
     if isinstance(axs, list):
         axs = np.asarray(axs)
 

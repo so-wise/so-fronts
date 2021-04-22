@@ -12,6 +12,7 @@ def move(copy_command: str = "cp") -> None:  # this is ok for unix.
     Args:
         copy_command (str, optional): which command is needed to move files in operating
             system. Defaults to "cp".
+
     """
     RUN_NAME = "001"
     final_loc = "../FBSO-Report/images"

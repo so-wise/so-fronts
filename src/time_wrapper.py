@@ -9,6 +9,7 @@ def timeit(method: any) -> any:
     Should return the time taken for a function to run,
     :param method: the function that it takes as an input
     :return: timed
+
     USAGE:
     import src.time_wrapper as twr
     @twr.timeit

@@ -33,6 +33,7 @@ def train_on_interpolated_year(
 
     Returns:
         Tuple[pyxpcm.pcm, xr.Dataset]: the fitted object and its corresponding dataset.
+
     """
     z = np.arange(-min_depth, -max_depth, -10.0)
     features_pcm = {}
