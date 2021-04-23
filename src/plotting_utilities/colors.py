@@ -1,4 +1,5 @@
 """Color utilities."""
+from typing import Tuple
 import numpy as np
 import matplotlib.cm as cm
 import matplotlib.colors as colors
@@ -10,7 +11,7 @@ def cluster_colors(number_clusters: int) -> np.ndarray:
     """Cluster colors.
 
     :param number_clusters: The number of clusters.
-    :return:
+    :return: cmap.
     """
     return cm.get_cmap("Set1", number_clusters).colors
 
@@ -154,7 +155,7 @@ def _fading_colormap_hex(from_hex, fade_to_white: bool = True):
 
 
 @twr.timeit
-def _fading_colormap_rgb(from_rgb, fade_to_white: bool = True):
+def _fading_colormap_rgb(from_rgb: Tuple, fade_to_white: bool = True):
     """Takes an r g b tuple and returns a fading color map.
 
     :param from_rgb: an r g b tuple

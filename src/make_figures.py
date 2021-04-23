@@ -10,9 +10,9 @@ import src.constants as cst
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.xarray_panels as xp
 import src.models.train_i_metric as tim
-import src.plotting_utilities.spec_i_clusters_3d_comp as s3d
-import src.plotting_utilities.i_cluster_map_comp as icm
-import src.plotting_utilities.cluster_profiles as cp
+import src.plot.spec_i_clusters_3d_comp as s3d
+import src.plot.i_cluster_map_comp as icm
+import src.plot.cluster_profiles as cp
 import src.models.to_pair_i_metric as tpi
 import src.data_loading.io_name_conventions as io
 import src.time_wrapper as twr
