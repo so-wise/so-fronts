@@ -2,3 +2,6 @@
 https://github.com/sdat2/pyxpcm/archive/sof-agu.zip
 hydra-core
 wandb
+
+# xarray extras
+netcdf4

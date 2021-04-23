@@ -22,6 +22,7 @@ def plot_map_imetric_clusters(da_i: xr.DataArray, da: xr.DataArray) -> None:
 
     :param da_i: xarray.dataarray object.
     :param da: xarray.dataarray object.
+
     :return: void (although matplotlib will be storing the figure).
     """
     pairs_list = []

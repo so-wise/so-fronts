@@ -280,7 +280,7 @@ def y_grad(set: bool = False) -> None:
     """Take y grad.
 
     Args:
-        set (bool, optional): [description]. Defaults to False.
+        set (bool, optional): take y gradient of density. Defaults to False.
     """
     density_da = xr.open_mfdataset(
         "nc/density.nc", decode_cf=False, parallel=True

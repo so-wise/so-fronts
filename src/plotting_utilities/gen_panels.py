@@ -1,4 +1,4 @@
-"""Label subplots."""
+"""Label subplots. is the main function"""
 from typing import Sequence
 import numpy as np
 import matplotlib

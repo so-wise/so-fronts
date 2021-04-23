@@ -1,6 +1,10 @@
 """A program by sdat2 to plot the Southern Ocean with a variety of fronts.
    Currently plots Kim and Orsi 2014 (KO)
-#  Usage:  ko.draw_fronts_kim(ax)
+
+Usage:
+    Example usage::
+        ko.draw_fronts_kim(ax)
+
 """
 import os
 from typing import Sequence

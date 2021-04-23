@@ -18,8 +18,16 @@ import src.constants as cst
 def plot_fig2_mult(
     weights: np.ndarray, means: np.ndarray, covariances: np.ndarray, ds: xr.Dataset
 ) -> None:
-    """This will hopefully plot fig2a and fig2b with automatic labelling."""
+    """
+    This will hopefully plot fig2a and fig2b with automatic labelling.
 
+    Args:
+        weights (np.ndarray): weights numpy array.
+        means (np.ndarray): means numpy array.
+        covariances (np.ndarray): covariances numpy array.
+        ds (xr.Dataset): dataset.
+
+    """
     da = tpi.pair_i_metric(ds)
     pairs_list = []
     width_ratios = []
@@ -41,8 +49,8 @@ def plot_fig2_mult(
             for width in [1 / num_plots / len(pairs) for x in range(len(pairs))]:
                 width_ratios.append(width)
 
-        print(pairs_list)
-        print(width_ratios)
+        print("pairs_list", pairs_list)
+        print("width_ratios", width_ratios)
 
     gs = GridSpec(
         nrows=2,
@@ -68,6 +76,7 @@ def plot_fig2_mult(
             )
             cbar_ax = fig.add_subplot(gs[1, 0])
             used_up_columns += 2
+
         elif i == 1:
             print("used_up_columns", used_up_columns)
             print(

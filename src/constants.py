@@ -58,3 +58,6 @@ MIN_DEPTH = 300  # m
 MAX_DEPTH = 2000  # m
 K_CLUSTERS = 5
 D_PCS = 3
+EXAMPLE_TIME_INDEX = 40  # the default time to go for.
+
+DEFAULT_NC = "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"
