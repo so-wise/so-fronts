@@ -25,18 +25,19 @@ def return_pair_i_metric(
     """Return pair i metric.
 
     Args:
-        K (int, optional): [description]. Defaults to cst.K_CLUSTERS.
-        pca (int, optional): [description]. Defaults to cst.D_PCS.
-        save_nc (bool, optional): [description]. Defaults to True.
+        K (int, optional): Number of clusters. Defaults to cst.K_CLUSTERS.
+        pca (int, optional): Number of principal components. Defaults to cst.D_PCS.
+        save_nc (bool, optional): Whether or not to save the resulting dataset.
+            Defaults to True.
 
     Returns:
-        xr.DataArray: [description]
+        xr.DataArray: pair i metric.
     """
     link_to_netcdf = io._return_name(K, pca) + ".nc"
     ds = xr.open_dataset(link_to_netcdf)
     print(ds.__str__())
     batch_size = 2
-    for i in range(40, 42, batch_size):
+    for i in range(cst.EXAMPLE_TIME_INDEX, cst.EXAMPLE_TIME_INDEX + 2, batch_size):
         print("running", i)
         if save_nc:
             da = tpi.pair_i_metric(
@@ -99,7 +100,7 @@ def make_all_figures_in_sequence() -> None:
         cst.SEED,
     )
 
-    # FIGURE 1
+    # FIGURE 1: pc maps.
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
 
@@ -112,7 +113,7 @@ def make_all_figures_in_sequence() -> None:
     plt.savefig(pc_maps_name)
     plt.clf()
 
-    # FIGURE 1.5 ## make panels.
+    # FIGURE 1.5 ## make profiles.
 
     temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
     profiles_name = os.path.join(
@@ -144,7 +145,7 @@ def make_all_figures_in_sequence() -> None:
     plt.savefig(profiles_plot_name)
     plt.clf()
 
-    # FIGURE 2
+    # FIGURE 2: Plot 3d clusters.
 
     s3d.plot_fig2_mult(
         m._classifier.weights_, m._classifier.means_, m._classifier.covariances_, ds
@@ -156,7 +157,7 @@ def make_all_figures_in_sequence() -> None:
     plt.savefig(s3d_plot_name)
     plt.clf()
 
-    # FIGURE 3
+    # FIGURE 3: I metric viridis colormap.
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
@@ -173,9 +174,9 @@ def make_all_figures_in_sequence() -> None:
     plt.savefig(imetric_dual_name)
     plt.clf()
 
-    # FIGURE 4
+    # FIGURE 4: single multi color.
 
-    da = return_pair_i_metric(K=5)
+    da = return_pair_i_metric(K=cst.K_CLUSTERS)
     xp.plot_single_i_metric(da.isel(time=0))
     imetric_single_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_single.png"
@@ -184,9 +185,10 @@ def make_all_figures_in_sequence() -> None:
     plt.savefig(imetric_single_name)
     plt.clf()
 
-    # FIGURE 4
-    da = return_pair_i_metric(K=5).isel(time=0)
-    da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(rank=0, time=40)
+    # FIGURE 4: Plot clusters and i metrics on maps.
+
+    da = return_pair_i_metric(K=cst.K_CLUSTERS).isel(time=0)
+    da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(rank=0, time=cst.EXAMPLE_TIME_INDEX)
 
     print(da)
 
@@ -198,7 +200,7 @@ def make_all_figures_in_sequence() -> None:
     plt.savefig(imetric_single_name)
     plt.clf()
 
-    # FIGURE 5
+    # FIGURE 5: Plot different K cluster multi colour plots.
 
     xp.plot_several_pair_i_metrics(
         [return_pair_i_metric(K=2).isel(time=0), return_pair_i_metric(K=4).isel(time=0)]
@@ -213,7 +215,9 @@ def make_all_figures_in_sequence() -> None:
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
 
-    # FIGURE 6
+    # FIGURE 6: PC1 y grads
+    # TODO: Replace with Sobel.
+
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
     xp.sep_plots(
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
@@ -227,6 +231,9 @@ def make_all_figures_in_sequence() -> None:
     plt.clf()
 
     # Appendix
+
+    # uvel, pca1 y grad over time.
+
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
@@ -247,6 +254,9 @@ def make_all_figures_in_sequence() -> None:
     )
     plt.savefig(pc_y_grad_name)
     plt.clf()
+
+    # uvel, pca1 y grad over time.
+
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
     pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.Y_COORD)
 
@@ -272,6 +282,8 @@ def make_all_figures_in_sequence() -> None:
     )
     plt.savefig(pc_y_grad_name)
     plt.clf()
+
+    #  compare correlations and make correlation graph.
 
     cor = ma.corrcoef(
         ma.masked_invalid(
@@ -307,6 +319,8 @@ def make_all_figures_in_sequence() -> None:
     )
     plt.savefig(pc_x_grad_name)
     plt.clf()
+
+    # compare meridional velocity to gradient.
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
     xp.sep_plots(
