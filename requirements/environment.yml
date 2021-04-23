@@ -5,14 +5,9 @@ channels:
   - defaults
 dependencies:
   - python=3.8
-  - xarray=0.17.0
-  - scikit-learn
+  - xarray==0.17
   - cartopy
   - matplotlib==3.2.2
-  - pandas
-  - pynio
-  - dask
-  - gsw
   - pip
   - pip:
     - -r file:dev-requirements.txt

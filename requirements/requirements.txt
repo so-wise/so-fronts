@@ -5,3 +5,9 @@ wandb
 
 # xarray extras
 netcdf4
+scikit-learn
+# pynio
+gsw
+dask
+pandas
+tqdm

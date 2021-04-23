@@ -4,7 +4,9 @@
 import os
 import numpy as np
 import pathlib
-from platform import system
+from sys import platform
+
+print("platform", platform)
 
 # Note: constants should be UPPER_CASE
 
@@ -25,7 +27,7 @@ THETA: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Theta.nc"
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 # Paths to different BSOSE-i106 files (unique to my machine):
-if platform == "Linux":
+if platform == "Linux" or platform == "linux":
     GEN_DATA_PATH = os.path.join(GWS_DATA_DIR, "bsose_data")
     BSOSE_PATH = os.path.join(GWS_DATA_DIR, "bsose_data", "bsose_salt_temp")
 
@@ -63,7 +65,7 @@ INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
 
 # Chosen hyperparameters in the model run:
 RUN_NAME: str = "010"  # TODO --> Make all Data and Figures include RUN_NAME
-SEED = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
+SEED: int = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
 np.random.seed(SEED)
 MIN_DEPTH: float = 300  # m
 MAX_DEPTH: float = 2000  # m
