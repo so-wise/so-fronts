@@ -17,9 +17,9 @@ FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
 KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 
 # MAIN
-MAIN_DIR = "/Users/simon/bsose_monthly/"
-SALT = MAIN_DIR + "bsose_i106_2008to2012_monthly_Salt.nc"
-THETA = MAIN_DIR + "bsose_i106_2008to2012_monthly_Theta.nc"
+MAIN_DIR: str = "/Users/simon/bsose_monthly/"
+SALT: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Salt.nc"
+THETA: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Theta.nc"
 
 # Data directory on GWS
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
@@ -42,33 +42,33 @@ VVEL_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Vvel.nc")
 UVEL_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Uvel.nc")
 
 # COORDS within BSOSE-i106
-Z_COORD = "Z"
-D_COORD = "Depth"
-Y_COORD = "YC"
-X_COORD = "XC"
-T_COORD = "time"
+Z_COORD: str = "Z"
+D_COORD: str = "Depth"
+Y_COORD: str = "YC"
+X_COORD: str = "XC"
+T_COORD: str = "time"
 
 # COORDS created in my variables
-P_COORD = "pair"
-CLUST_COORD = "cluster"
+P_COORD: str = "pair"
+CLUST_COORD: str = "cluster"
 
 # Particular names within BSOSE-i106
-DEPTH_NAME = "Depth"
-USELESS_LIST = ["iter", "Depth", "rA", "drF", "hFacC"]
-VAR_NAME_LIST = ["SALT", "THETA"]
-FEATURES_D = {"THETA": "THETA", "SALT": "SALT"}
+DEPTH_NAME: str = "Depth"
+USELESS_LIST: list = ["iter", "Depth", "rA", "drF", "hFacC"]
+VAR_NAME_LIST: list = ["SALT", "THETA"]
+FEATURES_D: dict = {"THETA": "THETA", "SALT": "SALT"}
 
 # Naming of intermediate files
 INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
 
 # Chosen hyperparameters in the model run:
-RUN_NAME = "010"  # TODO --> Make all Data and Figures include RUN_NAME
+RUN_NAME: str = "010"  # TODO --> Make all Data and Figures include RUN_NAME
 SEED = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
 np.random.seed(SEED)
-MIN_DEPTH = 300  # m
-MAX_DEPTH = 2000  # m
-K_CLUSTERS = 5
-D_PCS = 3
-EXAMPLE_TIME_INDEX = 40  # the default time to go for.
-
-DEFAULT_NC = "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"
+MIN_DEPTH: float = 300  # m
+MAX_DEPTH: float = 2000  # m
+K_CLUSTERS: int = 5
+D_PCS: int = 3
+EXAMPLE_TIME_INDEX: int = 40  # the default time to go for.
+EXAMPLE_Z_INDEX: int = 15
+DEFAULT_NC: str = "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"

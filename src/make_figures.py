@@ -120,7 +120,7 @@ def make_all_figures_in_sequence() -> None:
         cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_profiles_temp.nc"
     )
     m, ds = tim.train_on_interpolated_year(
-        time_i=42,
+        time_i=cst.EXAMPLE_TIME_INDEX,
         K=cst.K_CLUSTERS,
         maxvar=cst.D_PCS,
         min_depth=cst.MIN_DEPTH,
@@ -234,7 +234,7 @@ def make_all_figures_in_sequence() -> None:
 
     # uvel, pca1 y grad over time.
 
-    uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
+    uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
         [
@@ -257,7 +257,7 @@ def make_all_figures_in_sequence() -> None:
 
     # uvel, pca1 y grad over time.
 
-    uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=15)
+    uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.Y_COORD)
 
     cor_list = []
@@ -295,7 +295,7 @@ def make_all_figures_in_sequence() -> None:
     )
     print(cor)
 
-    vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
+    vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.X_COORD)
 
     cor_list = []
@@ -322,7 +322,7 @@ def make_all_figures_in_sequence() -> None:
 
     # compare meridional velocity to gradient.
 
-    vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=15)
+    vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     xp.sep_plots(
         [
             ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX, pca=0).differentiate(
