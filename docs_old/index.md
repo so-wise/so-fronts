@@ -1,11 +1,10 @@
 # AGU 2020 OS022-08
 
-
 ## Abstract
+
 Fronts are ubiquitous in the climate system. In the Southern Ocean, fronts delineate water masses, which correspond to upwelling and downwelling branches of the overturning circulation. A robust understanding of Southern Ocean fronts is key to projecting future changes in overturning and the associated air-sea partitioning of heat and carbon. Classically, oceanographers define Southern Ocean fronts as a small number of continuous linear features that encircle Antarctica. However, modern observational and theoretical developments are challenging this traditional framework to accommodate more localized views of fronts [Chapman et al. 2020]. In this work, we present two related methods for calculating fronts from oceanographic data. The first method uses unsupervised classification (specifically, Gaussian Mixture Modeling or GMM) and an interclass metric to define fronts. This approach produces a discontinuous, probabilistic view of front location, emphasising the fact that the boundaries between water masses are not uniformly sharp across the entire Southern Ocean. The second method uses Sobel edge detection to highlight rapid changes [Hjelmervik & Hjelmervik, 2019]. This approach produces a more local view of fronts, with the advantage that it can highlight the movement of individual eddy-like features (such as the Agulhas rings). The fronts detected using the Sobel method are moderately correlated with the magnitude of the velocity field, which is consistent with the theoretically expected spatial coincidence of fronts and jets. We will present our python GitHub repository, which will allow researchers to easily apply these methods to their own datasets.
 
 ![abs_fig](img/abs_fig.png)
-
 
 ### Figure caption
 

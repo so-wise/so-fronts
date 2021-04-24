@@ -45,6 +45,12 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
     make help
     ```
 
+- Run tests:
+
+   ```bash
+   python -m unittest
+   ```
+
 ## Project Organization
 
 ```txt
