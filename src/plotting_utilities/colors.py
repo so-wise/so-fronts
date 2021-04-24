@@ -202,7 +202,7 @@ def fading_colormap(from_color: str, fade_to_white: bool = True):
         cmap = _fading_colormap_hex(from_color, fade_to_white=fade_to_white)
     else:
         cmap = _fading_colormap_name(from_color, fade_to_white=fade_to_white)
-    
+
     # print(cmap, cmap)
 
     return cmap

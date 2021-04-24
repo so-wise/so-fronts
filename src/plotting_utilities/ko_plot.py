@@ -47,7 +47,9 @@ def is_too_far(
         return (lat_A - lat_B) ** 2 + (lon_A - lon_B) ** 2 > max_allowable_square
 
 
-def split_into_list_of_lists(max_square: list = 1, list_of_xs: list = [0.0], list_of_ys: list = [0.0]) -> Tuple[List[list], List[list]]:
+def split_into_list_of_lists(
+    max_square: list = 1, list_of_xs: list = [0.0], list_of_ys: list = [0.0]
+) -> Tuple[List[list], List[list]]:
     """Split into list of lists.
 
     :param max_square:
