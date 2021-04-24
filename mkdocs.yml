@@ -1,14 +1,3 @@
-site_name: AGU20-OS022-08
-markdown_extensions:
-    - toc:
-        permalink: "#"
-        baselevel: 3
-nav:
-    - Home: index.md
-    - About: about.md
-    - Repository: READMES_COPY/MAIN_README.md
-    - Configs: configs.md
-    - Philosophy: philosophy.md
-
-
-theme: readthedocs
+site_name: My Docs
+theme:
+  name: material
