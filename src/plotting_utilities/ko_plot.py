@@ -30,14 +30,26 @@ def is_too_far(
     TODO fix this bug
     TODO make this work out the distance in the correct space, without using the
     TODO cartesian approximation (this would solve line breaks at greenwich meridian).
+
+    Args:
+        lat_A (float, optional): [description]. Defaults to 0.0.
+        lat_B (float, optional): [description]. Defaults to 0.0.
+        lon_A (float, optional): [description]. Defaults to 0.0.
+        lon_B (float, optional): [description]. Defaults to 0.0.
+        max_allowable_square (float, optional): [description]. Defaults to 1.
+
+    Returns:
+        bool: whether or not.
     """
     assert lat_A > -90
     assert lat_B > -90
+
     # I prefer positive longitudes
     if lon_A < 0:
         lon_A += 360
     if lon_B < 0:
         lon_B += 360
+
     # This will suppress line breaking at Greenwich meridian
     if lon_A > 360 - max_allowable_square and lon_B < max_allowable_square:
         return False
@@ -95,7 +107,15 @@ def plot_list_of_lists(
     If one's prediction can't predict anything, it is just wrong,
     and one must try something else.
     TODO, need to break up into more lols (maybe every 10 points).
-    :return:
+
+    Args:
+        ax (matplotlib.axes.Axes): [description]
+        lol_of_xs (List[list], optional): [description]. Defaults to [[0.0], [0.0]].
+        lol_of_ys (List[list], optional): [description]. Defaults to [[0.0], [0.0]].
+        color (str, optional): [description]. Defaults to "red".
+        markersize (float, optional): [description]. Defaults to 0.3.
+        label (str, optional): [description]. Defaults to "UNLABELED".
+        line_type (str, optional): [description]. Defaults to "-".
     """
     assert np.shape(lol_of_xs) == np.shape(lol_of_ys)
 
@@ -172,7 +192,10 @@ def plot_list_of_lists(
 def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
     """A function to read the Kim and Orsi (2014) data and plot it on SO.
 
-    Now also includes the data from Kim (c.1995) for the STF
+    Now also includes the data from Kim (c.1995) for the STF.
+
+    Args:
+        ax (matplotlib.axes.Axes): draw the kim fronts on this axis.
     """
 
     def multi_line_map_plot() -> None:
@@ -212,21 +235,21 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
     ]
     files = [os.path.join(cst.KO_PATH, x) for x in files_names]
     keys = ["saf", "pf", "saccf", "sbdy"]
-    color_dict = {
+    color_dict: dict = {
         "saf": "black",
         "pf": "grey",
         "saccf": "green",
         "sbdy": "olive",
     }
     # label_dict = {'saf': 'SAF-KO', 'pf': 'PF-KO', 'saccf': 'SACCF-KO', 'sbdy': 'SBDY-KO', 'stf': "STF-O"}
-    label_dict = {
+    label_dict: dict = {
         "saf": "SAF",
         "pf": "PF",
         "saccf": "SACCF",
         "sbdy": "SBDY",
     }
 
-    marker_size_dict = {
+    marker_size_dict: dict = {
         "saf": 0.15,
         "pf": 0.30,
         "saccf": 0.20,
@@ -259,7 +282,7 @@ def run_so_map() -> None:
     mp.southern_ocean_axes_setup(ax, fig)
     draw_fronts_kim(ax)
     plt.legend()
-    plt.savefig(os.path.join(cst.FIGURE_PATH, "ko.png"), dpi=600, bbox_inches="tight")
+    plt.savefig(os.path.join(cst.FIGURE_PATH, "ko.png"))
 
 
 if __name__ == "__main__":

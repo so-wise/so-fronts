@@ -19,11 +19,11 @@ def plot_ellipsoid_test() -> None:
     """
 
     # your ellipsoid's covariance_matrix and mean in matrix form
-    covariance_matrix = np.array([[1, 0.5, 0], [0.2, 2, 0], [0, 0, 10]])
-    covariance_matrix1 = np.array([[1, 0.1, 0], [0.2, 8, 0], [0, 0, 1]])
+    covariance_matrix: np.ndarray = np.array([[1, 0.5, 0], [0.2, 2, 0], [0, 0, 10]])
+    covariance_matrix1: np.ndarray = np.array([[1, 0.1, 0], [0.2, 8, 0], [0, 0, 1]])
 
-    mean = [-5, 0.3, 0.1]
-    mean1 = [0, -5, -4]
+    mean: list = [-5, 0.3, 0.1]
+    mean1: list = [0, -5, -4]
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
@@ -99,6 +99,7 @@ def plot_ellipsoid(
                 )
         # plot the surface in a reasonable partially translucent way
         ax.plot_surface(x, y, z, rstride=4, cstride=4, color=color, alpha=alpha)
+
     return fig, ax
 
 
