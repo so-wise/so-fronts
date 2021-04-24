@@ -14,6 +14,8 @@ pandas
 tqdm
 pylint
 
+# docs
 mkdocs
 mkdocs-material
 mkdocstrings
+mkautodoc

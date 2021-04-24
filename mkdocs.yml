@@ -9,6 +9,7 @@ markdown_extensions:
     - codehilite
     - mkautodoc
 nav:
+    - Index: index.md
     - Home: README.md
     - API: api.md
 plugins:

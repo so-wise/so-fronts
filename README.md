@@ -12,6 +12,7 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 - Python 3.8+
 - Anaconda, with `conda` working in shell.
 - `pdflatex` for high quality figures (should still work without).
+- `mkdocs`.
 
 ## Getting started
 
