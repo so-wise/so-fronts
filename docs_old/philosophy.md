@@ -22,28 +22,27 @@ The fronts of the Southern Ocean could correspond to:
 
   (a) The boundary between different water masses in the Southern Ocean.
 
-  * where bondaries are distinct masses of water with distinct histories.
+  - where bondaries are distinct masses of water with distinct histories.
 
-  * and there are a small and unambiguous number, `K`, of regions of water.
-
-   _*or*_ 
-
-  (b) The regions at which properties change suddenly, which could correspond 
-      to those points at which the thermal wind balance leads to a jet.
-
-  * A large gradient in density.
-
-  * A large gradient in potential vorticity.
+  - and there are a small and unambiguous number, `K`, of regions of water.
 
    _*or*_
 
-  (c) The regions where there is a great deal of mixing upwards, and therefore there is 
-      a greater ammount of biological productivity, leading to a source of food for the 
+  (b) The regions at which properties change suddenly, which could correspond
+      to those points at which the thermal wind balance leads to a jet.
+
+  - A large gradient in density.
+
+  - A large gradient in potential vorticity.
+
+   _*or*_
+
+  (c) The regions where there is a great deal of mixing upwards, and therefore there is
+      a greater ammount of biological productivity, leading to a source of food for the
       Southern Ocean ecosystem.
 
   _*or*_
 
   (d) The divisions between different distinct ecological communities.
-
 
 (a) and (d), (b) and (c) are quite closely related.
