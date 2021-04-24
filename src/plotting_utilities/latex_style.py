@@ -9,12 +9,8 @@ sps.ds_for_grahing(ds).plot()
 """
 from typing import Tuple
 from sys import platform
-import numpy as np
-import numpy.linalg as la
 import re
 import matplotlib
-import matplotlib.colors as colors
-import matplotlib.pyplot as plt
 import xarray as xr
 from distutils.spawn import find_executable
 import src.time_wrapper as twr
@@ -118,6 +114,8 @@ def mpl_params(quality: str = "high", use_tex: bool = True, dpi: int = 600) -> N
             >>> mpl_defaults(use_tex=False, dpi=150)
 
     """
+    print(quality)
+
     if platform == "darwin":
         matplotlib.use("TkAgg")
 

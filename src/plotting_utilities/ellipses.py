@@ -2,7 +2,6 @@
 from typing import Tuple
 import numpy as np
 import numpy.linalg as la
-import re
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import patches
@@ -53,7 +52,8 @@ def plot_ellipsoid(
 
     :param fig: The figure matplotlib.pyplot object
     :param ax: The axis matplotlib.pylot object with Axes3D extension
-    :param covariance_matrix: A covariance matrix input from the multivariate guassian to be plotted
+    :param covariance_matrix: A covariance matrix input from
+        the multivariate guassian to be plotted.
     :param mean: ditto
     :param weight: ditto
     :param color: ditto
@@ -73,8 +73,9 @@ def plot_ellipsoid(
         [1, 0.6 * weight],
     ]:
         # find the rotation matrix and radii of the axes
-        U, s, rotation = la.svd(covariance_matrix)
-        # Singular Value Decomposition from numpy.linalg finds the variance vector s when the covariance
+        u_matrix, s, rotation = la.svd(covariance_matrix)
+        # Singular Value Decomposition from numpy.linalg 
+        # finds the variance vector s when the covariance
         # matrix has been rotated so that it is diagonal
         radii = np.sqrt(s) * sigma
         # s is the sigma*2 in each of the principal axes directions
@@ -83,7 +84,8 @@ def plot_ellipsoid(
         u = np.linspace(0.0, 2.0 * np.pi, 100)  # AZIMUTHAL ANGLE (LONGITUDE)
         v = np.linspace(0.0, np.pi, 100)  # POLAR ANGLE (LATITUDE)
 
-        # COORDINATES OF THE SURFACE PRETENDING THAT THE GAUSSIAN IS AT THE CENTRE & NON ROTATED
+        # COORDINATES OF THE SURFACE PRETENDING THAT THE 
+        # GAUSSIAN IS AT THE CENTRE & NON ROTATED
         x = radii[0] * np.outer(np.cos(u), np.sin(v))  # MESH FOR X
         y = radii[1] * np.outer(np.sin(u), np.sin(v))  # MESH FOR Y
         z = radii[2] * np.outer(np.ones_like(u), np.cos(v))  # MESH FOR Z
@@ -106,23 +108,27 @@ def plot_ellipsoid(
 # plot_ellipsoid_trial()
 
 
-def ellispes(m: pyxpcm.pcm, ax1: matplotlib.axes.Axes) -> None:
-    for i in range(m._classifier.covariances_.shape[0]):
-        weight = m._classifier.weights_[i]
-        mean = m._classifier.means_[i]
+def ellispes(pcm: pyxpcm.pcm, ax1: matplotlib.axes.Axes) -> None:
+    """Plot ellipses.
 
-        U, s, rotation = la.svd(m._classifier.covariances_[i])
+    Args:
+        pcm (pyxpcm.pcm): pcm object.
+        ax1 (matplotlib.axes.Axes): axes.
+    """
+    # pylint: disable=protected-access
+    for i in range(pcm._classifier.covariances_.shape[0]):
+        # pylint: disable=protected-access
+        weight = pcm._classifier.weights_[i]
+        # pylint: disable=protected-access
+        mean = pcm._classifier.means_[i]
+
+        # pylint: disable=protected-access
+        _, s, rotation = la.svd(pcm._classifier.covariances_[i])
         for frac_sigma, alpha in [
             [1 / 9, 0.5 * weight],
             [1 / 4, 0.7 * weight],
             [1, weight],
         ]:
-
-            def print_constants():
-                print(frac_sigma, alpha)
-                print("U", U)
-                print("s", s)
-                print("rot", rotation)
 
             radii = np.sqrt(s / frac_sigma)
             angle = np.arctan2(rotation[1, 0], rotation[0, 0]) / np.pi * 180

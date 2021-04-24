@@ -4,7 +4,7 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
-import src.plotting_utilities.map as map
+import src.plotting_utilities.map as mp
 import src.plotting_utilities.gen_panels as gp
 import src.plotting_utilities.colors as col
 import src.time_wrapper as twr
@@ -31,7 +31,7 @@ def sep_plots(
     fig, axes = plt.subplots(1, num_da, subplot_kw={"projection": map_proj})
 
     for i in range(num_da):
-        map.southern_ocean_axes_setup(axes[i], fig)
+        mp.southern_ocean_axes_setup(axes[i], fig)
         # sps.ds_for_graphing(da_list[i].to_dataset()).to_array().plot(
         da_list[i].plot(
             transform=carree,  # the data's projection
@@ -52,6 +52,11 @@ def sep_plots(
 
 @twr.timeit
 def plot_single_i_metric(da: xr.DataArray) -> None:
+    """Plot single i metric plot with viridis colormap.
+
+    Args:
+        da (xr.DataArray): i metric dataarray.
+    """
     carree = ccrs.PlateCarree()
     map_proj = ccrs.SouthPolarStereo()
     pairs = da.coords[cst.P_COORD].values.shape[0]
@@ -69,7 +74,7 @@ def plot_single_i_metric(da: xr.DataArray) -> None:
     ax1 = fig.add_subplot(gs[0, :], projection=map_proj)
     cbar_axes = [fig.add_subplot(gs[1, i]) for i in range(pairs)]
 
-    map.southern_ocean_axes_setup(ax1, fig)
+    mp.southern_ocean_axes_setup(ax1, fig)
     cmap_list = col.return_list_of_colormaps(pairs, fade_to_white=False)
 
     for i in range(pairs):
@@ -94,7 +99,7 @@ def plot_single_i_metric(da: xr.DataArray) -> None:
 
 @twr.timeit
 def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
-    """  
+    """Plot several pair i metrics.
     
     USAGE:
     plot_several_pair_i_metrics([run_through_plot(K=2).isel(time=0),
@@ -155,7 +160,7 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
 
         used_up_columns += pairs_list[i].shape[0] + 1
 
-        map.southern_ocean_axes_setup(ax1, fig)
+        mp.southern_ocean_axes_setup(ax1, fig)
         cmap_list = col.return_list_of_colormaps(
             len(pairs_list[i]), fade_to_white=False
         )

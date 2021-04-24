@@ -22,10 +22,11 @@ def make_cluster_profiles(ds: xr.Dataset) -> xr.Dataset:
         ds (xr.Dataset): the dataset.
 
     Returns:
-        [type]: [description]
+        xr.Dataset:  new_ds
     """
+    lsty.mpl_params()
 
-    K_clusters = int(np.nanmax(ds.PCM_LABELS.values) + 1)
+    k_clusters = int(np.nanmax(ds.PCM_LABELS.values) + 1)
     height_list = []
     theta_mean_lol = []
     theta_std_lol = []
@@ -40,7 +41,7 @@ def make_cluster_profiles(ds: xr.Dataset) -> xr.Dataset:
     )
     init_depth_levels = ds.coords[cst.Z_COORD].values
 
-    for k_cluster in range(K_clusters):
+    for k_cluster in range(k_clusters):
         for list_of_list in [
             theta_mean_lol,
             theta_std_lol,
@@ -74,7 +75,7 @@ def make_cluster_profiles(ds: xr.Dataset) -> xr.Dataset:
         },
         coords={
             cst.Z_COORD: np.array(height_list),
-            cst.CLUST_COORD: range(0, K_clusters),
+            cst.CLUST_COORD: range(0, k_clusters),
         },
     )
     print("profile_characteristics", new_ds)
@@ -92,18 +93,18 @@ def plot_profiles_dataset(ds: xr.Dataset) -> None:
     There's a fair deal of duplication in this function.
     Could probably half its length without changing its functionality.
     """
-    K_clusters = len(ds.coords[cst.CLUST_COORD].values)
+    k_clusters = len(ds.coords[cst.CLUST_COORD].values)
 
-    print("K_clusters", K_clusters)
+    print("k_clusters", k_clusters)
 
-    color_list = col.cluster_colors(K_clusters)
+    color_list = col.cluster_colors(k_clusters)
     ylim = [-1.8, -0.3]
 
     # THETA PLOTTING.
     plt.subplot(1, 2, 1)
     ax1 = plt.gca()
 
-    for i in range(0, K_clusters):
+    for i in range(0, k_clusters):
         plt.plot(
             ds.isel(cluster=i).theta_mean,
             ds.coords[cst.Z_COORD].values / 1000,
@@ -132,7 +133,7 @@ def plot_profiles_dataset(ds: xr.Dataset) -> None:
     plt.subplot(1, 2, 2)
     ax2 = plt.gca()
 
-    for i in range(0, K_clusters):
+    for i in range(0, k_clusters):
         plt.plot(
             ds.isel(cluster=i).salt_mean,
             ds.coords[cst.Z_COORD].values / 1000,
