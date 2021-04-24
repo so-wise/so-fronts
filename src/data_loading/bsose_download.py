@@ -1,4 +1,13 @@
 """Download the data from dropbox links.
+
+'get_zip'  682.31512 s
+
+'un_zip'  239.17872 s
+
+'clean_up'  2.31065 s
+
+'get_and_unzip'  923.80469 s
+
 Example:
     Import statement::
         from src.data_loading import get_data
