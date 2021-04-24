@@ -3,55 +3,51 @@
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
-## Short description.
+## Short description
 
 A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 
 ## Requirements
 
- - Python 3.8+
- - Anaconda, with `conda` working in shell.
- - `pdflatex` for high quality figures (should still work without).
+- Python 3.8+
+- Anaconda, with `conda` working in shell.
+- `pdflatex` for high quality figures (should still work without).
 
 ## Getting started
 
- - Make the environment:
+- Make the environment:
 
     ```bash
     make env
     ```
 
- - Activate the environment in conda:
+- Activate the environment in conda:
 
      ```bash
      conda activate ./env
      ```
 
- - Make the documentation and load it in your web browser:
+- Make the documentation and load it in your web browser:
 
     ```bash
     make docs
     ```
 
-
- - Make your Jupyter notebooks more functional with timings etc.:
+- Make your Jupyter notebooks more functional with timings etc.:
 
     ```bash
     make jupyter_pro
     ```
 
- - To see the other options in the `Makefile` type:
+- To see the other options in the `Makefile` type:
 
     ```bash
     make help
     ```
 
-
-
-
 ## Project Organization
 
-```
+```txt
 ├── LICENSE
 ├── Makefile           <- Makefile with commands like `make init` or `make lint-requirements`
 ├── README.md          <- The top-level README for developers using this project.
@@ -88,8 +84,15 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 ```
 
 ## Code formatting
-To automatically format your code, make sure you have `black` installed (`pip install black`) and call
-``` black . ```
+
+To automatically format your code, make sure you
+have `black` installed (`pip install black`) and call:
+
+```bash
+
+black . 
+```
+
 from within the project directory.
 
 ## Reformatting code
@@ -110,21 +113,19 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+- `mkdocs new [dir-name]` - Create a new project.
+- `mkdocs serve` - Start the live-reloading docs server.
+- `mkdocs build` - Build the documentation site.
+- `mkdocs -h` - Print help message and exit.
 
 ## Project layout
 
-```
+```txt
     mkdocs.yml    # The configuration file.
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
-
 ```
-
 
 ---
 

@@ -21,7 +21,7 @@ def _return_name(k_clusters: int, pca_components: int) -> str:
 
 
 def _return_plot_folder(k_clusters: int, pca_components: int) -> str:
-    """Return name.
+    """Return plot folder name.
 
     Args:
         k_clusters (int): The number of classes.
@@ -43,7 +43,7 @@ def _return_plot_folder(k_clusters: int, pca_components: int) -> str:
 
 
 def _return_folder(k_clusters: int, pca_components: int) -> str:
-    """Return name.
+    """Return return folder name.
 
     Args:
         k_clusters (int): The number of classes.
@@ -51,6 +51,7 @@ def _return_folder(k_clusters: int, pca_components: int) -> str:
 
     Returns:
         str: file names.
+
     """
     folder = _return_name(k_clusters, pca_components) + "/"
     if not os.path.exists(folder):
@@ -59,7 +60,7 @@ def _return_folder(k_clusters: int, pca_components: int) -> str:
 
 
 def _return_pair_name(k_clusters: int, pca_components: int) -> str:
-    """Return name.
+    """Return pair name.
 
     Args:
         k_clusters (int): The number of classes.
@@ -67,6 +68,7 @@ def _return_pair_name(k_clusters: int, pca_components: int) -> str:
 
     Returns:
         str: file names.
+
     """
     return (
         "../pyxpcm_sithom/"
@@ -78,7 +80,7 @@ def _return_pair_name(k_clusters: int, pca_components: int) -> str:
 
 
 def _return_pair_folder(k_clusters: int, pca_components: int) -> str:
-    """Return name.
+    """Return pair folder name.
 
     Args:
         k_clusters (int): The number of classes.
@@ -86,6 +88,7 @@ def _return_pair_folder(k_clusters: int, pca_components: int) -> str:
 
     Returns:
         str: file names.
+
     """
     folder = "nc/pair-i-metric-k-" + str(k_clusters) + "-d-" + str(pca_components) + "/"
     if not os.path.exists(folder):
