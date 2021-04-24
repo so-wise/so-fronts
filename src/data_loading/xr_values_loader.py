@@ -4,7 +4,7 @@ import xarray as xr
 import collections
 
 
-def order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
+def order_indexes(dataarray: xr.DataArray, index_list: list) -> np.ndarray:
     """Order indices.
 
     Goes from a datarray to a numpy array, ideally guaranteeing that
@@ -15,7 +15,7 @@ def order_indexes(dataarray: xr.DataArray, index_list: list) -> np.array:
         index_list (list): [description]
 
     Returns:
-        np.array: the numpy array which has been correctly ordered.
+        np.ndarray: the numpy array which has been correctly ordered.
     """
 
     dim_list = list(dataarray.dims)

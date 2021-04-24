@@ -7,7 +7,7 @@ Usage:
 
 """
 import os
-from typing import Sequence
+from typing import Sequence, Tuple, List
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -23,7 +23,7 @@ def is_too_far(
     lon_A: float = 0.0,
     lon_B: float = 0.0,
     max_allowable_square: float = 1,
-):
+) -> bool:
     """Check if points are too far apart to draw a line between.
 
     I suspect it will run into difficulties at the IDL
@@ -47,7 +47,7 @@ def is_too_far(
         return (lat_A - lat_B) ** 2 + (lon_A - lon_B) ** 2 > max_allowable_square
 
 
-def split_into_list_of_lists(max_square=1, list_of_xs=[0.0], list_of_ys=[0.0]):
+def split_into_list_of_lists(max_square: list = 1, list_of_xs: list = [0.0], list_of_ys: list = [0.0]) -> Tuple[List[list], List[list]]:
     """Split into list of lists.
 
     :param max_square:
@@ -79,8 +79,8 @@ def split_into_list_of_lists(max_square=1, list_of_xs=[0.0], list_of_ys=[0.0]):
 
 def plot_list_of_lists(
     ax: matplotlib.axes.Axes,
-    lol_of_xs: Sequence[list] = [[0.0], [0.0]],
-    lol_of_ys: Sequence[list] = [[0.0], [0.0]],
+    lol_of_xs: List[list] = [[0.0], [0.0]],
+    lol_of_ys: List[list] = [[0.0], [0.0]],
     color: str = "red",
     markersize: float = 0.3,
     label: str = "UNLABELED",

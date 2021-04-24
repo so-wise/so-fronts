@@ -25,7 +25,8 @@ clean:
 
 ## Lint src directory using flake8
 lint:
-	flake8 src
+	pylint --ignore-patterns=lint_test src
+	# flake8 src
 
 ## Format src directory using black
 format:

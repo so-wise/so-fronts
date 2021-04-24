@@ -187,7 +187,7 @@ def _fading_colormap_rgb(from_rgb: Tuple, fade_to_white: bool = True):
 
 
 @twr.timeit
-def fading_colormap(from_color, fade_to_white: bool = True):
+def fading_colormap(from_color: str, fade_to_white: bool = True):
     """Takes a hex or color name, and returns a fading color map.
 
     example usage:
@@ -202,4 +202,7 @@ def fading_colormap(from_color, fade_to_white: bool = True):
         cmap = _fading_colormap_hex(from_color, fade_to_white=fade_to_white)
     else:
         cmap = _fading_colormap_name(from_color, fade_to_white=fade_to_white)
+    
+    # print(cmap, cmap)
+
     return cmap

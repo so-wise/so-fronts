@@ -12,6 +12,7 @@ black               # automatic formatting provider
 isort               # automatic import sorter
 python-dotenv       # environment variable manager
 mkdocs
+pylint
 
 # gdrive functionality
 google-api-python-client

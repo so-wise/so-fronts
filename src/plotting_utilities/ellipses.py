@@ -1,4 +1,5 @@
 """Ellipses."""
+from typing import Tuple
 import numpy as np
 import numpy.linalg as la
 import re
@@ -45,7 +46,7 @@ def plot_ellipsoid(
     color: any,
     print_properties: bool = False,
     additional_rotation: np.array = np.identity(3),
-):
+) -> Tuple[matplotlib.figure.Figure, matplotlib.axes.Axes]:
     """
     A function for drawing 3d-multivariate guassians with method initially from:
     https://stackoverflow.com/questions/7819498/plotting-ellipsoid-with-matplotlib

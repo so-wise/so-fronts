@@ -10,12 +10,20 @@
 
 Example:
     Import statement::
-        from src.data_loading import get_data
+        from src.data_loading.bsose_download import get_data
+
+    Run statement::
+        get_data()
+
 """
 import os
+import sys
 import shutil
 import requests
-import zipfile
+if sys.version_info >= (3, 8):
+    import zipfile
+else:
+    import zipfile38 as zipfile
 from tqdm import tqdm
 import src.time_wrapper as twr
 from src.constants import GEN_DATA_PATH
@@ -84,8 +92,11 @@ def get_data() -> None:
 
 
 def _get_data(lol: list) -> None:
-    """Gets the data using lol."""
+    """Gets the data using lol.
 
+    Args:
+        lol (list): list of lists
+    """
     for item in lol:
         direc = item[0]
         if not os.path.exists(direc):

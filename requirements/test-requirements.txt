@@ -12,3 +12,4 @@ mkdocs
 coverage        # MIT
 flake8          # MIT
 python-dotenv   # BSD-3-Clause
+pylint
