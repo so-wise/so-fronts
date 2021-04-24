@@ -1,3 +1,9 @@
-site_name: My Docs
+site_name: AGU20-OS022-08
 theme:
   name: material
+markdown_extensions:
+    - toc:
+        permalink: "#"
+        baselevel: 3
+nav:
+    - Home: README.md
