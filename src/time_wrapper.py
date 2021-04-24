@@ -11,9 +11,11 @@ def timeit(method: Callable) -> Callable:
     :param method: the function that it takes as an input
     :return: timed
 
-    USAGE:
-    import src.time_wrapper as twr
-    @twr.timeit
+    Example:
+        Usage example::
+            import src.time_wrapper as twr
+            @twr.timeit
+
     """
 
     @wraps(method)

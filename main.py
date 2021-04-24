@@ -1,5 +1,5 @@
+"""Run key scripts."""
 import src.make_figures as mf
-
 import src.move_figures as mov
 
 mf.make_all_figures_in_sequence()
@@ -9,6 +9,8 @@ mov.move()
 # import src.plotting_utilities.ko_plot as ko
 
 # ko.run_so_map()
+
+#pylint: disable=pointless-string-statement
 """
 # import hydra
 # from src import constants
