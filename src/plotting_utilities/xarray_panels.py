@@ -94,7 +94,8 @@ def plot_single_i_metric(da: xr.DataArray) -> None:
 
 @twr.timeit
 def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
-    """
+    """  
+    
     USAGE:
     plot_several_pair_i_metrics([run_through_plot(K=2).isel(time=0),
                                 run_through_plot(K=4).isel(time=0)])
@@ -102,8 +103,9 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
     plt.savefig(
         "../FBSO-Report/images/fig5-new.png", dpi=900, bbox_inches="tight"
     )
-    :param da_list:
-    :return:
+
+    Args:
+        da_list (Sequence[xr.DataArray]): list of dataarrays.
     """
 
     carree = ccrs.PlateCarree()
