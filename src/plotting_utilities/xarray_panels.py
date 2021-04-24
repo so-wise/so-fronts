@@ -1,5 +1,5 @@
 """Xarray panels."""
-from typing import Sequence
+from typing import Sequence, Union, List
 import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
@@ -13,7 +13,9 @@ import src.constants as cst
 
 @twr.timeit
 def sep_plots(
-    da_list: Sequence[xr.DataArray], var_list: list, min_max_list: any = None
+    da_list: List[xr.DataArray],
+    var_list: list,
+    min_max_list: Union[List[list], any] = None,
 ) -> None:
     """
     Separate plots.
@@ -29,21 +31,38 @@ def sep_plots(
     fig = plt.figure()
     num_da = len(da_list)
     fig, axes = plt.subplots(1, num_da, subplot_kw={"projection": map_proj})
+    if min_max_list is not None:
+        assert len(min_max_list) == len(da_list)
 
     for i in range(num_da):
         mp.southern_ocean_axes_setup(axes[i], fig)
         # sps.ds_for_graphing(da_list[i].to_dataset()).to_array().plot(
-        da_list[i].plot(
-            transform=carree,  # the data's projection
-            ax=axes[i],
-            subplot_kws={"projection": map_proj},  # the plot's projection
-            cbar_kwargs={
-                "shrink": 0.8,
-                "label": var_list[i],
-                "orientation": "horizontal",  # xr_da.name
-                "pad": 0.01,
-            },
-        )
+        if min_max_list is not None:
+            da_list[i].plot(
+                transform=carree,  # the data's projection
+                ax=axes[i],
+                subplot_kws={"projection": map_proj},  # the plot's projection
+                vmin=min_max_list[i][0],
+                vmax=min_max_list[i][1],
+                cbar_kwargs={
+                    "shrink": 0.8,
+                    "label": var_list[i],
+                    "orientation": "horizontal",
+                    "pad": 0.01,
+                },
+            )
+        else:
+            da_list[i].plot(
+                transform=carree,  # the data's projection
+                ax=axes[i],
+                subplot_kws={"projection": map_proj},  # the plot's projection
+                cbar_kwargs={
+                    "shrink": 0.8,
+                    "label": var_list[i],
+                    "orientation": "horizontal",  # xr_da.name
+                    "pad": 0.01,
+                },
+            )
         axes[i].coastlines()
         axes[i].set_title("")
 
@@ -100,7 +119,7 @@ def plot_single_i_metric(da: xr.DataArray) -> None:
 @twr.timeit
 def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
     """Plot several pair i metrics.
-    
+
     USAGE:
     plot_several_pair_i_metrics([run_through_plot(K=2).isel(time=0),
                                 run_through_plot(K=4).isel(time=0)])

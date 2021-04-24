@@ -2,75 +2,92 @@
 import os
 
 
-def _return_name(K: int, pca: int) -> str:
+def _return_name(k_clusters: int, pca_components: int) -> str:
     """Return name.
 
     Args:
-        K (int): The number of classes.
-        pca (int): The number of pcas.
+        k_clusters (int): The number of classes.
+        pca_components (int): The number of pcas.
 
     Returns:
         str: file names.
     """
-    return "../pyxpcm_sithom/nc/i-metric-joint-k-" + str(K) + "-d-" + str(pca)
+    return (
+        "../pyxpcm_sithom/nc/i-metric-joint-k-"
+        + str(k_clusters)
+        + "-d-"
+        + str(pca_components)
+    )
 
 
-def _return_plot_folder(K: int, pca: int) -> str:
+def _return_plot_folder(k_clusters: int, pca_components: int) -> str:
     """Return name.
 
     Args:
-        K (int): The number of classes.
-        pca (int): The number of pcas.
+        k_clusters (int): The number of classes.
+        pca_components (int): The number of pcas.
 
     Returns:
         str: file names.
     """
-    folder = "../FBSO-Report/images/i-metric-joint-k-" + str(K) + "-d-" + str(pca) + "/"
+    folder = (
+        "../FBSO-Report/images/i-metric-joint-k-"
+        + str(k_clusters)
+        + "-d-"
+        + str(pca_components)
+        + "/"
+    )
     if not os.path.exists(folder):
         os.makedirs(folder)
     return folder
 
 
-def _return_folder(K: int, pca: int) -> str:
+def _return_folder(k_clusters: int, pca_components: int) -> str:
     """Return name.
 
     Args:
-        K (int): The number of classes.
-        pca (int): The number of pcas.
+        k_clusters (int): The number of classes.
+        pca_components (int): The number of pcas.
 
     Returns:
         str: file names.
     """
-    folder = _return_name(K, pca) + "/"
+    folder = _return_name(k_clusters, pca_components) + "/"
     if not os.path.exists(folder):
         os.makedirs(folder)
     return folder
 
 
-def _return_pair_name(K: int, pca: int) -> str:
+def _return_pair_name(k_clusters: int, pca_components: int) -> str:
     """Return name.
 
     Args:
-        K (int): The number of classes.
-        pca (int): The number of pcas.
+        k_clusters (int): The number of classes.
+        pca_components (int): The number of pcas.
 
     Returns:
         str: file names.
     """
-    return "../pyxpcm_sithom/" + "nc/pair-i-metric-k-" + str(K) + "-d-" + str(pca)
+    return (
+        "../pyxpcm_sithom/"
+        + "nc/pair-i-metric-k-"
+        + str(k_clusters)
+        + "-d-"
+        + str(pca_components)
+    )
 
 
-def _return_pair_folder(K: int, pca: int) -> str:
+def _return_pair_folder(k_clusters: int, pca_components: int) -> str:
     """Return name.
 
     Args:
-        K (int): The number of classes.
-        pca (int): The number of pcas.
+        k_clusters (int): The number of classes.
+        pca_components (int): The number of pcas.
 
     Returns:
         str: file names.
     """
-    folder = "nc/pair-i-metric-k-" + str(K) + "-d-" + str(pca) + "/"
+    folder = "nc/pair-i-metric-k-" + str(k_clusters) + "-d-" + str(pca_components) + "/"
     if not os.path.exists(folder):
         os.makedirs(folder)
     return folder

@@ -74,7 +74,7 @@ def plot_ellipsoid(
     ]:
         # find the rotation matrix and radii of the axes
         u_matrix, s, rotation = la.svd(covariance_matrix)
-        # Singular Value Decomposition from numpy.linalg 
+        # Singular Value Decomposition from numpy.linalg
         # finds the variance vector s when the covariance
         # matrix has been rotated so that it is diagonal
         radii = np.sqrt(s) * sigma
@@ -84,7 +84,7 @@ def plot_ellipsoid(
         u = np.linspace(0.0, 2.0 * np.pi, 100)  # AZIMUTHAL ANGLE (LONGITUDE)
         v = np.linspace(0.0, np.pi, 100)  # POLAR ANGLE (LATITUDE)
 
-        # COORDINATES OF THE SURFACE PRETENDING THAT THE 
+        # COORDINATES OF THE SURFACE PRETENDING THAT THE
         # GAUSSIAN IS AT THE CENTRE & NON ROTATED
         x = radii[0] * np.outer(np.cos(u), np.sin(v))  # MESH FOR X
         y = radii[1] * np.outer(np.sin(u), np.sin(v))  # MESH FOR Y
