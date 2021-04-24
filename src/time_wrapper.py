@@ -1,9 +1,10 @@
 """Times utilities."""
+from typing import Callable
 import time
 from functools import wraps
 
 
-def timeit(method: any) -> any:
+def timeit(method: Callable) -> Callable:
     """This timeit function is a wrapper for performance analysis.
 
     Should return the time taken for a function to run,
