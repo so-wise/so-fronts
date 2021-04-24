@@ -1,12 +1,16 @@
 site_name: AGU20-OS022-08
 theme:
-  name: material
+    name: material
 markdown_extensions:
-  - toc:
-    permalink: "#"
-    baselevel: 3
+    - toc:
+        permalink: "#"
+        baselevel: 3
+    - admonition
+    - codehilite
+    - mkautodoc
 nav:
-  - Home: README.md
+    - Home: README.md
+    - API: api.md
 plugins:
   - mkdocstrings
   - search
