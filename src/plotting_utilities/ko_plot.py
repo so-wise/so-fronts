@@ -7,7 +7,7 @@ Usage:
 
 """
 import os
-from typing import Sequence, Tuple, List
+from typing import Tuple, List
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -17,11 +17,14 @@ import src.plotting_utilities.map as mp
 import src.constants as cst
 
 
+sps.mpl_params()
+
+
 def is_too_far(
-    lat_A: float = 0.0,
-    lat_B: float = 0.0,
-    lon_A: float = 0.0,
-    lon_B: float = 0.0,
+    lat_a: float = 0.0,
+    lat_b: float = 0.0,
+    lon_a: float = 0.0,
+    lon_b: float = 0.0,
     max_allowable_square: float = 1,
 ) -> bool:
     """Check if points are too far apart to draw a line between.
@@ -32,34 +35,35 @@ def is_too_far(
     TODO cartesian approximation (this would solve line breaks at greenwich meridian).
 
     Args:
-        lat_A (float, optional): [description]. Defaults to 0.0.
-        lat_B (float, optional): [description]. Defaults to 0.0.
-        lon_A (float, optional): [description]. Defaults to 0.0.
-        lon_B (float, optional): [description]. Defaults to 0.0.
+        lat_a (float, optional): [description]. Defaults to 0.0.
+        lat_b (float, optional): [description]. Defaults to 0.0.
+        lon_a (float, optional): [description]. Defaults to 0.0.
+        lon_b (float, optional): [description]. Defaults to 0.0.
         max_allowable_square (float, optional): [description]. Defaults to 1.
 
     Returns:
         bool: whether or not.
     """
-    assert lat_A > -90
-    assert lat_B > -90
+    assert lat_a > -90
+    assert lat_b > -90
 
     # I prefer positive longitudes
-    if lon_A < 0:
-        lon_A += 360
-    if lon_B < 0:
-        lon_B += 360
+    if lon_a < 0:
+        lon_a += 360
+    if lon_b < 0:
+        lon_b += 360
 
     # This will suppress line breaking at Greenwich meridian
-    if lon_A > 360 - max_allowable_square and lon_B < max_allowable_square:
+    if lon_a > 360 - max_allowable_square and lon_b < max_allowable_square:
         return False
-    elif lon_B > 360 - max_allowable_square and lon_A < max_allowable_square:
+    elif lon_b > 360 - max_allowable_square and lon_a < max_allowable_square:
         return False
     else:
-        return (lat_A - lat_B) ** 2 + (lon_A - lon_B) ** 2 > max_allowable_square
+        return (lat_a - lat_b) ** 2 + (lon_a - lon_b) ** 2 > max_allowable_square
 
 
 def split_into_list_of_lists(
+    # spylint: disable=dangerous-default-value
     max_square: list = 1, list_of_xs: list = [0.0], list_of_ys: list = [0.0]
 ) -> Tuple[List[list], List[list]]:
     """Split into list of lists.
@@ -75,10 +79,10 @@ def split_into_list_of_lists(
 
     for i in range(len(list_of_xs) - 1):
         if is_too_far(
-            lon_A=list_of_xs[i],
-            lon_B=list_of_xs[i + 1],
-            lat_A=list_of_ys[i],
-            lat_B=list_of_ys[i + 1],
+            lon_a=list_of_xs[i],
+            lon_b=list_of_xs[i + 1],
+            lat_a=list_of_ys[i],
+            lat_b=list_of_ys[i + 1],
             max_allowable_square=max_square,
         ):
             index_lists += 1
@@ -93,7 +97,9 @@ def split_into_list_of_lists(
 
 def plot_list_of_lists(
     ax: matplotlib.axes.Axes,
+    #pylint: disable=dangerous-default-value
     lol_of_xs: List[list] = [[0.0], [0.0]],
+    #pylint: disable=dangerous-default-value
     lol_of_ys: List[list] = [[0.0], [0.0]],
     color: str = "red",
     markersize: float = 0.3,
@@ -225,23 +231,24 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
                 line_type="-",
             )
 
-    latitudes = {}
-    longitudes = {}
-    files_names = [
+    latitudes: dict = {}
+    longitudes: dict = {}
+    files_names: list = [
         "pf_kim.txt",
         "saccf_kim.txt",
         "saf_kim.txt",
         "sbdy_kim.txt",
     ]
-    files = [os.path.join(cst.KO_PATH, x) for x in files_names]
-    keys = ["saf", "pf", "saccf", "sbdy"]
+    files: list = [os.path.join(cst.KO_PATH, x) for x in files_names]
+    keys: list = ["saf", "pf", "saccf", "sbdy"]
     color_dict: dict = {
         "saf": "black",
         "pf": "grey",
         "saccf": "green",
         "sbdy": "olive",
     }
-    # label_dict = {'saf': 'SAF-KO', 'pf': 'PF-KO', 'saccf': 'SACCF-KO', 'sbdy': 'SBDY-KO', 'stf': "STF-O"}
+    # label_dict = {'saf': 'SAF-KO', 'pf': 'PF-KO', 'saccf': 
+    #               'SACCF-KO', 'sbdy': 'SBDY-KO', 'stf': "STF-O"}
     label_dict: dict = {
         "saf": "SAF",
         "pf": "PF",

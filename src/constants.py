@@ -19,15 +19,15 @@ FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
 KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 
 # MAIN
-MAIN_DIR: str = "/Users/simon/bsose_monthly/"
-SALT: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Salt.nc"
-THETA: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Theta.nc"
+# MAIN_DIR: str = "/Users/simon/bsose_monthly/"
+# SALT: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Salt.nc"
+# THETA: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Theta.nc"
 
 # Data directory on GWS
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 # Paths to different BSOSE-i106 files (unique to my machine):
-if platform == "Linux" or platform == "linux":
+if platform in ["Linux", "linux"]:
     GEN_DATA_PATH = os.path.join(GWS_DATA_DIR, "bsose_data")
     BSOSE_PATH = os.path.join(GWS_DATA_DIR, "bsose_data", "bsose_salt_temp")
 
@@ -37,6 +37,9 @@ elif platform == "Darwin":
 
 else:
     assert False
+
+if not os.path.exists(GEN_DATA_PATH):
+    os.mkdir(GEN_DATA_PATH)
 
 SALT_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
 THETA_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Theta.nc")
