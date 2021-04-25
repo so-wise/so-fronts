@@ -15,5 +15,5 @@ jobs:
       - run: pip install mkdocstrings
       - run: pip install mkautodoc
       - run: pip install -e .
-      - run: pip install requirements/requirements.txt
+      - run: pip install -r requirements/requirements.txt
       - run: mkdocs gh-deploy --force
