@@ -61,7 +61,7 @@ def return_name(k_clusters: int, pca_components: int) -> str:
     )
 
 
-def _return_plot_folder(k_clusters: int, pca_components: int) -> str:
+def return_plot_folder(k_clusters: int, pca_components: int) -> str:
     """Return plot folder name.
 
     Args:

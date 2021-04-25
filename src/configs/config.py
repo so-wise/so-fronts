@@ -13,7 +13,6 @@ from omegaconf import MISSING, DictConfig, OmegaConf
 from src import constants
 
 
-
 @dataclass
 class ModeConfig:
     train: bool = MISSING

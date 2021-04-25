@@ -10,7 +10,7 @@ mov.move()
 
 # ko.run_so_map()
 
-#pylint: disable=pointless-string-statement
+# pylint: disable=pointless-string-statement
 """
 # import hydra
 # from src import constants
