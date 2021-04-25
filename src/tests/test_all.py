@@ -1,3 +1,4 @@
+"""Test all functions."""
 import unittest
 
 from src.tests import test_data

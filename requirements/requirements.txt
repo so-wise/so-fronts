@@ -5,6 +5,7 @@ hydra-core
 wandb
 
 # xarray extras
+xarray
 netcdf4
 scikit-learn
 matplotlib==3.2.2
@@ -15,7 +16,6 @@ dask
 pandas
 tqdm
 pylint
-xarray
 
 # docs
 mkdocs

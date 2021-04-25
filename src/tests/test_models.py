@@ -1,3 +1,4 @@
+"""Test models scripts."""
 import unittest
 
 

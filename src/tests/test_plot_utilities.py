@@ -1,3 +1,4 @@
+"""Test plot utilities."""
 import unittest
 from src.plotting_utilities.ellipses import plot_ellipsoid_test
 

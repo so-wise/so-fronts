@@ -63,9 +63,11 @@ def is_too_far(
 
 
 def split_into_list_of_lists(
-    # spylint: disable=dangerous-default-value
-    max_square: list = 1,
+    # pylint: disable=dangerous-default-value
+    max_square: float = 1,
+    # pylint: disable=dangerous-default-value
     list_of_xs: list = [0.0],
+    # pylint: disable=dangerous-default-value
     list_of_ys: list = [0.0],
 ) -> Tuple[List[list], List[list]]:
     """Split into list of lists.
@@ -249,8 +251,8 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
         "saccf": "green",
         "sbdy": "olive",
     }
-    # label_dict = {'saf': 'SAF-KO', 'pf': 'PF-KO', 'saccf':
-    #               'SACCF-KO', 'sbdy': 'SBDY-KO', 'stf': "STF-O"}
+    # label_dict = {"saf": "SAF-KO", "pf": "PF-KO", "saccf":
+    #               "SACCF-KO", "sbdy": "SBDY-KO", "stf": "STF-O"}
     label_dict: dict = {
         "saf": "SAF",
         "pf": "PF",

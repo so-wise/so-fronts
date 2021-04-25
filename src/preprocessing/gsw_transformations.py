@@ -30,6 +30,8 @@ def return_density(
     """
 
     lat_mesh, z_mesh = np.meshgrid(lat_values, z_values)
+
+    # pylint: disable=no-value-for-parameter
     pressure_mesh = gsw.p_from_z(z_mesh, lat_mesh)
     pressure_values = np.zeros(np.shape(pt_values))
     lat_grid = np.zeros(np.shape(pt_values))
@@ -206,21 +208,24 @@ def create_whole_density_netcdf() -> None:
     salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
     salt_nc = xr.open_dataset(salt)
 
-    for time_i in range(salt_nc.dims["time"]):
+    for time_i in range(salt_nc.dims[cst.T_COORD]):
 
         print(time_i)
 
-        (density_da, ct_da, pressure_da, theta_da) = test_density_da(
-            time_i=time_i, max_depth=0
-        )
+        (density_da, _, _, _) = test_density_da(time_i=time_i, max_depth=0)
 
-        density_da = density_da.expand_dims(dim="time", axis=None)
+        density_da = density_da.expand_dims(dim=cst.T_COORD, axis=None)
 
         density_da = density_da.assign_coords(
-            {"time": ("time", [salt_nc.isel(time=time_i).coords["time"].values])}
+            {
+                cst.T_COORD: (
+                    cst.T_COORD,
+                    [salt_nc.isel(time=time_i).coords[cst.T_COORD].values],
+                )
+            }
         )
 
-        density_da.coords["time"].attrs = salt_nc.coords["time"].attrs
+        density_da.coords[cst.T_COORD].attrs = salt_nc.coords[cst.T_COORD].attrs
 
         density_da.to_netcdf("nc/rho/density_" + str(time_i) + ".nc", format="netcdf4")
 
@@ -276,7 +281,7 @@ def x_grad() -> None:
     xr.save_mfdataset([grad_ds], ["nc/density_grad_x.nc"], format="NETCDF4")
 
 
-def y_grad(set: bool = False) -> None:
+def y_grad(set_ok: bool = False) -> None:
     """Take y grad.
 
     Args:
@@ -291,7 +296,7 @@ def y_grad(set: bool = False) -> None:
         .astype("float32")
     )
     del density_da
-    if not set:
+    if not set_ok:
         grad_da.to_netcdf("nc/density_grad_y_da.nc", engine="netcdf4")
     else:
         grad_ds = grad_da.to_dataset().astype("float32")
@@ -323,6 +328,7 @@ def take_derivative_density(
         data_vars="minimal",
         coords="minimal",
         compat="override",
+        engine=engine,
         parallel=True,
     ).astype(typ)
 

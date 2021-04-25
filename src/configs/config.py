@@ -1,3 +1,4 @@
+"""
 import itertools
 import multiprocessing
 import os
@@ -11,7 +12,7 @@ from hydra.core.config_store import ConfigStore
 from omegaconf import MISSING, DictConfig, OmegaConf
 from src import constants
 
-"""
+
 
 @dataclass
 class ModeConfig:
@@ -96,7 +97,8 @@ def validate_config(cfg: DictConfig) -> DictConfig:
         set(constants.ALL_FEATURES)
     ):
         raise ValueError(
-            "Feature names must be valid and non-timeseries features must not contain NaNs."
+            "Feature names must be valid and non-"
+            +"timeseries features must not contain NaNs."
         )
     cfg.dataset.num_features = sum([len(x) for x in cfg.dataset.features.values()])
     # Set data_dir
@@ -107,7 +109,8 @@ def validate_config(cfg: DictConfig) -> DictConfig:
         [pd.Timestamp(date) for date in cfg.mode.date_range]
     except ValueError:
         print(
-            "The parameters `dataset.train_test_split` and `mode.date_range` must be valid dates."
+            "The parameters `dataset.train_test_split` "
+            + "and `mode.date_range` must be valid dates."
         )
     # Validate seq_length
     if cfg.dataset.seq_length <= 0:
@@ -115,7 +118,8 @@ def validate_config(cfg: DictConfig) -> DictConfig:
     # Validate basins_frac
     if not 0.0 <= cfg.dataset.basins_frac <= 1.0:
         raise ValueError(
-            f"The basins fraction {cfg.dataset.basins_frac} must be in the range [0, 1]."
+            f"The basins fraction {cfg.dataset.basins_frac}"
+            + f" must be in the range [0, 1]."
         )
     if cfg.precision != 16 and cfg.precision != 32:
         raise ValueError(f"The precision {cfg.precision} must be either 16 or 32.")

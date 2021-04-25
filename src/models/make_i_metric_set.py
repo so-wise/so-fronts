@@ -1,6 +1,6 @@
+"""Make i metric."""
 import xarray as xr
 import pyxpcm
-from pyxpcm.models import pcm
 import src.constants as cst
 import src.data_loading.io_name_conventions as io
 import src.train_i_metric as tim
@@ -9,18 +9,18 @@ xr.set_options(keep_attrs=True)
 
 
 def pca_from_interpolated_year(
-    m: pyxpcm.pcm,
+    pcm_object: pyxpcm.pcm,
     pca: int = 2,
-    K: int = 5,
+    k_clusters: int = 5,
     time_i: int = 42,
     max_depth: float = 2000,
     remove_init_var: bool = True,
 ) -> None:
     """
-    m: the pcm object which has already been trained
+    pcm_object: the pcm object which has already been trained
     pca: how many principal components were chosen to be fitted.
-    K: how many Guassians were fitted.
-    max_depth: the maximum_depth (in m) that the data is fitted to.
+    k_clusters: how many Guassians were fitted.
+    max_depth: the maximum_depth (in pcm_object) that the data is fitted to.
     """
 
     salt_nc = xr.open_dataset(cst.SALT_FILE).isel(time=time_i)
@@ -34,8 +34,10 @@ def pca_from_interpolated_year(
         attr_d[coord] = both_nc.coords[coord].attrs
 
     ds = both_nc
-    ds = m.find_i_metric(ds, inplace=True)
-    ds = m.add_pca_to_xarray(ds, features=cst.FEATURES_D, dim=cst.Z_COORD, inplace=True)
+    ds = pcm_object.find_i_metric(ds, inplace=True)
+    ds = pcm_object.add_pca_to_xarray(
+        ds, features=cst.FEATURES_D, dim=cst.Z_COORD, inplace=True
+    )
 
     def sanitize() -> None:
         del ds.IMETRIC.attrs["_pyXpcm_cleanable"]
@@ -55,21 +57,38 @@ def pca_from_interpolated_year(
         {cst.T_COORD: (cst.T_COORD, [salt_nc.coords[cst.T_COORD].values])}
     )
     ds.coords[cst.T_COORD].attrs = salt_nc.coords[cst.T_COORD].attrs
-    ds.to_netcdf(io._return_folder(K, pca) + str(time_i) + ".nc", format="NETCDF4")
+    ds.to_netcdf(
+        io.return_folder(k_clusters, pca) + str(time_i) + ".nc", format="NETCDF4"
+    )
 
 
-def run_through_joint_two(K: int = 5, pca: int = 3) -> None:
-    m, ds = tim.train_on_interpolated_year(
-        time_i=42, K=K, maxvar=pca, min_depth=300, max_depth=2000, separate_pca=False
+def run_through_joint_two(k_clusters: int = 5, pca: int = 3) -> None:
+    """
+    Run through joint.
+
+    Args:
+        k_clusters (int, optional): [description]. Defaults to 5.
+        pca (int, optional): [description]. Defaults to 3.
+    """
+    pcm_object, _ = tim.train_on_interpolated_year(
+        time_i=42,
+        k_clusters=k_clusters,
+        maxvar=pca,
+        min_depth=300,
+        max_depth=2000,
+        separate_pca=False,
     )
     for time_i in range(60):
-        pca_from_interpolated_year(m, K=K, pca=pca, time_i=time_i)
+        pca_from_interpolated_year(
+            pcm_object, k_clusters=k_clusters, pca=pca, time_i=time_i
+        )
 
 
-def merge_and_save_joint(K: int = 5, pca: int = 3) -> None:
+def merge_and_save_joint(k_clusters: int = 5, pca: int = 3) -> None:
+    """Merge and save joint."""
 
     pca_ds = xr.open_mfdataset(
-        io._return_folder(K, pca) + "*.nc",
+        io.return_folder(k_clusters, pca) + "*.nc",
         concat_dim=cst.T_COORD,
         combine="by_coords",
         chunks={cst.T_COORD: 1},
@@ -77,12 +96,15 @@ def merge_and_save_joint(K: int = 5, pca: int = 3) -> None:
         coords="minimal",
         compat="override",
     )
-    xr.save_mfdataset([pca_ds], [io._return_name(K, pca) + ".nc"], format="NETCDF4")
+    xr.save_mfdataset(
+        [pca_ds], [io.return_name(k_clusters, pca) + ".nc"], format="NETCDF4"
+    )
 
 
 def run_through() -> None:
-    K_list = [4, 2, 10]
-    for K in K_list:
-        run_through_joint_two(K=K)
-    for K in K_list:
-        merge_and_save_joint(K=K)
+    """Run through."""
+    k_list = [4, 2, 10]
+    for k_clusters in k_list:
+        run_through_joint_two(k_clusters=k_clusters)
+    for k_clusters in k_list:
+        merge_and_save_joint(k_clusters=k_clusters)

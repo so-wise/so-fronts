@@ -205,6 +205,15 @@ def tex_escape(text: str) -> str:
 
 @twr.timeit
 def proper_units(text: str) -> str:
+    """
+    Function for changing units to a better form.
+
+    Args:
+        text (str): text to check.
+
+    Returns:
+        str: reformatted text with better units.
+    """
     conv = {
         r"degK": r"K",
         r"degC": r"$^{\circ}$C",
@@ -223,17 +232,17 @@ def proper_units(text: str) -> str:
 
 
 @twr.timeit
-def ds_for_graphing(dsA: xr.Dataset) -> xr.Dataset:
+def ds_for_graphing(input_da: xr.Dataset) -> xr.Dataset:
     """
     Transform dataset for graphing.
 
     Args:
-        dsA (xr.Dataset): dataest input
+        input_da (xr.Dataset): dataest input
 
     Returns:
         xr.Dataset: transformed dataset.
     """
-    ds = dsA.copy()
+    ds = input_da.copy()
 
     for _, da in ds.data_vars.items():
         for attr in da.attrs:
@@ -244,6 +253,7 @@ def ds_for_graphing(dsA: xr.Dataset) -> xr.Dataset:
         if coord not in ["Z"]:
             for attr in ds.coords[coord].attrs:
                 if attr in ["units", "long_name"]:
+                    # pylint: disable=undefined-loop-variable
                     da.coords[coord].attrs[attr] = proper_units(
                         tex_escape(da.coords[coord].attrs[attr])
                     )

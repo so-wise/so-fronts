@@ -56,11 +56,10 @@ def make_all_figures_in_sequence() -> None:
     )
     pcm, ds = tim.train_on_interpolated_year(
         time_i=cst.EXAMPLE_TIME_INDEX,
-        K=cst.K_CLUSTERS,
+        k_clusters=cst.K_CLUSTERS,
         maxvar=cst.D_PCS,
         min_depth=cst.MIN_DEPTH,
         max_depth=cst.MAX_DEPTH,
-        separate_pca=False,
         remove_init_var=False,
     )
 
@@ -83,8 +82,11 @@ def make_all_figures_in_sequence() -> None:
     # FIGURE 2: Plot 3d clusters.
 
     c3d.comp_3d(
+        # pylint: disable=protected-access
         pcm._classifier.weights_,
+        # pylint: disable=protected-access
         pcm._classifier.means_,
+        # pylint: disable=protected-access
         pcm._classifier.covariances_,
         ds,
     )

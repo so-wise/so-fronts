@@ -37,7 +37,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
     for i in range(num_plots):
         if i == 0:
             num_pairs += 1
-            pairs = np.asarray([i for i in range(1)])
+            pairs = np.asarray([1])
             width_ratios.append(0.5)
             pairs_list.append(pairs)
         elif i == 1:

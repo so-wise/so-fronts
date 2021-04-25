@@ -20,14 +20,14 @@ import os
 import sys
 import shutil
 import requests
+from tqdm import tqdm
+import src.time_wrapper as twr
+from src.constants import GEN_DATA_PATH
 
 if sys.version_info >= (3, 8):
     import zipfile
 else:
     import zipfile38 as zipfile
-from tqdm import tqdm
-import src.time_wrapper as twr
-from src.constants import GEN_DATA_PATH
 
 
 @twr.timeit
