@@ -114,6 +114,12 @@ grep -R 'cst.TIME_NAME' src
 
 This will list all the instances where the name in question occurs in this repository.
 
+## Testing
+
+```bash
+python3 -m unittest
+```
+
 ## Documentation formatting
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
