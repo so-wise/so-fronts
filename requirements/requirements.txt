@@ -13,6 +13,7 @@ dask
 pandas
 tqdm
 pylint
+xarray
 
 # docs
 mkdocs
