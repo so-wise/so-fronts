@@ -4,7 +4,7 @@
 import os
 import numpy as np
 import pathlib
-from sys import platform
+from sys import platform, base_prefix
 
 print("platform", platform)
 
@@ -31,14 +31,19 @@ if platform in ["Linux", "linux"]:
     GEN_DATA_PATH = os.path.join(GWS_DATA_DIR, "bsose_data")
     BSOSE_PATH = os.path.join(GWS_DATA_DIR, "bsose_data", "bsose_salt_temp")
 
-elif platform == "Darwin":
+elif platform in ["Darwin", "darwin"]:
     BSOSE_PATH = os.path.join("/Users", "simon", "bsose_monthly")
     GEN_DATA_PATH = BSOSE_PATH
 
 else:
     assert False
 
-if not os.path.exists(GEN_DATA_PATH):
+# quick fix, so that this will run in my Jasmin repo
+# and not on github actions.
+if (
+    not os.path.exists(GEN_DATA_PATH)
+    and base_prefix == "/home/users/sithom/sof-agu/env"
+):
     os.mkdir(GEN_DATA_PATH)
 
 SALT_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")

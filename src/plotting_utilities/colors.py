@@ -108,6 +108,7 @@ def replacement_color_list(number_of_colors: int) -> list:
             "#fe019a",
         ],
     }
+    # pylint: disable=consider-using-get
     if number_of_colors in color_d:
         color_list = color_d[number_of_colors]
     else:
@@ -116,7 +117,17 @@ def replacement_color_list(number_of_colors: int) -> list:
 
 
 @twr.timeit
-def return_list_of_colormaps(number: int, fade_to_white: bool = True):
+def return_list_of_colormaps(number: int, fade_to_white: bool = True) -> list:
+    """
+    Retunr list of colormaps.
+
+    Args:
+        number (int): number of colormaps needed.
+        fade_to_white (bool, optional): Whether or not. Defaults to True.
+
+    Returns:
+        list: list of colormaps.
+    """
     color_list = replacement_color_list(number)
     cmap_list = []
     for i in range(number):
@@ -135,7 +146,7 @@ def _fading_colormap_name(from_name: str, fade_to_white: bool = True):
     :param from_name:
     :return:
     """
-    red, green, blue, alpha = colors.to_rgba(from_name)
+    red, green, blue, _ = colors.to_rgba(from_name)
 
     return _fading_colormap_rgb((red, green, blue), fade_to_white=fade_to_white)
 

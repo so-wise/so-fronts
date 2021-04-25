@@ -13,18 +13,17 @@ xr.set_options(keep_attrs=True)
 
 def train_on_interpolated_year(
     time_i: int = 42,
-    K: int = 5,
+    k_clusters: int = 5,
     maxvar: int = 3,
     min_depth: float = 300,
     max_depth: float = 2000,
-    separate_pca: bool = True,
     remove_init_var: bool = True,
 ) -> Tuple[pyxpcm.pcm, xr.Dataset]:
     """Train on interpolated year.
 
     Args:
         time_i (int, optional): time index. Defaults to 42.
-        K (int, optional): clusters. Defaults to 5.
+        k_clusters (int, optional): clusters. Defaults to 5.
         maxvar (int, optional): num pca. Defaults to 3.
         min_depth (float, optional): minimum depth for column. Defaults to 300.
         max_depth (float, optional): maximum depth for column. Defaults to 2000.
@@ -59,19 +58,19 @@ def train_on_interpolated_year(
     else:
         ds = xr.open_dataset(fname)
 
-    m = pcm(
-        K=K,
+    pcm_object = pcm(
+        K=k_clusters,
         features=features_pcm,
-        separate_pca=separate_pca,
+        # separate_pca=separate_pca,
         maxvar=maxvar,
         timeit=True,
         timeit_verb=1,
     )
 
-    m.fit(ds, features=features, dim=cst.Z_COORD)
-    m.add_pca_to_xarray(ds, features=features, dim=cst.Z_COORD, inplace=True)
-    m.find_i_metric(ds, inplace=True)
-    m.predict(ds, features=features, dim=cst.Z_COORD, inplace=True)
+    pcm_object.fit(ds, features=features, dim=cst.Z_COORD)
+    pcm_object.add_pca_to_xarray(ds, features=features, dim=cst.Z_COORD, inplace=True)
+    pcm_object.find_i_metric(ds, inplace=True)
+    pcm_object.predict(ds, features=features, dim=cst.Z_COORD, inplace=True)
 
     del ds.PCA_VALUES.attrs["_pyXpcm_cleanable"]
     del ds.IMETRIC.attrs["_pyXpcm_cleanable"]
@@ -82,4 +81,4 @@ def train_on_interpolated_year(
         ds = ds.drop(cst.VAR_NAME_LIST)
 
     # Tuple[pyxpcm.pcm, xr.Dataset]
-    return m, ds
+    return pcm_object, ds

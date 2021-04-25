@@ -36,7 +36,7 @@ def comp_3d(
     for i in range(num_plots):
         if i == 0:
             num_pairs += 1
-            pairs = np.asarray([i for i in range(1)])
+            pairs = np.asarray([0])
             width_ratios.append(0.5)
             pairs_list.append(pairs)
         elif i == 1:
@@ -95,11 +95,11 @@ def comp_3d(
             used_up_columns += pairs_list[i].shape[0] + 1
 
         if i == 0:
-            PCS = ds.PCA_VALUES
+            principal_component_da = ds.PCA_VALUES
             im = ax1.scatter(
-                PCS.isel(pca=0).values.ravel(),
-                PCS.isel(pca=1).values.ravel(),
-                PCS.isel(pca=2).values.ravel(),
+                principal_component_da.isel(pca=0).values.ravel(),
+                principal_component_da.isel(pca=1).values.ravel(),
+                principal_component_da.isel(pca=2).values.ravel(),
                 cmap=cm.get_cmap("Set1", len(weights)),
                 c=ds.PCM_LABELS.values.ravel() + 1,
                 vmin=0.5,

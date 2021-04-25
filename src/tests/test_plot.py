@@ -1,3 +1,4 @@
+"""Test plot scripts."""
 import unittest
 
 

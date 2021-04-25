@@ -9,8 +9,21 @@ xr.set_options(keep_attrs=True)
 
 
 def make_all_pair_i_metric(
-    cart_prod, i_metric, sorted_version, threshold
+    cart_prod: list, i_metric: np.ndarray, sorted_version: np.ndarray, threshold: float
 ) -> Tuple[list]:
+    """
+    Make all pair i metric.
+
+    Args:
+        cart_prod (list): cartesian product
+        i_metric (np.ndarray): [description]
+        sorted_version (np.ndarray): [description]
+        threshold (float): [description]
+
+    Returns:
+        Tuple[list]: [description]
+    """
+    # pylint: disable=using-constant-test
     if True:
         pair_i_metric_list = []
 
@@ -21,7 +34,7 @@ def make_all_pair_i_metric(
             temp_list = make_one_pair_i_metric(
                 pair, i_metric, sorted_version, threshold
             )
-            if temp_list[2] == True:
+            if temp_list[2] is True:
                 pair_list.append(temp_list[0])
                 pair_i_metric_list.append(temp_list[1])
             # time, YC, XC
@@ -33,15 +46,27 @@ def make_all_pair_i_metric(
 
 # @jit(nopython=True)
 def make_one_pair_i_metric(
-    pair, i_metric, sorted_version, threshold
+    pair: tuple, i_metric: np.ndarray, sorted_version: np.ndarray, threshold: float
 ) -> Sequence[np.array]:
+    """
+    Make a pair i metric.
+
+    Args:
+        pair (tuple): [description]
+        i_metric (np.ndarray): [description]
+        sorted_version (np.ndarray): [description]
+        threshold (float): threshold to nan things out below.
+
+    Returns:
+        Sequence[np.array]: list of numpy arrrays.
+    """
     shape = np.shape(sorted_version)
     print("shape", shape)
     # shape (60, 2, 588, 2160)
     at_least_one_point = False
     # float32 changed from np.zeros
-    pair_i_metric = np.zeros([shape[0], shape[2], shape[3]])  # , dtype='float64'
-    pair_i_metric[:, :, :] = np.nan
+    pair_i_npa = np.zeros([shape[0], shape[2], shape[3]])  # , dtype='float64'
+    pair_i_npa[:, :, :] = np.nan
     for i in range(shape[0]):  # 60
         for j in range(shape[2]):  # 588
             for k in range(shape[3]):  # 2160
@@ -49,9 +74,9 @@ def make_one_pair_i_metric(
                     # sorted_version (60, 2, 588, 2160)
                     if i_metric[i, j, k] >= threshold:
                         # i_metric (60, 588, 2160)
-                        pair_i_metric[i, j, k] = i_metric[i, j, k]
+                        pair_i_npa[i, j, k] = i_metric[i, j, k]
                         at_least_one_point = True
-    return [pair, pair_i_metric, at_least_one_point]
+    return [pair, pair_i_npa, at_least_one_point]
 
 
 def pair_i_metric(ds: xr.Dataset, threshold: float = 0.05) -> xr.DataArray:
@@ -69,17 +94,19 @@ def pair_i_metric(ds: xr.Dataset, threshold: float = 0.05) -> xr.DataArray:
     ("y", dataarray.coords["YC"]
     """
 
-    A_B_values = xvl.order_indexes(
+    a_b_values = xvl.order_indexes(
         ds.A_B, [cst.T_COORD, "rank", cst.Y_COORD, cst.X_COORD]
     )
-    sorted_version = np.sort(A_B_values, axis=1)
+    sorted_version = np.sort(a_b_values, axis=1)
     i_metric = xvl.order_indexes(
         ds.IMETRIC.isel(Imetric=0), [cst.T_COORD, cst.Y_COORD, cst.X_COORD]
     )
     print("i_metric", i_metric.shape)
     # i_metric (60, 588, 2160)
+    # pylint: disable=unnecessary-comprehension
     list_no = [i for i in range(int(np.nanmax(sorted_version)) + 1)]
     print("list_no", list_no)
+
     cart_prod = [
         np.array([a, b]) for a in list_no for b in list_no if a <= b and a != b
     ]

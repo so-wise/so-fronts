@@ -15,6 +15,8 @@ def plot_ellipsoid_test() -> None:
     """
     https://stackoverflow.com/questions/7819498/plotting-ellipsoid-with-matplotlib
 
+    Plot ellipsoid test. Runs from unittest.
+
     """
 
     # your ellipsoid's covariance_matrix and mean in matrix form
@@ -73,7 +75,7 @@ def plot_ellipsoid(
         [1, 0.6 * weight],
     ]:
         # find the rotation matrix and radii of the axes
-        u_matrix, s, rotation = la.svd(covariance_matrix)
+        _, s, rotation = la.svd(covariance_matrix)
         # Singular Value Decomposition from numpy.linalg
         # finds the variance vector s when the covariance
         # matrix has been rotated so that it is diagonal

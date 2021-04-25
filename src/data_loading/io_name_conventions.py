@@ -22,7 +22,7 @@ def return_pair_i_metric(
     Returns:
         xr.DataArray: pair i metric.
     """
-    link_to_netcdf = _return_name(k_clusters, pca) + ".nc"
+    link_to_netcdf = return_name(k_clusters, pca) + ".nc"
     ds = xr.open_dataset(link_to_netcdf)
     print(ds.__str__())
     batch_size = 2
@@ -43,7 +43,7 @@ def return_pair_i_metric(
     return da
 
 
-def _return_name(k_clusters: int, pca_components: int) -> str:
+def return_name(k_clusters: int, pca_components: int) -> str:
     """Return name.
 
     Args:
@@ -83,7 +83,7 @@ def _return_plot_folder(k_clusters: int, pca_components: int) -> str:
     return folder
 
 
-def _return_folder(k_clusters: int, pca_components: int) -> str:
+def return_folder(k_clusters: int, pca_components: int) -> str:
     """Return return folder name.
 
     Args:
@@ -94,7 +94,7 @@ def _return_folder(k_clusters: int, pca_components: int) -> str:
         str: file names.
 
     """
-    folder = _return_name(k_clusters, pca_components) + "/"
+    folder = return_name(k_clusters, pca_components) + "/"
     if not os.path.exists(folder):
         os.makedirs(folder)
     return folder

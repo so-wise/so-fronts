@@ -5,8 +5,8 @@ southern_ocean_axes_setup - SO - up to 30 deg South to 90 degrees south.
 """
 import numpy as np
 import matplotlib
-import cartopy.crs as ccrs
 import matplotlib.path as mpath
+import cartopy.crs as ccrs
 import src.time_wrapper as twr
 
 # import cartopy.feature
