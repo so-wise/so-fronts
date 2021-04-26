@@ -1,19 +1,19 @@
-"""Make i metric."""
+"""Make i metric in a batch."""
 import xarray as xr
 import pyxpcm
 import src.constants as cst
 import src.data_loading.io_name_conventions as io
-import src.train_i_metric as tim
+import src.train_pyxpcm as tim
 
 xr.set_options(keep_attrs=True)
 
 
 def pca_from_interpolated_year(
     pcm_object: pyxpcm.pcm,
-    pca: int = 2,
-    k_clusters: int = 5,
-    time_i: int = 42,
-    max_depth: float = 2000,
+    pca: int = cst.D_COORD,
+    k_clusters: int = cst.K_CLUSTERS,
+    time_i: int = cst.EXAMPLE_TIME_INDEX,
+    max_depth: float = cst.MAX_DEPTH,
     remove_init_var: bool = True,
 ) -> None:
     """
@@ -62,7 +62,7 @@ def pca_from_interpolated_year(
     )
 
 
-def run_through_joint_two(k_clusters: int = 5, pca: int = 3) -> None:
+def run_through_sep(k_clusters: int = cst.K_CLUSTERS, pca: int = cst.D_PCS) -> None:
     """
     Run through joint.
 
@@ -71,11 +71,11 @@ def run_through_joint_two(k_clusters: int = 5, pca: int = 3) -> None:
         pca (int, optional): [description]. Defaults to 3.
     """
     pcm_object, _ = tim.train_on_interpolated_year(
-        time_i=42,
+        time_i=cst.EXAMPLE_TIME_INDEX,
         k_clusters=k_clusters,
         maxvar=pca,
-        min_depth=300,
-        max_depth=2000,
+        min_depth=cst.MIN_DEPTH,
+        max_depth=cst.MAX_DEPTH,
         separate_pca=False,
     )
     for time_i in range(60):
@@ -84,7 +84,7 @@ def run_through_joint_two(k_clusters: int = 5, pca: int = 3) -> None:
         )
 
 
-def merge_and_save_joint(k_clusters: int = 5, pca: int = 3) -> None:
+def merge_and_save(k_clusters: int = 5, pca: int = 3) -> None:
     """Merge and save joint."""
 
     pca_ds = xr.open_mfdataset(
@@ -105,6 +105,6 @@ def run_through() -> None:
     """Run through."""
     k_list = [4, 2, 10]
     for k_clusters in k_list:
-        run_through_joint_two(k_clusters=k_clusters)
+        run_through_sep(k_clusters=k_clusters)
     for k_clusters in k_list:
-        merge_and_save_joint(k_clusters=k_clusters)
+        merge_and_save(k_clusters=k_clusters)

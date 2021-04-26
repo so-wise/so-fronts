@@ -65,8 +65,9 @@ SEED: int = int(RUN_NAME)  # TODO --> Make GMM training function take random see
 np.random.seed(SEED)
 MIN_DEPTH: float = 300  # m
 MAX_DEPTH: float = 2000  # m
-K_CLUSTERS: int = 5
-D_PCS: int = 3
+K_CLUSTERS: int = 5  # number of clusters
+D_PCS: int = 3  # number of principal components
 EXAMPLE_TIME_INDEX: int = 40  # the default time to go for.
-EXAMPLE_Z_INDEX: int = 15
-DEFAULT_NC: str = "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"
+EXAMPLE_Z_INDEX: int = 15  # 15 indexes down.
+DEFAULT_NC: str = "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
+ALL_NAME: str = "all"  # starting combination script.

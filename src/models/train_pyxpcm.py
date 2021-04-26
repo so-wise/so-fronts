@@ -12,9 +12,9 @@ xr.set_options(keep_attrs=True)
 
 
 def train_on_interpolated_year(
-    time_i: int = 42,
-    k_clusters: int = 5,
-    maxvar: int = 3,
+    time_i: int = cst.EXAMPLE_TIME_INDEX,
+    k_clusters: int = cst.K_CLUSTERS,
+    maxvar: int = cst.D_PCS,
     min_depth: float = cst.MIN_DEPTH,
     max_depth: float = cst.MAX_DEPTH,
     remove_init_var: bool = True,
