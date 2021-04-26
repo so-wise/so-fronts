@@ -18,7 +18,7 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def make_all_figures_in_sequence() -> None:
+def make_all_figures() -> None:
     """
     Make all the figures in the paper in a sequence.
 
@@ -277,7 +277,8 @@ def make_all_figures_in_sequence() -> None:
             .mean(dim=cst.T_COORD, skipna=True),
             vvel_ds.VVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
-        ["PC1 x-grad", r"$V$ (pcm s$^{-1}$)", "PC1 x-grad", r"$V$ (pcm s$^{-1}$)"],
+        ["PC1 x-grad", r"$V$ (pcm s$^{-1}$)",
+         "PC1 x-grad", r"$V$ (pcm s$^{-1}$)"],
     )
     pc_y_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad.png"
