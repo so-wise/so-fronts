@@ -1,12 +1,12 @@
 """Download the data from dropbox links.
 
-'get_zip'  682.31512 s
+'get_zip'  1694.64639 s
 
-'un_zip'  239.17872 s
+'un_zip'  444.41240 s
 
-'clean_up'  2.31065 s
+'clean_up'  4.04602 s
 
-'get_and_unzip'  923.80469 s
+'get_and_unzip'  2143.10502 s
 
 Example:
     Import statement::
@@ -73,9 +73,8 @@ SUFFIX = "?raw=1"
 
 def get_data() -> None:
     """Downloads data."""
-
-    code = "tvflaeux4wwq6zq/"
-    name = "bsose_salt_temp.zip"
+    code = "7ided3q1umtfawl/"
+    name = "bsose_stuv.zip"
 
     lol = [
         [

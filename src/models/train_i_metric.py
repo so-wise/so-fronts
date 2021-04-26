@@ -15,8 +15,8 @@ def train_on_interpolated_year(
     time_i: int = 42,
     k_clusters: int = 5,
     maxvar: int = 3,
-    min_depth: float = 300,
-    max_depth: float = 2000,
+    min_depth: float = cst.MIN_DEPTH,
+    max_depth: float = cst.MAX_DEPTH,
     remove_init_var: bool = True,
 ) -> Tuple[pyxpcm.pcm, xr.Dataset]:
     """Train on interpolated year.
