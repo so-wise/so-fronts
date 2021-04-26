@@ -1,6 +1,8 @@
 # NOTE: Your final requirements for production/publishing the repo go here.
-# https://github.com/sdat2/pyxpcm/archive/sof-agu.zip
-https://github.com/sdat2/pyxpcm/archive/sort_and_pca.zip
+https://github.com/sdat2/pyxpcm/archive/sof-agu.zip
+
+# https://github.com/sdat2/pyxpcm/archive/sort_and_pca.zip
+# tools for setting up and monitoring runs
 hydra-core
 wandb
 

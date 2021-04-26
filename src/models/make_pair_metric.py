@@ -16,18 +16,17 @@ def make_all_pair_i_metric(
 
     Args:
         cart_prod (list): cartesian product
-        i_metric (np.ndarray): [description]
+        i_metric (np.ndarray): i metric.
         sorted_version (np.ndarray): [description]
         threshold (float): [description]
 
     Returns:
-        Tuple[list]: [description]
+        Tuple[list]: tuple.
     """
     # pylint: disable=using-constant-test
     if True:
-        pair_i_metric_list = []
-
-        pair_list = []
+        pair_i_metric_list = list()
+        pair_list = list()
 
         for pair in cart_prod:
             print("pair", pair)
@@ -65,7 +64,8 @@ def make_one_pair_i_metric(
     # shape (60, 2, 588, 2160)
     at_least_one_point = False
     # float32 changed from np.zeros
-    pair_i_npa = np.zeros([shape[0], shape[2], shape[3]])  # , dtype='float64'
+    pair_i_npa = np.zeros([shape[0], shape[2], shape[3]])
+    # , dtype='float64'
     pair_i_npa[:, :, :] = np.nan
     for i in range(shape[0]):  # 60
         for j in range(shape[2]):  # 588
@@ -81,6 +81,8 @@ def make_one_pair_i_metric(
 
 def pair_i_metric(ds: xr.Dataset, threshold: float = 0.05) -> xr.DataArray:
     """
+    Pair i metric.
+
     # new loading order (to be changed)
     ds.A_B.values.shape (2, 12, 60, 240)
     sorted_version.shape (2, 12, 60, 240)
@@ -92,6 +94,13 @@ def pair_i_metric(ds: xr.Dataset, threshold: float = 0.05) -> xr.DataArray:
     ("rank", dataarray.coords["rank"].values.shape[0]),
     ("x", dataarray.coords["XC"].values.shape[0]),
     ("y", dataarray.coords["YC"]
+
+    Args:
+        ds (xr.Dataset): dataset.
+        threshold (float, optional): threshold to nan out below. Defaults to 0.05.
+
+    Returns:
+        xr.DataArray: pair i metric dataset.
     """
 
     a_b_values = xvl.order_indexes(

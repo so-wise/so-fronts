@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import src.constants as cst
 import src.plotting_utilities.latex_style as lsty
 import src.plotting_utilities.xarray_panels as xp
-import src.models.train_i_metric as tim
+import src.models.train_pyxpcm as tim
 import src.plot.clust_3d as c3d
 import src.plot.i_map as imap
 import src.plot.profiles as prof
