@@ -4,7 +4,7 @@
 import os
 import numpy as np
 import pathlib
-from sys import platform, base_prefix
+from sys import platform
 
 print("platform", platform)
 
@@ -18,18 +18,13 @@ DATA_PATH = os.path.join(PROJECT_PATH, "nc")
 FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
 KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 
-# MAIN
-# MAIN_DIR: str = "/Users/simon/bsose_monthly/"
-# SALT: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Salt.nc"
-# THETA: str = MAIN_DIR + "bsose_i106_2008to2012_monthly_Theta.nc"
-
 # Data directory on GWS
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 # Paths to different BSOSE-i106 files (unique to my machine):
 if platform in ["Linux", "linux"]:
     GEN_DATA_PATH = os.path.join(GWS_DATA_DIR, "bsose_data")
-    BSOSE_PATH = os.path.join(GWS_DATA_DIR, "bsose_data", "bsose_salt_temp")
+    BSOSE_PATH = os.path.join(GEN_DATA_PATH, "bsose_stuv")
 
 elif platform in ["Darwin", "darwin"]:
     BSOSE_PATH = os.path.join("/Users", "simon", "bsose_monthly")
@@ -38,14 +33,7 @@ elif platform in ["Darwin", "darwin"]:
 else:
     assert False
 
-# quick fix, so that this will run in my Jasmin repo
-# and not on github actions.
-if (
-    not os.path.exists(GEN_DATA_PATH)
-    and base_prefix == "/home/users/sithom/sof-agu/env"
-):
-    os.mkdir(GEN_DATA_PATH)
-
+# Salt, Theta, Uvel, Vvel
 SALT_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
 THETA_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Theta.nc")
 VVEL_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Vvel.nc")
