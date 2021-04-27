@@ -6,6 +6,7 @@ import os
 import numpy.ma as ma
 import xarray as xr
 import matplotlib.pyplot as plt
+import logging
 import src.constants as cst
 import src.plot_utils.latex_style as lsty
 import src.plot_utils.xarray_panels as xp
@@ -22,10 +23,24 @@ def make_all_figures() -> None:
     """
     Make all the figures in the paper in a sequence.
 
-    Takes about 8 minutes or so to run.
-    """
+    Takes about 8 minutes or so to run on my laptop.
 
-    print("Starting make_all_figures_in_sequence, should take about about 8 minutes.")
+    Seems to take much longer on jasmin.
+
+    3089 seconds on jasmin.
+
+    That is 50 minutes apparently.
+    """
+    # Create or get the logger
+    logger = logging.getLogger(__name__)
+    # set log level
+    logger.setLevel(logging.INFO)
+
+    # pylint: disable=logging-not-lazy
+    logger.info(
+        "Starting make_all_figures_in_sequence, "
+        + " should take about about 8 minutes."
+    )
     print(
         "settings:\n",
         "cst.EXAMPLE_TIME_INDEX",
@@ -36,6 +51,7 @@ def make_all_figures() -> None:
     lsty.mpl_params()
 
     # FIGURE 1: pc maps.
+    logger.info("Making pc maps.")
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
 
@@ -48,7 +64,8 @@ def make_all_figures() -> None:
     plt.savefig(pc_maps_name)
     plt.clf()
 
-    # FIGURE 1.5 ## make profiles.
+    # FIGURE 2 ## make profiles.
+    logger.info("Making profiles.")
 
     temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
     profiles_name = os.path.join(
@@ -79,7 +96,8 @@ def make_all_figures() -> None:
     plt.savefig(profiles_plot_name)
     plt.clf()
 
-    # FIGURE 2: Plot 3d clusters.
+    # FIGURE 3: Plot 3d clusters.
+    logger.info("Plot 3d clusters.")
 
     c3d.comp_3d(
         # pylint: disable=protected-access
@@ -97,7 +115,8 @@ def make_all_figures() -> None:
     plt.savefig(s3d_plot_name)
     plt.clf()
 
-    # FIGURE 3: I metric viridis colormap.
+    # FIGURE 4: I metric viridis colormap.
+    logger.info("4: I metric geographical map with viridis colormap.")
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
@@ -114,7 +133,8 @@ def make_all_figures() -> None:
     plt.savefig(imetric_dual_name)
     plt.clf()
 
-    # FIGURE 4: single multi color.
+    # FIGURE 5: single multi color.
+    logger.info("5: Example multi colour i metric plot for K=5.")
 
     da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS)
     xp.plot_single_i_metric(da.isel(time=0))
@@ -125,7 +145,8 @@ def make_all_figures() -> None:
     plt.savefig(imetric_single_name)
     plt.clf()
 
-    # FIGURE 4: Plot clusters and i metrics on maps.
+    # FIGURE 6: Plot clusters and i metrics on maps.
+    logger.info("6: Plot cluster/imetric on map.")
 
     da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS).isel(time=0)
     da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(rank=0, time=cst.EXAMPLE_TIME_INDEX)
@@ -140,7 +161,8 @@ def make_all_figures() -> None:
     plt.savefig(imetric_single_name)
     plt.clf()
 
-    # FIGURE 5: Plot different k_clusters cluster multi colour plots.
+    # FIGURE 7: Plot different k_clusters cluster multi colour plots.
+    logger.info("7: compare K=2, K=4.")
 
     xp.plot_several_pair_i_metrics(
         [
@@ -158,8 +180,9 @@ def make_all_figures() -> None:
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
 
-    # FIGURE 6: PC1 y grads
+    # FIGURE 8: PC1 y grads
     # TODO: Replace with Sobel.
+    logger.info("8: PC1 y grads.")
 
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
     xp.sep_plots(
@@ -174,8 +197,10 @@ def make_all_figures() -> None:
     plt.clf()
 
     # Appendix
+    logger.info("A: Appendix figures.")
 
-    # uvel, pca1 y grad over time.
+    # uvel, pca1 y grad for example.
+    logger.info("A: uvel/ y grad for example.")
 
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     ds = xr.open_dataset(cst.DEFAULT_NC)
@@ -199,6 +224,7 @@ def make_all_figures() -> None:
     plt.clf()
 
     # uvel, pca1 y grad over time.
+    logger.info("A: uvel/ y grad overtime.")
 
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.Y_COORD)
@@ -227,6 +253,7 @@ def make_all_figures() -> None:
     plt.clf()
 
     #  compare correlations and make correlation graph.
+    logger.info("A: vvel/ y grad over time.")
 
     cor = ma.corrcoef(
         ma.masked_invalid(
@@ -237,6 +264,8 @@ def make_all_figures() -> None:
         ),
     )
     print(cor)
+
+    logger.info("A: vvel/ y grad in pc1 over time.")
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.X_COORD)
@@ -264,6 +293,7 @@ def make_all_figures() -> None:
     plt.clf()
 
     # compare meridional velocity to gradient.
+    logger.info("A: vvel/ y grad in pc1 at one time point.")
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     xp.sep_plots(
@@ -284,3 +314,5 @@ def make_all_figures() -> None:
     )
     plt.savefig(pc_y_grad_name)
     plt.clf()
+
+    logger.info("A: finished.")
