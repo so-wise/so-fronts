@@ -1,10 +1,11 @@
 """Run key scripts."""
 import src.make_figures as mf
-import src.move_figures as mov
+
+# import src.move_figures as mov
 
 mf.make_all_figures()
 
-mov.move()
+# mov.move()
 
 # import src.plotting_utilities.ko_plot as ko
 
@@ -20,6 +21,7 @@ mov.move()
 # import src.models.train_i_metric as tim
 # import src.constants as cst
 # import xarray as xr
+
 temp_name = os.path.join(cst.DATA_PATH, "run_" + cst.RUN_NAME + "temp.nc")
 profiles_name = os.path.join(cst.DATA_PATH, "run_" + cst.RUN_NAME + "profiles_temp.nc")
 m, ds = tim.train_on_interpolated_year(

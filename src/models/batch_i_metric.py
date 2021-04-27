@@ -1,9 +1,14 @@
-"""Make i metric in a batch."""
+"""Make i metric in a batch.
+
+Example:
+    Usage::
+        python3 src/models/batch_i_metric.py
+"""
 import xarray as xr
 import pyxpcm
 import src.constants as cst
 import src.data_loading.io_name_conventions as io
-import src.train_pyxpcm as tim
+import src.models.train_pyxpcm as tim
 
 xr.set_options(keep_attrs=True)
 
@@ -103,8 +108,11 @@ def merge_and_save(k_clusters: int = 5, pca: int = 3) -> None:
 
 def run_through() -> None:
     """Run through."""
-    k_list = [4, 2, 10]
+    k_list = [5, 4, 2, 10]
     for k_clusters in k_list:
         run_through_sep(k_clusters=k_clusters)
-    for k_clusters in k_list:
         merge_and_save(k_clusters=k_clusters)
+
+
+if __name__ == "__main__":
+    run_through()

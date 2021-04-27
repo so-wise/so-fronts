@@ -3,7 +3,7 @@ import os
 import xarray as xr
 import src.constants as cst
 import src.time_wrapper as twr
-import src.models.to_pair_i_metric as tpi
+import src.models.make_pair_metric as tpi
 
 
 @twr.timeit
@@ -54,7 +54,8 @@ def return_name(k_clusters: int, pca_components: int) -> str:
         str: file names.
     """
     return (
-        "../pyxpcm_sithom/nc/i-metric-joint-k-"
+        str(cst.PROJECT_PATH)
+        + "/nc/i-metric-joint-k-"
         + str(k_clusters)
         + "-d-"
         + str(pca_components)
@@ -112,7 +113,7 @@ def _return_pair_name(k_clusters: int, pca_components: int) -> str:
 
     """
     return (
-        "../pyxpcm_sithom/"
+        str(cst.PROJECT_PATH)
         + "nc/pair-i-metric-k-"
         + str(k_clusters)
         + "-d-"
@@ -131,7 +132,14 @@ def _return_pair_folder(k_clusters: int, pca_components: int) -> str:
         str: file names.
 
     """
-    folder = "nc/pair-i-metric-k-" + str(k_clusters) + "-d-" + str(pca_components) + "/"
+    folder = (
+        str(cst.PROJECT_PATH)
+        + "/nc/pair-i-metric-k-"
+        + str(k_clusters)
+        + "-d-"
+        + str(pca_components)
+        + "/"
+    )
     if not os.path.exists(folder):
         os.makedirs(folder)
     return folder
