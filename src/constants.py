@@ -25,10 +25,16 @@ GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 if platform in ["Linux", "linux"]:
     GEN_DATA_PATH = os.path.join(GWS_DATA_DIR, "bsose_data")
     BSOSE_PATH = os.path.join(GEN_DATA_PATH, "bsose_stuv")
+    DEFAULT_NC: str = (
+        str(PROJECT_PATH) + "/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
+    )
 
 elif platform in ["Darwin", "darwin"]:
     BSOSE_PATH = os.path.join("/Users", "simon", "bsose_monthly")
     GEN_DATA_PATH = BSOSE_PATH
+    DEFAULT_NC: str = (
+        "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
+    )
 
 else:
     assert False
@@ -69,5 +75,4 @@ K_CLUSTERS: int = 5  # number of clusters
 D_PCS: int = 3  # number of principal components
 EXAMPLE_TIME_INDEX: int = 40  # the default time to go for.
 EXAMPLE_Z_INDEX: int = 15  # 15 indexes down.
-DEFAULT_NC: str = "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
 ALL_NAME: str = "all"  # starting combination script.

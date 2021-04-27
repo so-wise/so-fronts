@@ -25,7 +25,7 @@ def train_on_interpolated_year(
     max_depth: float = cst.MAX_DEPTH,
     remove_init_var: bool = True,
     separate_pca: bool = False,
-    interp: bool = False,
+    interp: bool = True,
     remake: bool = True,
 ) -> Tuple[pyxpcm.pcm, xr.Dataset]:
     """Train on interpolated year.
@@ -46,7 +46,7 @@ def train_on_interpolated_year(
 
     """
     z = np.arange(-min_depth, -max_depth, -10.0)
-    features_pcm = {}
+    features_pcm = dict()
     for var in cst.VAR_NAME_LIST:
         features_pcm[var] = z
     features = cst.FEATURES_D

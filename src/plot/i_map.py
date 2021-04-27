@@ -1,5 +1,6 @@
 """
-The purpose of this is to visualise the i_metric on the southern ocean map.
+The purpose of this is to visualise the i_metric
+on the southern ocean map.
 """
 import numpy as np
 import xarray as xr
@@ -35,11 +36,13 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
     carree = ccrs.PlateCarree()
 
     for i in range(num_plots):
+
         if i == 0:
             num_pairs += 1
             pairs = np.asarray([1])
             width_ratios.append(0.5)
             pairs_list.append(pairs)
+
         elif i == 1:
             width_ratios.append(0.05)
             num_pairs += 1
@@ -48,6 +51,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
             pairs_list.append(pairs)
             for width in [1 / num_plots / len(pairs) for x in range(len(pairs))]:
                 width_ratios.append(width)
+
         print(pairs_list)
         print(width_ratios)
 
@@ -65,6 +69,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
     primary_axes_list = []
 
     for i in range(2):
+
         if i == 0:
             ax1 = fig.add_subplot(
                 gs[0, 0],
@@ -94,8 +99,10 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
         number_clusters = 5
 
         if i == 0:
+
             print("da_i", da_i)
             print("ax1", ax1)
+
             im = da_i.plot(
                 ax=ax1,
                 add_colorbar=False,
@@ -120,6 +127,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
             ax1.coastlines()
 
         if i == 1:
+
             fig = plt.gcf()
 
             for j in range(len(pairs_list[i])):
@@ -152,4 +160,5 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
 
 # plt.tight_layout()
 # gp.label_subplots(primary_axes_list)
-# plt.savefig("../FBSO-Report/images/fig2-3d.png", bbox_inches="tight", dpi=700)
+# plt.savefig("../FBSO-Report/images/fig2-3d.png",
+# bbox_inches="tight", dpi=700)
