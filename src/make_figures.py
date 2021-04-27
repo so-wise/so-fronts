@@ -7,8 +7,8 @@ import numpy.ma as ma
 import xarray as xr
 import matplotlib.pyplot as plt
 import src.constants as cst
-import src.plotting_utilities.latex_style as lsty
-import src.plotting_utilities.xarray_panels as xp
+import src.plot_utils.latex_style as lsty
+import src.plot_utils.xarray_panels as xp
 import src.models.train_pyxpcm as tim
 import src.plot.clust_3d as c3d
 import src.plot.i_map as imap
@@ -277,8 +277,7 @@ def make_all_figures() -> None:
             .mean(dim=cst.T_COORD, skipna=True),
             vvel_ds.VVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
-        ["PC1 x-grad", r"$V$ (pcm s$^{-1}$)",
-         "PC1 x-grad", r"$V$ (pcm s$^{-1}$)"],
+        ["PC1 x-grad", r"$V$ (pcm s$^{-1}$)", "PC1 x-grad", r"$V$ (pcm s$^{-1}$)"],
     )
     pc_y_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad.png"

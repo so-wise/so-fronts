@@ -6,7 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import patches
 import pyxpcm
-import src.plotting_utilities.gen_panels as gp
+import src.plot_utils.gen_panels as gp
 import src.time_wrapper as twr
 
 

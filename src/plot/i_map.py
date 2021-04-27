@@ -8,23 +8,25 @@ import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
-import src.plotting_utilities.colors as col
+import src.plot_utils.colors as col
 import src.time_wrapper as twr
-import src.plotting_utilities.gen_panels as gp
-import src.plotting_utilities.latex_style as lsty
-import src.plotting_utilities.ko_plot as ko
-import src.plotting_utilities.map as mp
+import src.plot_utils.gen_panels as gp
+import src.plot_utils.latex_style as lsty
+import src.plot_utils.ko_plot as ko
+import src.plot_utils.map as mp
 import src.constants as cst
 
 
 @twr.timeit
 def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
-    """Plot map i metric clusters.
+    """
+    Plot map i metric clusters.
 
-    :param da_i: xarray.dataarray object.
-    :param da: xarray.dataarray object.
+    Returns void (although matplotlib will be storing the figure).
 
-    :return: void (although matplotlib will be storing the figure).
+    Args:
+        da_i (xr.DataArray):  xarray.dataarray object.
+        da (xr.DataArray): xarray.dataarray object.
     """
     lsty.mpl_params()
     pairs_list = []
