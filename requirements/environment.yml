@@ -5,7 +5,7 @@ channels:
   - defaults
 dependencies:
   - python=3.8
-  - xarray==0.17
+  - xarray==0.15
   - cartopy
   - matplotlib==3.2.2
   - pip

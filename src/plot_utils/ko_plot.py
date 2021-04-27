@@ -12,8 +12,8 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
-import src.plotting_utilities.latex_style as sps
-import src.plotting_utilities.map as mp
+import src.plot_utils.latex_style as sps
+import src.plot_utils.map as mp
 import src.constants as cst
 
 
@@ -70,12 +70,16 @@ def split_into_list_of_lists(
     # pylint: disable=dangerous-default-value
     list_of_ys: list = [0.0],
 ) -> Tuple[List[list], List[list]]:
-    """Split into list of lists.
+    """
+    Split into list of lists.
 
-    :param max_square:
-    :param list_of_xs:
-    :param list_of_ys:
-    :return: list of lists (lol) for Xs and Ys
+    Args:
+        max_square (float, optional): [description]. Defaults to 1.
+        list_of_xs (list, optional): [description]. Defaults to [0.0].
+        list_of_ys (list, optional): [description]. Defaults to [0.0].
+
+    Returns:
+        Tuple[List[list], List[list]]: list of lists (lol) for Xs and Ys
     """
     lol_xs = [[list_of_xs[0]]]
     lol_ys = [[list_of_ys[0]]]
@@ -287,6 +291,7 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
 
 
 def run_so_map() -> None:
+    """Run through and plot."""
     map_proj = ccrs.SouthPolarStereo()
     fig = plt.figure()
     ax = fig.add_subplot(111, projection=map_proj)

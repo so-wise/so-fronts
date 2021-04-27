@@ -1,8 +1,8 @@
 """Cluster profiles."""
 import numpy as np
 import matplotlib.pyplot as plt
-import src.plotting_utilities.latex_style as lsty
-import src.plotting_utilities.colors as col
+import src.plot_utils.latex_style as lsty
+import src.plot_utils.colors as col
 import src.data_loading.xr_values_loader as xvl
 import src.time_wrapper as twr
 import src.constants as cst
@@ -22,16 +22,16 @@ def make_profiles(ds: xr.Dataset) -> xr.Dataset:
         ds (xr.Dataset): the dataset.
 
     Returns:
-        xr.Dataset:  new_ds
+        xr.Dataset: new_dataset to plot.
     """
     lsty.mpl_params()
 
     k_clusters = int(np.nanmax(ds.PCM_LABELS.values) + 1)
-    height_list = []
-    theta_mean_lol = []
-    theta_std_lol = []
-    salt_mean_lol = []
-    salt_std_lol = []
+    height_list: list = []
+    theta_mean_lol: list = []
+    theta_std_lol: list = []
+    salt_mean_lol: list = []
+    salt_std_lol: list = []
     labels = xvl.order_indexes(ds.PCM_LABELS, [cst.T_COORD, cst.Y_COORD, cst.X_COORD])
     salt = xvl.order_indexes(
         ds.SALT, [cst.Z_COORD, cst.T_COORD, cst.Y_COORD, cst.X_COORD]
@@ -85,13 +85,17 @@ def make_profiles(ds: xr.Dataset) -> xr.Dataset:
 
 def plot_profiles(ds: xr.Dataset) -> None:
     """
+    Plot profiles.
+
     Originally from:
     https://scitools.org.uk/iris/docs/v1.6/examples/graphics/atlantic_profiles.html
     A program to plot profiles, originally of the original components etc.
     https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
-
     There's a fair deal of duplication in this function.
     Could probably half its length without changing its functionality.
+
+    Args:
+        ds (xr.Dataset): Profile dataset to plot.
     """
     k_clusters = len(ds.coords[cst.CLUST_COORD].values)
 
@@ -100,59 +104,50 @@ def plot_profiles(ds: xr.Dataset) -> None:
     color_list = col.cluster_colors(k_clusters)
     ylim = [-1.8, -0.3]
 
+    def plot_part(mean_name: str, std_name: str) -> None:
+        """
+        Plot one point.
+
+        Args:
+            mean_name (str): e.g. 'salt_mean'.
+            std_name (str): e.g. 'salt_std'.
+        """
+        for i in range(0, k_clusters):
+            plt.plot(
+                ds.isel(cluster=i)[mean_name],
+                ds.coords[cst.Z_COORD].values / 1000,
+                color=color_list[i],
+                alpha=0.5,
+                label=str(i + 1),
+            )
+            for sig_mult, alpha in [[1, 0.4]]:
+                plt.fill_betweenx(
+                    ds.coords[cst.Z_COORD].values / 1000,
+                    ds.isel(cluster=i)[mean_name]
+                    - np.multiply(sig_mult, ds.isel(cluster=i)[std_name]),
+                    ds.isel(cluster=i)[mean_name]
+                    + np.multiply(sig_mult, ds.isel(cluster=i)[std_name]),
+                    alpha=alpha,
+                    color=color_list[i],
+                )
+
     # THETA PLOTTING.
     plt.subplot(1, 2, 1)
     ax1 = plt.gca()
 
-    for i in range(0, k_clusters):
-        plt.plot(
-            ds.isel(cluster=i).theta_mean,
-            ds.coords[cst.Z_COORD].values / 1000,
-            color=color_list[i],
-            alpha=0.5,
-            label=str(i + 1),
-        )
-        for sig_mult, alpha in [[1, 0.4]]:
-            plt.fill_betweenx(
-                ds.coords[cst.Z_COORD].values / 1000,
-                ds.isel(cluster=i).theta_mean
-                - np.multiply(sig_mult, ds.isel(cluster=i).theta_std),
-                ds.isel(cluster=i).theta_mean
-                + np.multiply(sig_mult, ds.isel(cluster=i).theta_std),
-                alpha=alpha,
-                color=color_list[i],
-            )
+    plot_part("theta_mean", "theta_std")
 
-    ax1.set_xlabel(
-        r"Potential Temperature, $\theta$ / $^{\circ}\mathrm{C}$", color="black"
-    )
-    ax1.set_ylabel("Height / km")
+    ax1.set_xlabel(r"Potential Temperature, $\theta$ ($^{\circ}\mathrm{C}$)")
+    ax1.set_ylabel("Height (km)")
     ax1.set_ylim(ylim)
 
-    # SALINITY
+    # SALINITY PLOTTING.
     plt.subplot(1, 2, 2)
     ax2 = plt.gca()
 
-    for i in range(0, k_clusters):
-        plt.plot(
-            ds.isel(cluster=i).salt_mean,
-            ds.coords[cst.Z_COORD].values / 1000,
-            color=color_list[i],
-            alpha=0.5,
-            label=str(i + 1),
-        )
-        for sig_mult, alpha in [[1, 0.4]]:
-            plt.fill_betweenx(
-                ds.coords[cst.Z_COORD].values / 1000,
-                ds.isel(cluster=i).salt_mean
-                - np.multiply(sig_mult, ds.isel(cluster=i).salt_std),
-                ds.isel(cluster=i).salt_mean
-                + np.multiply(sig_mult, ds.isel(cluster=i).salt_std),
-                alpha=alpha,
-                color=color_list[i],
-            )
+    plot_part("salt_mean", "salt_std")
 
-    ax2.set_xlabel(r"Salinity, $S$ / PSU", color="black")
+    ax2.set_xlabel(r"Salinity, $S$ / PSU")
     ax2.set_ylim(ylim)
     ax2.set_yticks([])
     plt.setp(ax2.get_yticklabels(), visible=False)

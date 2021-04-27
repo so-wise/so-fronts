@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import xarray as xr
 import src.models.make_pair_metric as tpi
-import src.plotting_utilities.ellipses as pel
-import src.plotting_utilities.colors as col
+import src.plot_utils.ellipses as pel
+import src.plot_utils.colors as col
 import src.time_wrapper as twr
 import src.constants as cst
 

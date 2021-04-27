@@ -4,9 +4,9 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
-import src.plotting_utilities.map as mp
-import src.plotting_utilities.gen_panels as gp
-import src.plotting_utilities.colors as col
+import src.plot_utils.map as mp
+import src.plot_utils.gen_panels as gp
+import src.plot_utils.colors as col
 import src.time_wrapper as twr
 import src.constants as cst
 

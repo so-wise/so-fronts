@@ -17,7 +17,7 @@ mf.make_all_figures()
 # from src import constants
 # from src.configs import config
 # import os
-# import src.plotting_utilities.cluster_profiles as cp
+# import src.plot_utils.cluster_profiles as cp
 # import src.models.train_i_metric as tim
 # import src.constants as cst
 # import xarray as xr
