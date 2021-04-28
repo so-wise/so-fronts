@@ -14,46 +14,46 @@ def move(copy_command: str = "cp") -> None:  # this is ok for unix.
             system. Defaults to "cp".
 
     """
-    run_name = "001"
-    final_loc = "../FBSO-Report/images"
+    run_name = "010"
+    final_loc = "../FBSO/images"
     name_dict = {
         os.path.join(
             cst.FIGURE_PATH, "RUN_" + run_name + "_pc_map.png"
-        ): "fig1-new.png",
-        os.path.join(
-            cst.FIGURE_PATH, "RUN_" + run_name + "_profiles.png"
-        ): "fig2-new.png",
+        ): "figure-1.png",
         os.path.join(
             cst.FIGURE_PATH, "RUN_" + run_name + "_s3d_clusters.png"
-        ): "fig3-new.png",
+        ): "figure-2.png",
         os.path.join(
             cst.FIGURE_PATH, "RUN_" + run_name + "_i_metric_dual.png"
-        ): "fig4-new.png",
-        os.path.join(
-            cst.FIGURE_PATH, "RUN_" + run_name + "_i_metric_single.png"
-        ): "fig5-new.png",
+        ): "figure-3.png",
         os.path.join(
             cst.FIGURE_PATH,
             "RUN_" + run_name + "_map_i_comp.png",
-        ): "fig6-new.png",
+        ): "figure-4.png",
         os.path.join(
-            cst.FIGURE_PATH, "RUN_" + run_name + "_i_metric_comp.png"
-        ): "fig7-new.png",
+            cst.FIGURE_PATH, "RUN_" + run_name + "_profiles.png"
+        ): "figure-5.png",
         os.path.join(
             cst.FIGURE_PATH, "RUN_" + run_name + "_y_grad.png"
-        ): "fig8-new.png",
+        ): "figure-6.png",
         os.path.join(
-            cst.FIGURE_PATH, "RUN_" + cst.run_name + "_pc_y_grad.png"
-        ): "figA1.png",
+            cst.FIGURE_PATH, "RUN_" + run_name + "_i_metric_comp.png"
+        ): "figure-7.png",
         os.path.join(
-            cst.FIGURE_PATH, "RUN_" + cst.run_name + "_pc_y_grad_corr.png"
-        ): "figA2.png",
+            cst.FIGURE_PATH, "RUN_" + run_name + "_i_metric_single.png"
+        ): "figure-8.png",
         os.path.join(
-            cst.FIGURE_PATH, "RUN_" + cst.run_name + "_pc_x_grad_corr.png"
-        ): "figA3.png",
+            cst.FIGURE_PATH, "RUN_" + run_name + "_pc_y_grad.png"
+        ): "figure-A1.png",
         os.path.join(
-            cst.FIGURE_PATH, "RUN_" + cst.run_name + "_pc_x_grad.png"
-        ): "figA4.png",
+            cst.FIGURE_PATH, "RUN_" + run_name + "_pc_y_grad_corr.png"
+        ): "figure-A2.png",
+        os.path.join(
+            cst.FIGURE_PATH, "RUN_" + run_name + "_pc_x_grad.png"
+        ): "figure-A3.png",
+        os.path.join(
+            cst.FIGURE_PATH, "RUN_" + run_name + "_pc_x_grad_corr.png"
+        ): "figure-A4.png",
     }
     for key in name_dict:
         os.system(
