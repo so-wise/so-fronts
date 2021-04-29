@@ -12,11 +12,12 @@ import src.plot_utils.xarray_panels as xp
 import src.models.make_pair_metric as tpi
 import src.constants as cst
 import src.data_loading.io_name_conventions as io
+import src.time_wrapper as twr
 
 mpl_params(use_tex=False, dpi=200)
 
 
-# @timeit
+@twr.timeit
 def animate_imetric(
     video_path: str = "output.gif",
     k_clusters: int = cst.K_CLUSTERS,
@@ -85,7 +86,7 @@ def animate_imetric(
             video_path (str, optional): output path to save.
             fps (int, optional): frames per second.
         """
-        video_indices = list(range(58))
+        video_indices = list(range(60))
         make_frame = gen_frame_func()
         imageio.mimsave(
             video_path,
