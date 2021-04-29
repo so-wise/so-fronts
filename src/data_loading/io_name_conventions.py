@@ -8,7 +8,10 @@ import src.models.make_pair_metric as tpi
 
 @twr.timeit
 def return_pair_i_metric(
-    k_clusters: int = cst.K_CLUSTERS, pca: int = cst.D_PCS, save_nc: bool = True
+    k_clusters: int = cst.K_CLUSTERS,
+    pca: int = cst.D_PCS,
+    save_nc: bool = True,
+    t_index: int = cst.EXAMPLE_TIME_INDEX,
 ) -> xr.DataArray:
     """Return pair i metric.
 
@@ -18,6 +21,7 @@ def return_pair_i_metric(
         pca (int, optional): Number of principal components. Defaults to cst.D_PCS.
         save_nc (bool, optional): Whether or not to save the resulting dataset.
             Defaults to True.
+        t_index (int, optional): time index cst.EXAMPLE_TIME_INDEX.
 
     Returns:
         xr.DataArray: pair i metric.
@@ -26,7 +30,7 @@ def return_pair_i_metric(
     ds = xr.open_dataset(link_to_netcdf)
     print(ds.__str__())
     batch_size = 2
-    for i in range(cst.EXAMPLE_TIME_INDEX, cst.EXAMPLE_TIME_INDEX + 2, batch_size):
+    for i in range(t_index, t_index + 2, batch_size):
         print("running", i)
         if save_nc:
             da = tpi.pair_i_metric(
