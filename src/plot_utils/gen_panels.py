@@ -62,7 +62,7 @@ def label_subplots(
 def time_title(
     ax: matplotlib.axes.Axes,
     time: Union[np.datetime64, float, cftime.Datetime360Day],
-    date_time_formatter: str = "%Y.%m.%d",
+    date_time_formatter: str = "%Y-%m-%d",
 ) -> None:
     """Add time title to axes.
 

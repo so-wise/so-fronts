@@ -1,12 +1,10 @@
 """Animate da."""
-import os
 from typing import Callable
 import numpy as np
-import xarray as xr
+import pandas as pd
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import imageio
-from src.plot_utils.gen_panels import time_title
 from src.plot_utils.latex_style import mpl_params
 import src.plot_utils.xarray_panels as xp
 import src.constants as cst
@@ -18,11 +16,13 @@ mpl_params(use_tex=False, dpi=200)
 # @timeit
 def animate_imetric(
     video_path: str = "output.gif",
+    k_clusters: int = cst.K_CLUSTERS,
 ) -> None:
     """Animate an `xr.DataArray`.
 
     Args:
         video_path (str, optional): Video path. Defaults to "output.mp4".
+        k_clusters (int, opitonal): k clusters. Defaults to cst.K_CLUSTERS.
     """
 
     def gen_frame_func() -> Callable:
@@ -41,11 +41,12 @@ def animate_imetric(
             Returns:
                 image (np.array): np.frombuffer output that can be fed into imageio
             """
-            fig, ax1 = plt.subplots(1, 1)
 
-            da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS, t_index=index)
+            da = io.return_pair_i_metric(k_clusters=k_clusters, t_index=index)
             xp.plot_single_i_metric(da.isel(time=0))
-            time_title(ax1, da.time.values[0])
+            fig = plt.gcf()
+            fig.suptitle(pd.to_datetime(str(da.time.values[0])).strftime("%Y-%m-%d"))
+            fig.set_size_inches(5, 9)
             plt.tight_layout()
 
             fig.canvas.draw()
@@ -80,5 +81,7 @@ def animate_imetric(
 
 
 if __name__ == "__main__":
-    animate_imetric(video_path="output2.gif")
+    # animate_imetric(video_path="boundaries-k2.gif", k_clusters=2)
+    # animate_imetric(video_path="boundaries-k4.gif", k_clusters=4)
+    # animate_imetric(video_path="boundaries-k5.gif", k_clusters=5)
     # python3 src/animate.py

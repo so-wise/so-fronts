@@ -4,7 +4,7 @@ All re-usable source code for the project goes here.
 
 The source folder is structured as follows:
 
-```
+```txt
 src
 ├── __init__.py    <- Makes src a Python module
 │
@@ -22,26 +22,25 @@ src
 This generic folder structure is useful for most project, 
 but feel free to adapt it to your needs.
 
-
 TODO: Feed Pyxpcm modified dataset.
 
- - New variable: 'ALL'.
+- New variable: 'ALL'.
 
- - Put in configs.
+- Put in configs.
 
 TODO: Check sensitivity to random seed.
 
- - Look at clusters - see each varies in terms of means and
+- Look at clusters - see each varies in terms of means and
   covariances.
 
- - Make 1 colour I-metric plots.
+- Make 1 colour I-metric plots.
 
- - Put Seed in the CONSTANTS file.
+- Put Seed in the CONSTANTS file.
 
 TODO: Change IO.
 
- - Add RUN_NAME.
+- Add RUN_NAME.
 
 TODO: Possibly back up old data from time-machine.
 
- - Investigate random seeds within GMM.
+- Investigate random seeds within GMM.

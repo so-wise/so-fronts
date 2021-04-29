@@ -39,7 +39,7 @@ def return_pair_i_metric(
             print("not saving")
         else:
             da = (
-                xr.open_dataset(_return_pair_name(k_clusters, pca) + "..nc")
+                xr.open_dataset(_return_pair_name(k_clusters, pca) + ".nc")
                 .to_array()
                 .isel(time=slice(i, i + batch_size))
             )
