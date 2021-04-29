@@ -30,7 +30,7 @@ def return_pair_i_metric(
     ds = xr.open_dataset(link_to_netcdf)
     print(ds.__str__())
     batch_size = 2
-    for i in range(t_index, t_index + 2, batch_size):
+    for i in range(t_index, t_index + batch_size, batch_size):
         print("running", i)
         if save_nc:
             da = tpi.pair_i_metric(
