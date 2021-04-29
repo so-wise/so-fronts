@@ -83,5 +83,5 @@ def animate_imetric(
 if __name__ == "__main__":
     # animate_imetric(video_path="boundaries-k2.gif", k_clusters=2)
     # animate_imetric(video_path="boundaries-k4.gif", k_clusters=4)
-    # animate_imetric(video_path="boundaries-k5.gif", k_clusters=5)
+    animate_imetric(video_path="boundaries-k5.gif", k_clusters=5)
     # python3 src/animate.py
