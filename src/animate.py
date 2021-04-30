@@ -11,7 +11,7 @@ from src.plot_utils.latex_style import mpl_params
 import src.plot_utils.xarray_panels as xp
 import src.models.make_pair_metric as tpi
 import src.constants as cst
-import src.data_loading.io_name_conventions as io
+import src.data_loading.io_names as io
 import src.time_wrapper as twr
 
 mpl_params(use_tex=False, dpi=200)

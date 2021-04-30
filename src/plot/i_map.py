@@ -158,9 +158,3 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
             ax1.legend()
 
     gp.label_subplots(primary_axes_list)
-
-
-# plt.tight_layout()
-# gp.label_subplots(primary_axes_list)
-# plt.savefig("../FBSO-Report/images/fig2-3d.png",
-# bbox_inches="tight", dpi=700)

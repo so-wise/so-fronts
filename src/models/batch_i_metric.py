@@ -7,7 +7,7 @@ Example:
 import xarray as xr
 import pyxpcm
 import src.constants as cst
-import src.data_loading.io_name_conventions as io
+import src.data_loading.io_names as io
 import src.models.train_pyxpcm as tim
 
 xr.set_options(keep_attrs=True)
