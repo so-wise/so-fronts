@@ -11,6 +11,3 @@ setup(
     packages=find_packages(),
     test_suite="src.tests.test_all.suite",
 )
-
-
-# python3 src/data_loading/download.py

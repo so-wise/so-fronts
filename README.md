@@ -64,6 +64,12 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
    python -m unittest
    ```
 
+- Download data (`get_zip`  1694.64639 s):
+
+   ```bash
+   python3 src/data_loading/bsose_download.py
+   ```
+
 ## Project Organization
 
 ```txt
