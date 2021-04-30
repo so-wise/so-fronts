@@ -111,7 +111,6 @@ def make_all_figures() -> None:
     s3d_plot_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_s3d_clusters.png"
     )
-    # "../FBSO-Report/images/fig2-3d.png"
     plt.savefig(s3d_plot_name)
     plt.clf()
 
@@ -129,7 +128,6 @@ def make_all_figures() -> None:
     imetric_dual_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_dual.png"
     )
-    # "../FBSO-Report/images/fig3-new.png"
     plt.savefig(imetric_dual_name)
     plt.clf()
 
@@ -141,7 +139,6 @@ def make_all_figures() -> None:
     imetric_single_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_single.png"
     )
-    # "../FBSO-Report/images/fig4-new.png"
     plt.savefig(imetric_single_name)
     plt.clf()
 
@@ -157,7 +154,6 @@ def make_all_figures() -> None:
     imetric_single_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_map_i_comp.png"
     )
-    # "../FBSO-Report/images/fig4-new.png"
     plt.savefig(imetric_single_name)
     plt.clf()
 
@@ -170,7 +166,6 @@ def make_all_figures() -> None:
             io.return_pair_i_metric(k_clusters=4).isel(time=0),
         ]
     )
-    # "../FBSO-Report/images/fig5-new.png"
     plt.tight_layout()
     imetric_comp_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
@@ -192,7 +187,6 @@ def make_all_figures() -> None:
     pc_y_grad_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_y_grad.png"
     )
-    # "../FBSO-Report/images/fig6-new.png"
     plt.savefig(pc_y_grad_name)
     plt.clf()
 

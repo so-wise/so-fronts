@@ -6,8 +6,6 @@ import numpy as np
 import pathlib
 from sys import platform
 
-print("platform", platform)
-
 # Note: constants should be UPPER_CASE
 
 # Basic location defaults, to be referenced from here:
@@ -23,15 +21,15 @@ GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 # Paths to different BSOSE-i106 files (unique to my machine):
 if platform in ["Linux", "linux"]:
-    GEN_DATA_PATH = os.path.join(GWS_DATA_DIR, "bsose_data")
-    BSOSE_PATH = os.path.join(GEN_DATA_PATH, "bsose_stuv")
+    GEN_DATA_PATH: str = os.path.join(GWS_DATA_DIR, "bsose_data")
+    BSOSE_PATH: str = os.path.join(GEN_DATA_PATH, "bsose_stuv")
     DEFAULT_NC: str = (
-        str(PROJECT_PATH) + "/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
+        str(GWS_DATA_DIR) + "/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
     )
 
 elif platform in ["Darwin", "darwin"]:
-    BSOSE_PATH = os.path.join("/Users", "simon", "bsose_monthly")
-    GEN_DATA_PATH = BSOSE_PATH
+    BSOSE_PATH: str = os.path.join("/Users", "simon", "bsose_monthly")
+    GEN_DATA_PATH: str = BSOSE_PATH
     DEFAULT_NC: str = (
         "~/pyxpcm_sithom/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
     )
@@ -40,10 +38,10 @@ else:
     assert False
 
 # Salt, Theta, Uvel, Vvel
-SALT_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
-THETA_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Theta.nc")
-VVEL_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Vvel.nc")
-UVEL_FILE = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Uvel.nc")
+SALT_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
+THETA_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Theta.nc")
+VVEL_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Vvel.nc")
+UVEL_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Uvel.nc")
 
 # COORDS within BSOSE-i106
 Z_COORD: str = "Z"

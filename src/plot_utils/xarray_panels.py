@@ -34,6 +34,9 @@ def sep_plots(
     num_da = len(da_list)
     fig, axes = plt.subplots(1, num_da, subplot_kw={"projection": map_proj})
 
+    if len(da_list) >= 3:
+        fig.set_size_inches(5 * num_da + 0.2 * num_da, 5 * 1.2)
+
     if min_max_list is not None:
         assert len(min_max_list) == len(da_list)
 
@@ -162,8 +165,9 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
     )
 
     fig = plt.gcf()
-    # fig.set_inches((5*num_plots, 5))
-    fig.set_size_inches(5 * num_plots + 0.2 * num_plots, 5 * 1.2)
+
+    if len(da_list) >= 3:
+        fig.set_size_inches(5 * num_plots + 0.2 * num_plots, 5 * 1.2)
 
     used_up_columns = 0
     primary_axes_list = []

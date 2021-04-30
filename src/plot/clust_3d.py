@@ -142,12 +142,11 @@ def comp_3d(
                     cmap=cmap_list[j],
                     alpha=0.5,
                 )
+                ax1.view_init(30, 60)
 
                 cbar = plt.colorbar(
                     im, cax=cbar_axes[j], orientation="horizontal", ticks=[0, 1]
                 )
-                # VIEWING ANGLE
-                ax1.view_init(30, 60)
                 cbar.set_label(da.coords[cst.P_COORD].values[j])
 
             primary_axes_list.append(ax1)
