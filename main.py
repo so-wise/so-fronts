@@ -11,9 +11,9 @@ mov.move()
 
 # ko.run_so_map()
 
-# animate_imetric(video_path="boundaries-k2.gif", k_clusters=2)
-# animate_imetric(video_path="boundaries-k4.gif", k_clusters=4)
-animate_imetric(video_path="boundaries-k5.gif", k_clusters=5)
+# animate_imetric(video_path="gifs/boundaries-k2.gif", k_clusters=2)
+# animate_imetric(video_path="gifs/boundaries-k4.gif", k_clusters=4)
+animate_imetric(video_path="gifs/boundaries-k5.gif", k_clusters=5)
 
 # pylint: disable=pointless-string-statement
 """
