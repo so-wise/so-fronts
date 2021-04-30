@@ -38,9 +38,9 @@ def sep_plots(
     fig, axes = plt.subplots(1, num_da, subplot_kw={"projection": map_proj})
 
     if len(da_list) >= 3:
-        fig.set_size_inches(5 * num_da + 0.2 * num_da, 5 * 1.2)
+        fig.set_size_inches(2.5 * num_da + 0.2 * num_da, 2.5 * 1.2)
 
-    if cmap_list == None:
+    if cmap_list is None:
         cmap_list = [cmo.balance for x in range(len(da_list))]
 
     if min_max_list is not None:
