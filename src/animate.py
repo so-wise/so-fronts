@@ -45,6 +45,7 @@ def animate_imetric(
 
         Returns:
             make_frame (Callable): function to create each frame.
+
         """
 
         def make_frame(index: int) -> np.array:
@@ -63,9 +64,10 @@ def animate_imetric(
             fig.suptitle(
                 pd.to_datetime(str(da.time.values[index])).strftime("%Y-%m-%d")
             )
-            # fig.set_size_inches(5, 9)
             plt.tight_layout()
             plt.savefig("temp.png", bbox_inches="tight")
+
+            plt.subplots_adjust(wspace=0.1, hspace=0.2, top=0.9, bottom=0.15)
 
             fig.canvas.draw()
             image = np.frombuffer(fig.canvas.tostring_rgb(), dtype="uint8")
@@ -85,6 +87,7 @@ def animate_imetric(
         Args:
             video_path (str, optional): output path to save.
             fps (int, optional): frames per second.
+
         """
         video_indices = list(range(60))
         make_frame = gen_frame_func()
@@ -99,7 +102,7 @@ def animate_imetric(
 
 
 if __name__ == "__main__":
-    animate_imetric(video_path="boundaries-k2.gif", k_clusters=2)
+    # animate_imetric(video_path="boundaries-k2.gif", k_clusters=2)
     # animate_imetric(video_path="boundaries-k4.gif", k_clusters=4)
-    # animate_imetric(video_path="boundaries-k5.gif", k_clusters=5)
+    animate_imetric(video_path="boundaries-k5.gif", k_clusters=5)
     # python3 src/animate.py

@@ -3,6 +3,10 @@
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
+![I metric for K=5](boundaries-k5.gif)
+
+![I metric for K=2](boundaries-k2.gif)
+
 ## Short description
 
 A `python3` repository which should reproduce `OS022-08` from AGU 2020.
