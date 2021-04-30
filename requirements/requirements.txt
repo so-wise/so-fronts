@@ -18,6 +18,7 @@ dask
 pandas
 tqdm
 pylint
+cmocean
 
 # docs
 mkdocs

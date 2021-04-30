@@ -6,6 +6,7 @@ import xarray as xr
 import matplotlib.pyplot as plt
 import cmocean.cm as cmo
 import src.constants as cst
+import src.plot_utils.latex_style as lsty
 import src.plot_utils.xarray_panels as xp
 import src.time_wrapper as twr
 from scipy import signal
@@ -37,21 +38,60 @@ def sobel_vs_grad() -> None:
     """
     Sobel versus dimension.
     """
+    lsty.mpl_params()
+
     ds = xr.open_dataset(cst.DEFAULT_NC)
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX)
+
     print(da_temp.isel(pca=0))
     print("shape", da_temp.isel(pca=0).values.shape)
-    pc1_x = da_temp.isel(pca=0)
+
+    pc1_x: xr.DataArray = da_temp.isel(pca=0)
     pc1_x.values = sobel_np(pc1_x.values)[0]
-    pc1_x.plot(vmin=-50, vmax=50, cmap=cmo.balance)
+    pc1_x.plot(vmin=-40, vmax=40, cmap=cmo.balance)
     plt.savefig("example-x.png")
     plt.clf()
-    pc1_y = da_temp.isel(pca=0)
+
+    pc1_y: xr.DataArray = da_temp.isel(pca=0)
     pc1_y.values = sobel_np(pc1_y.values)[1]
-    pc1_y.plot(vmin=-50, vmax=50, cmap=cmo.balance)
+    pc1_y.plot(vmin=-40, vmax=40, cmap=cmo.balance)
     plt.savefig("example-y.png")
+    plt.clf()
+
     xp.sep_plots([pc1_x, pc1_y], ["PC1 $G_x$", "PC1 $G_y$"], [[-40, 40], [-40, 40]])
     plt.savefig("example-pc.png")
+    plt.clf()
+
+    pc1_y: xr.DataArray = da_temp.isel(pca=0)
+    pc1_y.values = sobel_np(pc1_y.values)[1]
+    pc2_y: xr.DataArray = da_temp.isel(pca=1)
+    pc2_y.values = sobel_np(pc2_y.values)[1]
+    pc3_y: xr.DataArray = da_temp.isel(pca=2)
+    pc3_y.values = sobel_np(pc3_y.values)[1]
+
+    xp.sep_plots(
+        [pc1_y, pc2_y, pc3_y],
+        ["PC1 $G_y$", "PC2 $G_y$", "PC3 $G_y$"],
+        [[-40, 40], [-40, 40], [-40, 40]],
+    )
+
+    plt.savefig("example_pcy.png")
+    plt.clf()
+
+    pc1_x: xr.DataArray = da_temp.isel(pca=0)
+    pc1_x.values = sobel_np(pc1_x.values)[0]
+    pc2_x: xr.DataArray = da_temp.isel(pca=1)
+    pc2_x.values = sobel_np(pc2_x.values)[0]
+    pc3_x: xr.DataArray = da_temp.isel(pca=2)
+    pc3_x.values = sobel_np(pc3_x.values)[0]
+
+    xp.sep_plots(
+        [pc1_y, pc2_y, pc3_y],
+        ["PC1 $G_x$", "PC2 $G_x$", "PC3 $G_x$"],
+        [[-40, 40], [-40, 40], [-40, 40]],
+    )
+
+    plt.savefig("example_pcx.png")
     plt.clf()
     # print(sobel_np(da_temp.isel(pca=1).values)[0])
     # print(sobel_np(da_temp.isel(pca=2).values)[0])
