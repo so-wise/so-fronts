@@ -20,18 +20,18 @@ src.data\_loading.bsose\_loading module
    :undoc-members:
    :show-inheritance:
 
-src.data\_loading.io\_name\_conventions module
-----------------------------------------------
+src.data\_loading.io\_names module
+----------------------------------
 
-.. automodule:: src.data_loading.io_name_conventions
+.. automodule:: src.data_loading.io_names
    :members:
    :undoc-members:
    :show-inheritance:
 
-src.data\_loading.xr\_values\_loader module
--------------------------------------------
+src.data\_loading.xr\_loader module
+-----------------------------------
 
-.. automodule:: src.data_loading.xr_values_loader
+.. automodule:: src.data_loading.xr_loader
    :members:
    :undoc-members:
    :show-inheritance:

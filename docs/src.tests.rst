@@ -36,10 +36,10 @@ src.tests.test\_plot module
    :undoc-members:
    :show-inheritance:
 
-src.tests.test\_plot\_utilities module
---------------------------------------
+src.tests.test\_plot\_utils module
+----------------------------------
 
-.. automodule:: src.tests.test_plot_utilities
+.. automodule:: src.tests.test_plot_utils
    :members:
    :undoc-members:
    :show-inheritance:
