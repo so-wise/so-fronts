@@ -16,6 +16,8 @@ def sobel_np(values: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """
     Sobel operator on np array.
 
+    https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve2d.html
+
     Args:
          values (np.ndarray): values to differentiate.
 
@@ -29,7 +31,7 @@ def sobel_np(values: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
             [1 - 1j, 0 - 2j, -1 - 1j],
         ]
     )  # Gx + j*Gy
-    grad = signal.convolve2d(values, sobel, boundary="pad", mode="same")
+    grad = signal.convolve2d(values, sobel, boundary="symm", mode="same")
     return np.real(grad), np.imag(grad)
 
 
@@ -86,15 +88,33 @@ def sobel_vs_grad() -> None:
     pc3_x.values = sobel_np(pc3_x.values)[0]
 
     xp.sep_plots(
-        [pc1_y, pc2_y, pc3_y],
+        [pc1_x, pc2_x, pc3_x],
         ["PC1 $G_x$", "PC2 $G_x$", "PC3 $G_x$"],
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
     plt.savefig("example_pcx.png")
     plt.clf()
-    # print(sobel_np(da_temp.isel(pca=1).values)[0])
-    # print(sobel_np(da_temp.isel(pca=2).values)[0])
+
+    da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
+    xp.sep_plots(
+        [da_y.isel(pca=0), da_y.isel(pca=1), da_y.isel(pca=2)],
+        ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
+        [[-20, 20], [-20, 20], [-20, 20]],
+    )
+
+    plt.savefig("example_pc_y.png")
+    plt.clf()
+
+    da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
+    xp.sep_plots(
+        [da_x.isel(pca=0), da_x.isel(pca=1), da_x.isel(pca=2)],
+        ["PC1 x-grad", "PC2 x-grad", "PC3 x-grad"],
+        [[-20, 20], [-20, 20], [-20, 20]],
+    )
+
+    plt.savefig("example_pc_x.png")
+    plt.clf()
 
 
 def sobel_scharr_test():
@@ -149,9 +169,9 @@ def sobel_scharr_test():
 def grad_v() -> None:
     """Gradient in v direction."""
     ds = xr.open_dataset(cst.DEFAULT_NC)
-    da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
+    da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
     xp.sep_plots(
-        [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
+        [da_y.isel(pca=0), da_y.isel(pca=1), da_y.isel(pca=2)],
         ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
     )
 
