@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import src.plot_utils.latex_style as lsty
 import src.plot_utils.colors as col
-import src.data_loading.xr_values_loader as xvl
+import src.data_loading.xr_loader as xvl
 import src.time_wrapper as twr
 import src.constants as cst
 import xarray as xr

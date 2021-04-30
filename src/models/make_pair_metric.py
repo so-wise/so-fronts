@@ -2,7 +2,7 @@
 from typing import Tuple, Sequence
 import numpy as np
 import xarray as xr
-import src.data_loading.xr_values_loader as xvl
+import src.data_loading.xr_loader as xvl
 import src.constants as cst
 
 xr.set_options(keep_attrs=True)

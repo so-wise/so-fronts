@@ -1,6 +1,6 @@
 """Test plot utilities."""
 import unittest
-from src.plotting_utilities.ellipses import plot_ellipsoid_test
+from src.plot_utils.ellipses import plot_ellipsoid_test
 
 
 class TestCase(unittest.TestCase):

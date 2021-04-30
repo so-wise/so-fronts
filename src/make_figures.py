@@ -14,7 +14,7 @@ import src.models.train_pyxpcm as tim
 import src.plot.clust_3d as c3d
 import src.plot.i_map as imap
 import src.plot.profiles as prof
-import src.data_loading.io_name_conventions as io
+import src.data_loading.io_names as io
 import src.time_wrapper as twr
 
 
