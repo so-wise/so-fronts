@@ -14,7 +14,7 @@ import src.constants as cst
 @twr.timeit
 def sep_plots(
     da_list: List[xr.DataArray],
-    var_list: list,
+    var_list: List[str],
     min_max_list: Union[List[list], any] = None,
 ) -> None:
     """
@@ -22,8 +22,10 @@ def sep_plots(
 
     Args:
         da_list (Sequence[xr.DataArray]): list of xr.DataArray.
-        var_list (list): list of variable names.
-        min_max_list (Union[List[list], any], optional): [description]. Defaults to None.
+        var_list  (List[str]): list of variable names.
+        min_max_list (Union[List[list], any], optional): vmin and vmax.
+            Defaults to None.
+
     """
 
     map_proj = ccrs.SouthPolarStereo()
@@ -31,6 +33,7 @@ def sep_plots(
     fig = plt.figure()
     num_da = len(da_list)
     fig, axes = plt.subplots(1, num_da, subplot_kw={"projection": map_proj})
+
     if min_max_list is not None:
         assert len(min_max_list) == len(da_list)
 
