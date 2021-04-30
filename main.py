@@ -1,7 +1,8 @@
 """Run key scripts."""
 import src.make_figures as mf
 import src.move_figures as mov
-from src.animate import animate_imetric
+
+# from src.animate import animate_imetric
 
 mf.make_all_figures()
 
@@ -11,10 +12,10 @@ mov.move()
 
 # ko.run_so_map()
 
-animate_imetric(video_path="gifs/boundaries-k2.gif", k_clusters=2)
-animate_imetric(video_path="gifs/boundaries-k4.gif", k_clusters=4)
-animate_imetric(video_path="gifs/boundaries-k5.gif", k_clusters=5)
-animate_imetric(video_path="gifs/boundaries-k10.gif", k_clusters=10)
+# animate_imetric(video_path="gifs/boundaries-k2.gif", k_clusters=2)
+# animate_imetric(video_path="gifs/boundaries-k4.gif", k_clusters=4)
+# animate_imetric(video_path="gifs/boundaries-k5.gif", k_clusters=5)
+# animate_imetric(video_path="gifs/boundaries-k10.gif", k_clusters=10)
 
 # pylint: disable=pointless-string-statement
 """

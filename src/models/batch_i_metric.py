@@ -22,10 +22,21 @@ def pca_from_interpolated_year(
     remove_init_var: bool = True,
 ) -> None:
     """
-    pcm_object: the pcm object which has already been trained
-    pca: how many principal components were chosen to be fitted.
-    k_clusters: how many Guassians were fitted.
-    max_depth: the maximum_depth (in pcm_object) that the data is fitted to.
+    [summary]
+
+    [extended_summary]
+
+    Args:
+        pcm_object (pyxpcm.pcm): the pcm object which has already been trained.
+        pca (int, optional): How many principal components were chosen to be fitted.
+            Defaults to cst.D_COORD.
+        k_clusters (int, optional): how many Guassians were fitted.
+            Defaults to cst.K_CLUSTERS.
+        time_i (int, optional): [description]. Defaults to cst.EXAMPLE_TIME_INDEX.
+        max_depth (float, optional): The maximum_depth (in pcm_object) that the data
+            is fitted to. Defaults to cst.MAX_DEPTH.
+        remove_init_var (bool, optional): Whether or not to remove the initial
+            variables. Defaults to True.
     """
 
     salt_nc = xr.open_dataset(cst.SALT_FILE).isel(time=time_i)

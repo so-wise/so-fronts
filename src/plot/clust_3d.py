@@ -60,7 +60,6 @@ def comp_3d(
     )
 
     fig = plt.gcf()
-    fig.set_size_inches(7 * num_plots + 1 * num_plots, 7 * 1.2)
 
     used_up_columns = 0
     primary_axes_list = []
@@ -155,7 +154,3 @@ def comp_3d(
             ax1.set_xlabel("PC1")
             ax1.set_ylabel("PC2")
             ax1.set_zlabel("PC3")
-
-    # plt.tight_layout()
-    # gp.label_subplots(primary_axes_list)
-    # plt.savefig("../FBSO-Report/images/fig2-3d.png", bbox_inches="tight", dpi=700)

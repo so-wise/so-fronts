@@ -11,7 +11,6 @@ import cartopy.crs as ccrs
 import src.plot_utils.colors as col
 import src.time_wrapper as twr
 import src.plot_utils.gen_panels as gp
-import src.plot_utils.latex_style as lsty
 import src.plot_utils.ko_plot as ko
 import src.plot_utils.map as mp
 import src.constants as cst
@@ -28,9 +27,8 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
         da_i (xr.DataArray):  xarray.dataarray object.
         da (xr.DataArray): xarray.dataarray object.
     """
-    lsty.mpl_params()
-    pairs_list = []
-    width_ratios = []
+    pairs_list: list = []
+    width_ratios: list = []
     num_pairs: int = 0
     num_plots: int = 2
     da_i = da_i + 1
@@ -66,7 +64,6 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
     )
 
     fig = plt.gcf()
-    fig.set_size_inches(7 * num_plots + 1 * num_plots, 7 * 1.2)
     used_up_columns = 0
     primary_axes_list = []
 

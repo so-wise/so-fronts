@@ -6,7 +6,6 @@ import matplotlib.colors as colors
 import src.time_wrapper as twr
 
 
-@twr.timeit
 def cluster_colors(number_clusters: int) -> np.ndarray:
     """Cluster colors.
 
@@ -16,7 +15,6 @@ def cluster_colors(number_clusters: int) -> np.ndarray:
     return cm.get_cmap("Set1", number_clusters).colors
 
 
-@twr.timeit
 def replacement_color_list(number_of_colors: int) -> list:
     """Replacement color list.
 

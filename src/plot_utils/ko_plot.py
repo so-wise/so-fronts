@@ -17,15 +17,12 @@ import src.plot_utils.map as mp
 import src.constants as cst
 
 
-sps.mpl_params()
-
-
 def is_too_far(
     lat_a: float = 0.0,
     lat_b: float = 0.0,
     lon_a: float = 0.0,
     lon_b: float = 0.0,
-    max_allowable_square: float = 1,
+    max_allowable_square: float = 1.0,
 ) -> bool:
     """Check if points are too far apart to draw a line between.
 
@@ -39,7 +36,7 @@ def is_too_far(
         lat_b (float, optional): [description]. Defaults to 0.0.
         lon_a (float, optional): [description]. Defaults to 0.0.
         lon_b (float, optional): [description]. Defaults to 0.0.
-        max_allowable_square (float, optional): [description]. Defaults to 1.
+        max_allowable_square (float, optional): Max allowable square. Defaults to 1.
 
     Returns:
         bool: whether or not.
@@ -292,6 +289,7 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
 
 def run_so_map() -> None:
     """Run through and plot."""
+    sps.mpl_params()
     map_proj = ccrs.SouthPolarStereo()
     fig = plt.figure()
     ax = fig.add_subplot(111, projection=map_proj)

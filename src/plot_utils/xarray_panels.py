@@ -23,7 +23,7 @@ def sep_plots(
     Args:
         da_list (Sequence[xr.DataArray]): list of xr.DataArray.
         var_list (list): list of variable names.
-        min_max_list (any, optional): [description]. Defaults to None.
+        min_max_list (Union[List[list], any], optional): [description]. Defaults to None.
     """
 
     map_proj = ccrs.SouthPolarStereo()
@@ -59,7 +59,7 @@ def sep_plots(
                 cbar_kwargs={
                     "shrink": 0.8,
                     "label": var_list[i],
-                    "orientation": "horizontal",  # xr_da.name
+                    "orientation": "horizontal",
                     "pad": 0.01,
                 },
             )
@@ -204,7 +204,7 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
             cbar = plt.colorbar(
                 im,
                 shrink=0.8,
-                orientation="horizontal",  # xr_da.name
+                orientation="horizontal",
                 pad=0.01,
                 cax=cbar_axes[j],
                 ticks=[0, 1],
