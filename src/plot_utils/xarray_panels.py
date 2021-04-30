@@ -4,6 +4,7 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
+import cmocean.cm as cmo
 import src.plot_utils.map as mp
 import src.plot_utils.gen_panels as gp
 import src.plot_utils.colors as col
@@ -16,6 +17,7 @@ def sep_plots(
     da_list: List[xr.DataArray],
     var_list: List[str],
     min_max_list: Union[List[list], any] = None,
+    cmap_list: Union[List[any], any] = None,
 ) -> None:
     """
     Separate plots.
@@ -25,7 +27,8 @@ def sep_plots(
         var_list  (List[str]): list of variable names.
         min_max_list (Union[List[list], any], optional): vmin and vmax.
             Defaults to None.
-
+        cmap_list (Union[List[list], any], optional): vmin and vmax.
+            Defaults to None.
     """
 
     map_proj = ccrs.SouthPolarStereo()
@@ -36,6 +39,9 @@ def sep_plots(
 
     if len(da_list) >= 3:
         fig.set_size_inches(5 * num_da + 0.2 * num_da, 5 * 1.2)
+
+    if cmap_list == None:
+        cmap_list = [cmo.balance for x in range(len(da_list))]
 
     if min_max_list is not None:
         assert len(min_max_list) == len(da_list)
@@ -48,6 +54,7 @@ def sep_plots(
                 transform=carree,  # the data's projection
                 ax=axes[i],
                 subplot_kws={"projection": map_proj},  # the plot's projection
+                cmap=cmap_list[i],
                 vmin=min_max_list[i][0],
                 vmax=min_max_list[i][1],
                 cbar_kwargs={
@@ -62,6 +69,7 @@ def sep_plots(
                 transform=carree,  # the data's projection
                 ax=axes[i],
                 subplot_kws={"projection": map_proj},  # the plot's projection
+                cmap=cmap_list[i],
                 cbar_kwargs={
                     "shrink": 0.8,
                     "label": var_list[i],
