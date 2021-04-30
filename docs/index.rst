@@ -28,6 +28,7 @@ Two methods for interpretable front detection. Solid lines represent classical f
    self
    src
    README.md
+   current
    configs.md
    philosophy.md
    about.md
