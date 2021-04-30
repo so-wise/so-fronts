@@ -58,7 +58,7 @@ def return_name(k_clusters: int, pca_components: int) -> str:
         str: file names.
     """
     return (
-        str(cst.PROJECT_PATH)
+        str(cst.GWS_DATA_DIR)
         + "/nc/i-metric-joint-k-"
         + str(k_clusters)
         + "-d-"
@@ -77,7 +77,8 @@ def return_plot_folder(k_clusters: int, pca_components: int) -> str:
         str: file names.
     """
     folder = (
-        "../FBSO-Report/images/i-metric-joint-k-"
+        "../FBSO-Report/"
+        + "images/i-metric-joint-k-"
         + str(k_clusters)
         + "-d-"
         + str(pca_components)
@@ -117,7 +118,7 @@ def _return_pair_name(k_clusters: int, pca_components: int) -> str:
 
     """
     return (
-        str(cst.PROJECT_PATH)
+        str(cst.GWS_DATA_DIR)
         + "nc/pair-i-metric-k-"
         + str(k_clusters)
         + "-d-"
@@ -137,7 +138,7 @@ def _return_pair_folder(k_clusters: int, pca_components: int) -> str:
 
     """
     folder = (
-        str(cst.PROJECT_PATH)
+        str(cst.GWS_DATA_DIR)
         + "/nc/pair-i-metric-k-"
         + str(k_clusters)
         + "-d-"
