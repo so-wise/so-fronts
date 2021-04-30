@@ -1,5 +1,6 @@
 """Test sobel vs gradient."""
 import os
+from typing import Tuple
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
@@ -9,16 +10,44 @@ import src.time_wrapper as twr
 from scipy import signal
 
 
+def sobel_np(values: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Sobel operator on np array.
+
+    Args:
+         values (np.ndarray): values to differentiate.
+
+    Returns:
+        Tuple[np.ndarray, np.ndarray]: gx, gy
+    """
+    sobel = np.array(
+        [
+            [1 + 1j, 0 + 2j, -1 + 1j],
+            [2 + 0j, 0 + 0j, -2 + 0j],
+            [1 - 1j, 0 - 2j, -1 - 1j],
+        ]
+    )  # Gx + j*Gy
+    grad = signal.convolve2d(values, sobel, boundary="pad", mode="same")
+    return np.real(grad), np.imag(grad)
+
+
 @twr.timeit
 def sobel_vs_grad() -> None:
     """
     Sobel versus dimension.
     """
     # filter = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-    scharr_test()
+    sobel_scharr_test()
+    ds = xr.open_dataset(cst.DEFAULT_NC)
+    da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX)
+    print(da_temp.isel(pca=0))
+    print("shape", da_temp.isel(pca=0).values.shape)
+    print(sobel_np(da_temp.isel(pca=0).values)[0])
+    print(sobel_np(da_temp.isel(pca=1).values)[0])
+    print(sobel_np(da_temp.isel(pca=2).values)[0])
 
 
-def scharr_test():
+def sobel_scharr_test():
     """Test scharr."""
     da = xr.DataArray(np.random.randn(15, 30), dims=[cst.X_COORD, cst.Y_COORD])
     # kernel = xr.DataArray(filter, dims=["kx", "ky"])
@@ -51,9 +80,9 @@ def scharr_test():
 
         print(gx)
         print(gy)
+        # print(grad)
 
-        print(grad)
-        fig, (ax_orig, ax_mag, ax_ang) = plt.subplots(3, 1, figsize=(6, 15))
+        _, (ax_orig, ax_mag, ax_ang) = plt.subplots(3, 1, figsize=(6, 15))
         ax_orig.imshow(val, cmap="gray")
         ax_orig.set_title("Original")
         ax_orig.set_axis_off()
