@@ -4,6 +4,7 @@ from typing import Tuple
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
+import cmocean.cm as cmo
 import src.constants as cst
 import src.plot_utils.xarray_panels as xp
 import src.time_wrapper as twr
@@ -36,15 +37,24 @@ def sobel_vs_grad() -> None:
     """
     Sobel versus dimension.
     """
-    # filter = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-    sobel_scharr_test()
     ds = xr.open_dataset(cst.DEFAULT_NC)
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX)
     print(da_temp.isel(pca=0))
     print("shape", da_temp.isel(pca=0).values.shape)
-    print(sobel_np(da_temp.isel(pca=0).values)[0])
-    print(sobel_np(da_temp.isel(pca=1).values)[0])
-    print(sobel_np(da_temp.isel(pca=2).values)[0])
+    pc1_x = da_temp.isel(pca=0)
+    pc1_x.values = sobel_np(pc1_x.values)[0]
+    pc1_x.plot(vmin=-50, vmax=50, cmap=cmo.balance)
+    plt.savefig("example-x.png")
+    plt.clf()
+    pc1_y = da_temp.isel(pca=0)
+    pc1_y.values = sobel_np(pc1_y.values)[1]
+    pc1_y.plot(vmin=-50, vmax=50, cmap=cmo.balance)
+    plt.savefig("example-y.png")
+    xp.sep_plots([pc1_x, pc1_y], ["PC1 $G_x$", "PC1 $G_y$"], [[-40, 40], [-40, 40]])
+    plt.savefig("example-pc.png")
+    plt.clf()
+    # print(sobel_np(da_temp.isel(pca=1).values)[0])
+    # print(sobel_np(da_temp.isel(pca=2).values)[0])
 
 
 def sobel_scharr_test():
