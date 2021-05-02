@@ -147,7 +147,7 @@ def plot_profiles(ds: xr.Dataset) -> None:
 
     plot_part("salt_mean", "salt_std")
 
-    ax2.set_xlabel(r"Salinity, $S$ / PSU")
+    ax2.set_xlabel(r"Salinity, $S$ (PSU)")
     ax2.set_ylim(ylim)
     ax2.set_yticks([])
     plt.setp(ax2.get_yticklabels(), visible=False)

@@ -13,6 +13,7 @@ scikit-learn
 matplotlib==3.2.2
 
 # pynio
+numba
 gsw
 dask
 pandas

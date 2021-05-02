@@ -124,6 +124,8 @@ def make_all_figures() -> None:
             ds.IMETRIC.isel(Imetric=0).mean(dim=cst.T_COORD, skipna=True),
         ],
         [r"$\mathcal{I}$-metric ", r"$\mathcal{I}$-metric"],
+        [[0.0, 1.0], [0.0, 1.0]],
+        ["viridis", "viridis"],
     )
     imetric_dual_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_dual.png"
@@ -225,7 +227,7 @@ def make_all_figures() -> None:
 
     cor_list = []
 
-    for time_i in range(0, 60):
+    for time_i in range(len(uvel_ds.coords[cst.T_COORD].values)):
         cor = ma.corrcoef(
             ma.masked_invalid(uvel_ds.isel(time=time_i).UVEL.values.ravel()),
             ma.masked_invalid(pca_ds.isel(time=time_i).PCA_VALUES.values.ravel()),
@@ -266,7 +268,7 @@ def make_all_figures() -> None:
 
     cor_list = []
 
-    for time_i in range(0, 60):
+    for time_i in range(len(uvel_ds.coords[cst.T_COORD].values)):
         cor = ma.corrcoef(
             ma.masked_invalid(vvel_ds.isel(time=time_i).VVEL.values.ravel()),
             ma.masked_invalid(pca_ds.isel(time=time_i).PCA_VALUES.values.ravel()),
