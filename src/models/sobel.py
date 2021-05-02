@@ -4,7 +4,6 @@ from typing import Tuple
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
-import cmocean.cm as cmo
 import src.constants as cst
 import src.plot_utils.latex_style as lsty
 import src.plot_utils.xarray_panels as xp
