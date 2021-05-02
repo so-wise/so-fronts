@@ -151,5 +151,12 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
             ax1.set_title("")
             ko.draw_fronts_kim(ax1)
             ax1.legend(loc="lower right")
+            ax1.legend(
+                bbox_to_anchor=(0.0, -0.1, 0, 0),
+                loc="lower right",
+                ncol=2,
+                mode="expand",
+                borderaxespad=0.0,
+            )
 
     gp.label_subplots(primary_axes_list)
