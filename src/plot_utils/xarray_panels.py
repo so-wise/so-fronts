@@ -77,7 +77,7 @@ def sep_plots(
                     "pad": 0.01,
                 },
             )
-        axes[i].coastlines()
+        # axes[i].coastlines()
         axes[i].set_title("")
 
     gp.label_subplots(axes)
@@ -127,7 +127,7 @@ def plot_single_i_metric(da: xr.DataArray) -> None:
     plt.suptitle("")
     plt.title("")
     ax1.set_title("")
-    ax1.coastlines()
+    # ax1.coastlines()
 
 
 @twr.timeit
@@ -225,10 +225,11 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
                 ticks=[0, 1],
             )
             cbar.set_label(da_list[i].coords[cst.P_COORD].values[j])
+
         plt.suptitle("")
         plt.title("")
         ax1.set_title("")
-        ax1.coastlines()
+        # ax1.coastlines()
         primary_axes_list.append(ax1)
 
     gp.label_subplots(primary_axes_list)

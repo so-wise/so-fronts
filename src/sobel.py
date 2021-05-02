@@ -51,19 +51,21 @@ def sobel_vs_grad() -> None:
     pc1_x: xr.DataArray = da_temp.isel(pca=0)
     pc1_x.values = sobel_np(pc1_x.values)[0]
     pc1_x.plot(vmin=-40, vmax=40, cmap=cmo.balance)
-    plt.savefig("example-x.png")
+    plt.savefig(os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example-x.png"))
     plt.clf()
 
     pc1_y: xr.DataArray = da_temp.isel(pca=0)
     pc1_y.values = sobel_np(pc1_y.values)[1]
     pc1_y.plot(vmin=-40, vmax=40, cmap=cmo.balance)
-    plt.savefig("example-y.png")
+    plt.savefig(os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example-y.png"))
     plt.clf()
 
     xp.sep_plots(
         [pc1_x, pc1_y], ["$G_x$ * PC1 ", "$G_y$ * PC1"], [[-40, 40], [-40, 40]]
     )
-    plt.savefig("example-pc.png")
+    plt.savefig(
+        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example-pc.png")
+    )
     plt.clf()
 
     pc1_y: xr.DataArray = da_temp.isel(pca=0)
@@ -79,7 +81,9 @@ def sobel_vs_grad() -> None:
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
-    plt.savefig("example_pcy.png")
+    plt.savefig(
+        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pcy.png")
+    )
     plt.clf()
 
     pc1_x: xr.DataArray = da_temp.isel(pca=0)
@@ -95,7 +99,9 @@ def sobel_vs_grad() -> None:
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
-    plt.savefig("example_pcx.png")
+    plt.savefig(
+        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pcx.png")
+    )
     plt.clf()
 
     da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
@@ -105,7 +111,9 @@ def sobel_vs_grad() -> None:
         [[-20, 20], [-20, 20], [-20, 20]],
     )
 
-    plt.savefig("example_pc_y.png")
+    plt.savefig(
+        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pc_y.png")
+    )
     plt.clf()
 
     da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
@@ -115,12 +123,14 @@ def sobel_vs_grad() -> None:
         [[-20, 20], [-20, 20], [-20, 20]],
     )
 
-    plt.savefig("example_pc_x.png")
+    plt.savefig(
+        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pc_x.png")
+    )
     plt.clf()
 
 
-def sobel_scharr_test():
-    """Test scharr."""
+def sobel_scharr_test() -> None:
+    """Test scharr / sobel."""
     da = xr.DataArray(np.random.randn(15, 30), dims=[cst.X_COORD, cst.Y_COORD])
     # kernel = xr.DataArray(filter, dims=["kx", "ky"])
     # da_new = da.rolling(XC=3, YC=3).construct(XC="kx", YC="ky").dot(kernel)
