@@ -127,7 +127,10 @@ Inevitably variables will need to be renamed etc.
 One helpful tool is `grep`. An example of using it is:
 
 ```bash
+
 grep -R 'cst.TIME_NAME' src
+
+grep -R 'coastlines' src
 ```
 
 This will list all the instances where the name in question occurs in this repository.
