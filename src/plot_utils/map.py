@@ -9,7 +9,6 @@ import xarray as xr
 from numba import jit
 import matplotlib
 import matplotlib.path as mpath
-import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import src.constants as cst
 import src.time_wrapper as twr
@@ -35,7 +34,7 @@ def southern_ocean_axes_setup(
     ax.set_extent([-180, 180, -90, -30], carree)
     fig.subplots_adjust(bottom=0.05, top=0.95, left=0.04, right=0.95, wspace=0.02)
 
-    def plot_boundary():
+    def plot_boundary() -> None:
         theta = np.linspace(0, 2 * np.pi, 100)
         center, radius = [0.5, 0.5], 0.45
         verts = np.vstack([np.sin(theta), np.cos(theta)]).T
@@ -49,6 +48,16 @@ def southern_ocean_axes_setup(
     def find_isobath(
         tmp_bathymetry: np.ndarray, crit_depth=cst.MAX_DEPTH
     ) -> List[list]:
+        """
+        Find isobath.
+
+        Args:
+            tmp_bathymetry (np.ndarray): Bathymetry np array.
+            crit_depth ([type], optional): Critical depth. Defaults to cst.MAX_DEPTH.
+
+        Returns:
+            List[list]: List of index pairs.
+        """
         isobath_index_list = []
         shape_bathymetry = np.shape(tmp_bathymetry)
         for i in range(0, shape_bathymetry[0] - 1):
@@ -73,10 +82,4 @@ def southern_ocean_axes_setup(
     lons = xr.open_dataset(cst.SALT_FILE)[cst.X_COORD].values[index_npa[:, 1]]
     lats = xr.open_dataset(cst.SALT_FILE)[cst.Y_COORD].values[index_npa[:, 0]]
 
-    ax.plot(
-        lons,
-        lats,
-        ".",
-        markersize=0.3,
-        color="grey",
-    )
+    ax.plot(lons, lats, ",", markersize=0.05, color="grey", transform=ccrs.Geodetic())
