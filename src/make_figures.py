@@ -68,6 +68,8 @@ def make_all_figures() -> None:
     # FIGURE 2 ## make profiles.
     logger.info("Making profiles.")
 
+    lsty.mpl_params()
+
     temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
     profiles_name = os.path.join(
         cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_profiles_temp.nc"
@@ -115,6 +117,8 @@ def make_all_figures() -> None:
     plt.savefig(s3d_plot_name)
     plt.clf()
 
+    lsty.mpl_params()
+
     # FIGURE 4: I metric viridis colormap.
     logger.info("4: I metric geographical map with viridis colormap.")
 
@@ -134,6 +138,8 @@ def make_all_figures() -> None:
     plt.savefig(imetric_dual_name)
     plt.clf()
 
+    lsty.mpl_params()
+
     # FIGURE 5: single multi color.
     logger.info("5: Example multi colour i metric plot for K=5.")
 
@@ -147,6 +153,8 @@ def make_all_figures() -> None:
 
     # FIGURE 6: Plot clusters and i metrics on maps.
     logger.info("6: Plot cluster/imetric on map.")
+
+    lsty.mpl_params()
 
     da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS).isel(time=0)
     da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(rank=0, time=cst.EXAMPLE_TIME_INDEX)
@@ -162,6 +170,7 @@ def make_all_figures() -> None:
 
     # FIGURE 7: Plot different k_clusters cluster multi colour plots.
     logger.info("7: compare K=2, K=4.")
+    lsty.mpl_params()
 
     xp.plot_several_pair_i_metrics(
         [
@@ -180,6 +189,8 @@ def make_all_figures() -> None:
 
     # FIGURE 8: PC1 y grads
     # TODO: Replace with Sobel.
+
+    lsty.mpl_params()
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX)
@@ -203,6 +214,8 @@ def make_all_figures() -> None:
     plt.savefig(pc_y_grad_name)
     plt.clf()
 
+    lsty.mpl_params()
+
     pc1_x: xr.DataArray = da_temp.isel(pca=0)
     pc1_x.values = sobel_np(pc1_x.values)[0]
     pc2_x: xr.DataArray = da_temp.isel(pca=1)
@@ -219,6 +232,8 @@ def make_all_figures() -> None:
     plt.savefig(os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_x_sobel.png"))
     plt.clf()
 
+    lsty.mpl_params()
+
     da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
     xp.sep_plots(
         [da_y.isel(pca=0), da_y.isel(pca=1), da_y.isel(pca=2)],
@@ -230,6 +245,8 @@ def make_all_figures() -> None:
         os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pc_y.png")
     )
     plt.clf()
+
+    lsty.mpl_params()
 
     da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
     xp.sep_plots(
@@ -244,6 +261,8 @@ def make_all_figures() -> None:
     plt.clf()
 
     logger.info("8: PC1 y grads.")
+
+    lsty.mpl_params()
 
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
     xp.sep_plots(
@@ -261,6 +280,8 @@ def make_all_figures() -> None:
 
     # uvel, pca1 y grad for example.
     logger.info("A: uvel/ y grad for example.")
+
+    lsty.mpl_params()
 
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     ds = xr.open_dataset(cst.DEFAULT_NC)
@@ -285,6 +306,8 @@ def make_all_figures() -> None:
 
     # uvel, pca1 y grad over time.
     logger.info("A: uvel/ y grad overtime.")
+
+    lsty.mpl_params()
 
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.Y_COORD)
@@ -339,6 +362,8 @@ def make_all_figures() -> None:
         )
         cor_list.append(cor[1, 0])
 
+    lsty.mpl_params()
+
     plt.plot(uvel_ds.coords[cst.T_COORD].values, cor_list)
     plt.xlabel("Time")
     plt.ylabel("Correlation coefficient")
@@ -356,6 +381,9 @@ def make_all_figures() -> None:
     logger.info("A: vvel/ y grad in pc1 at one time point.")
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
+
+    lsty.mpl_params()
+
     xp.sep_plots(
         [
             ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX, pca=0).differentiate(
