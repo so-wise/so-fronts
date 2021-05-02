@@ -137,7 +137,6 @@ def return_list_of_colormaps(number: int, fade_to_white: bool = True) -> list:
     return cmap_list
 
 
-@twr.timeit
 def _fading_colormap_name(from_name: str, fade_to_white: bool = True):
     """Takes a python color name and returns a fading color map.
 
@@ -149,7 +148,6 @@ def _fading_colormap_name(from_name: str, fade_to_white: bool = True):
     return _fading_colormap_rgb((red, green, blue), fade_to_white=fade_to_white)
 
 
-@twr.timeit
 def _fading_colormap_hex(from_hex, fade_to_white: bool = True):
     """Takes a hex string as input and returns a fading color map as output.
 
@@ -163,7 +161,6 @@ def _fading_colormap_hex(from_hex, fade_to_white: bool = True):
     )
 
 
-@twr.timeit
 def _fading_colormap_rgb(from_rgb: Tuple, fade_to_white: bool = True):
     """Takes an r g b tuple and returns a fading color map.
 

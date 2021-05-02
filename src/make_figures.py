@@ -102,6 +102,8 @@ def make_all_figures() -> None:
     # FIGURE 3: Plot 3d clusters.
     logger.info("Plot 3d clusters.")
 
+    lsty.mpl_params()
+
     c3d.comp_3d(
         # pylint: disable=protected-access
         pcm._classifier.weights_,
@@ -111,17 +113,18 @@ def make_all_figures() -> None:
         pcm._classifier.covariances_,
         ds,
     )
+
+    lsty.set_dim(plt.gcf(), ratio=0.8)
     s3d_plot_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_s3d_clusters.png"
     )
     plt.savefig(s3d_plot_name)
     plt.clf()
 
-    lsty.mpl_params()
-
     # FIGURE 4: I metric viridis colormap.
     logger.info("4: I metric geographical map with viridis colormap.")
 
+    lsty.mpl_params()
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
         [
