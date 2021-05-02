@@ -15,6 +15,7 @@ import src.plot.clust_3d as c3d
 import src.plot.i_map as imap
 import src.plot.profiles as prof
 import src.data_loading.io_names as io
+from src.models.sobel import sobel_np
 import src.time_wrapper as twr
 
 
@@ -179,6 +180,69 @@ def make_all_figures() -> None:
 
     # FIGURE 8: PC1 y grads
     # TODO: Replace with Sobel.
+
+    ds = xr.open_dataset(cst.DEFAULT_NC)
+    da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX)
+
+    pc1_y: xr.DataArray = da_temp.isel(pca=0)
+    pc1_y.values = sobel_np(pc1_y.values)[1]
+    pc2_y: xr.DataArray = da_temp.isel(pca=1)
+    pc2_y.values = sobel_np(pc2_y.values)[1]
+    pc3_y: xr.DataArray = da_temp.isel(pca=2)
+    pc3_y.values = sobel_np(pc3_y.values)[1]
+
+    xp.sep_plots(
+        [pc1_y, pc2_y, pc3_y],
+        ["$G_y$ * PC1", "$G_y$ * PC2", "$G_y$ * PC3"],
+        [[-40, 40], [-40, 40], [-40, 40]],
+    )
+
+    pc_y_grad_name = os.path.join(
+        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_y_sobel.png"
+    )
+    plt.savefig(pc_y_grad_name)
+    plt.clf()
+
+    pc1_x: xr.DataArray = da_temp.isel(pca=0)
+    pc1_x.values = sobel_np(pc1_x.values)[0]
+    pc2_x: xr.DataArray = da_temp.isel(pca=1)
+    pc2_x.values = sobel_np(pc2_x.values)[0]
+    pc3_x: xr.DataArray = da_temp.isel(pca=2)
+    pc3_x.values = sobel_np(pc3_x.values)[0]
+
+    xp.sep_plots(
+        [pc1_x, pc2_x, pc3_x],
+        ["$G_x$ * PC1", "$G_x$ * PC2", "$G_x$ * PC3"],
+        [[-40, 40], [-40, 40], [-40, 40]],
+    )
+
+    plt.savefig(os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_x_sobel.png"))
+    plt.clf()
+
+    da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
+    xp.sep_plots(
+        [da_y.isel(pca=0), da_y.isel(pca=1), da_y.isel(pca=2)],
+        ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
+        [[-20, 20], [-20, 20], [-20, 20]],
+    )
+
+    plt.savefig(
+        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pc_y.png")
+    )
+    plt.clf()
+
+    da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
+    xp.sep_plots(
+        [da_x.isel(pca=0), da_x.isel(pca=1), da_x.isel(pca=2)],
+        ["PC1 x-grad", "PC2 x-grad", "PC3 x-grad"],
+        [[-20, 20], [-20, 20], [-20, 20]],
+    )
+
+    plt.savefig(
+        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pc_x.png")
+    )
+    plt.clf()
+
     logger.info("8: PC1 y grads.")
 
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
