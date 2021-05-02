@@ -60,7 +60,9 @@ def sobel_vs_grad() -> None:
     plt.savefig("example-y.png")
     plt.clf()
 
-    xp.sep_plots([pc1_x, pc1_y], ["PC1 $G_x$", "PC1 $G_y$"], [[-40, 40], [-40, 40]])
+    xp.sep_plots(
+        [pc1_x, pc1_y], ["$G_x$ * PC1 ", "$G_y$ * PC1"], [[-40, 40], [-40, 40]]
+    )
     plt.savefig("example-pc.png")
     plt.clf()
 
@@ -73,7 +75,7 @@ def sobel_vs_grad() -> None:
 
     xp.sep_plots(
         [pc1_y, pc2_y, pc3_y],
-        ["PC1 $G_y$", "PC2 $G_y$", "PC3 $G_y$"],
+        ["$G_y$ * PC1", "$G_y$ * PC2", "$G_y$ * PC3"],
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
@@ -89,7 +91,7 @@ def sobel_vs_grad() -> None:
 
     xp.sep_plots(
         [pc1_x, pc2_x, pc3_x],
-        ["PC1 $G_x$", "PC2 $G_x$", "PC3 $G_x$"],
+        ["$G_x$ * PC1", "$G_x$ * PC2", "$G_x$ * PC3"],
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
