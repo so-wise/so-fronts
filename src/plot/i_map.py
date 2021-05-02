@@ -150,6 +150,6 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
             mp.southern_ocean_axes_setup(ax1, fig)
             ax1.set_title("")
             ko.draw_fronts_kim(ax1)
-            ax1.legend()
+            ax1.legend(loc="lower right")
 
     gp.label_subplots(primary_axes_list)

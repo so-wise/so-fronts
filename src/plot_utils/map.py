@@ -42,7 +42,7 @@ def southern_ocean_axes_setup(
         ax.set_boundary(circle, transform=ax.transAxes)
 
     plot_boundary()
-    ax.coastlines(resolution="50m", linewidth=0.2)
+    ax.coastlines(resolution="50m", linewidth=0.3)
 
     @jit(cache=True)  # significant performance enhancement.
     def find_isobath(
@@ -82,4 +82,4 @@ def southern_ocean_axes_setup(
     lons = xr.open_dataset(cst.SALT_FILE)[cst.X_COORD].values[index_npa[:, 1]]
     lats = xr.open_dataset(cst.SALT_FILE)[cst.Y_COORD].values[index_npa[:, 0]]
 
-    ax.plot(lons, lats, ",", markersize=0.05, color="grey", transform=ccrs.Geodetic())
+    ax.plot(lons, lats, ",", markersize=0.4, color="grey", transform=ccrs.Geodetic())

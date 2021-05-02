@@ -69,7 +69,8 @@ def time_title(
     Args:
         ax (matplotlib.axes.Axes): axis to add title to.
         time (Union[np.datetime64, float, cftime.Datetime360Day]): time string.
-        date_time_formatter (str, optional): Default is
+        date_time_formatter (str, optional): Default is "%Y-%m-%d".
+
     Example:
         Usage with an xarray.Datarray object::
             >>> time_title(ax, xr_da.time.values[index])
