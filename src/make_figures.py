@@ -321,9 +321,9 @@ def make_all_figures() -> None:
             .mean(dim=cst.T_COORD, skipna=True),
             uvel_ds.UVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
-        ["PC1 y-grad", r"$U$ (m s$^{-1}$)", "PC1 y-grad", r"$U$ (m s$^{-1}$)"],
+        ["$G_y$ * PC1", r"$U$ (m s$^{-1}$)", "$G_y$ PC1", r"$U$ (m s$^{-1}$)"],
     )
-    plt.savefig(fig_prefix + "_pc_y_grad.png")
+    plt.savefig(fig_prefix + "_pc_y_sobel_comp.png")
     plt.clf()
 
     # uvel, pca1 y grad over time.
@@ -358,8 +358,8 @@ def make_all_figures() -> None:
             ],
         ]
     )
-    plt.title("Correlation between PC1 y-grad and $U$")
-    plt.savefig(fig_prefix + "_pc_y_grad_corr.png")
+    plt.title(r"Correlation between $G_{y}$ * PC1 and $U$")
+    plt.savefig(fig_prefix + "_pc_y_sobel_corr.png")
     plt.clf()
 
     #  compare correlations and make correlation graph.
@@ -406,7 +406,7 @@ def make_all_figures() -> None:
         ]
     )
     plt.title(r"Correlation between $G_{x}$ * PC1 and $V$")
-    plt.savefig(fig_prefix + "_pc_x_sobel_grad_comp.png")
+    plt.savefig(fig_prefix + "_pc_x_sobel_corr.png")
     plt.clf()
 
     # compare meridional velocity to gradient.
@@ -416,7 +416,6 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
-    pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
     pc1_x, pc2_x, pc3_x = get_x_sobel(da_temp)
 
     xp.sep_plots(
@@ -430,7 +429,7 @@ def make_all_figures() -> None:
         ],
         ["$G_x$ * PC1", r"$V$ (m s$^{-1}$)", "$G_x$ * PC1", r"$V$ (m s$^{-1}$)"],
     )
-    plt.savefig(fig_prefix + "_pc_x_sobel_grad_comp.png")
+    plt.savefig(fig_prefix + "_pc_x_sobel_comp.png")
     plt.clf()
 
     logger.info("A: finished.")

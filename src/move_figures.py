@@ -26,10 +26,10 @@ def move(copy_command: str = "cp") -> None:  # this is ok for unix.
         fig_prefix + "_y_sobel.png": "figure-6.png",
         fig_prefix + "_i_metric_comp.png": "figure-7.png",
         fig_prefix + "_i_metric_single.png": "figure-8.png",
-        fig_prefix + "_y_sobel.png": "_pc_y_sobel_grad_comp.png",
-        fig_prefix + "_pc_y_grad_corr.png": "figure-A2.png",
-        fig_prefix + "_pc_x_sobel_grad_comp.png": "figure-A3.png",
-        fig_prefix + "_pc_x_grad_corr.png": "figure-A4.png",
+        fig_prefix + "_pc_y_sobel_comp.png": "figure-A1.png",
+        fig_prefix + "_pc_y_sobel_corr.png": "figure-A2.png",
+        fig_prefix + "_pc_x_sobel_comp.png": "figure-A3.png",
+        fig_prefix + "_pc_x_sobel_corr.png": "figure-A4.png",
     }
     for key in name_dict:
         os.system(
