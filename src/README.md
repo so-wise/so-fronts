@@ -19,28 +19,17 @@ src
 └── tests          <- Scripts for unit tests of your functions
 ```
 
-This generic folder structure is useful for most project, 
-but feel free to adapt it to your needs.
+## Reformatting code
 
-TODO: Feed Pyxpcm modified dataset.
+Inevitably variables will need to be renamed etc.
 
-- New variable: 'ALL'.
+One helpful tool is `grep`. An example of using it is:
 
-- Put in configs.
+```bash
 
-TODO: Check sensitivity to random seed.
+grep -R 'cst.TIME_NAME' src
 
-- Look at clusters - see each varies in terms of means and
-  covariances.
+grep -R 'coastlines' src
+```
 
-- Make 1 colour I-metric plots.
-
-- Put Seed in the CONSTANTS file.
-
-TODO: Change IO.
-
-- Add RUN_NAME.
-
-TODO: Possibly back up old data from time-machine.
-
-- Investigate random seeds within GMM.
+This will list all the instances where the name in question occurs in this repository.
