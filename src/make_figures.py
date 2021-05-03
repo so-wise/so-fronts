@@ -3,6 +3,7 @@
 Takes roughly 5 minutes the first time it is run.
 """
 import os
+from typing import Tuple
 import numpy.ma as ma
 import xarray as xr
 import matplotlib.pyplot as plt
@@ -58,6 +59,8 @@ def make_all_figures() -> None:
         cst.SEED,
     )
     lsty.mpl_params()
+
+    # """
 
     # FIGURE 1: pc maps.
     logger.info("Making pc maps.")
@@ -170,6 +173,8 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_i_metric_comp.png")
     plt.clf()
 
+    # """
+
     # FIGURE 8: PC1 y grads
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
@@ -179,12 +184,18 @@ def make_all_figures() -> None:
     ds = xr.open_dataset(cst.DEFAULT_NC)
     da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX)
 
-    pc1_y: xr.DataArray = da_temp.isel(pca=0)
-    pc1_y.values = sobel_np(pc1_y.values)[1]
-    pc2_y: xr.DataArray = da_temp.isel(pca=1)
-    pc2_y.values = sobel_np(pc2_y.values)[1]
-    pc3_y: xr.DataArray = da_temp.isel(pca=2)
-    pc3_y.values = sobel_np(pc3_y.values)[1]
+    def get_y_sobel(
+        pc_da_temp: xr.DataArray,
+    ) -> Tuple[xr.DataArray, xr.DataArray, xr.DataArray]:
+        pc1_y: xr.DataArray = pc_da_temp.isel(pca=0)
+        pc1_y.values = sobel_np(pc1_y.values)[1]
+        pc2_y: xr.DataArray = pc_da_temp.isel(pca=1)
+        pc2_y.values = sobel_np(pc2_y.values)[1]
+        pc3_y: xr.DataArray = pc_da_temp.isel(pca=2)
+        pc3_y.values = sobel_np(pc3_y.values)[1]
+        return pc1_y, pc2_y, pc3_y
+
+    pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
 
     xp.sep_plots(
         [pc1_y, pc2_y, pc3_y],
@@ -195,14 +206,34 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_y_sobel.png")
     plt.clf()
 
+    da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
+    for pc, grad, sobel in [
+        [1, da_y.isel(pca=0), pc1_y],
+        [2, da_y.isel(pca=1), pc2_y],
+        [3, da_y.isel(pca=2), pc3_y],
+    ]:
+        cor = ma.corrcoef(
+            ma.masked_invalid(grad.values.ravel()),
+            ma.masked_invalid(sobel.values.ravel()),
+        )
+        print("$G_y$, Y grad comparison", "pc" + str(pc), cor)
+
+    # sobel x grad.
+
     lsty.mpl_params()
 
-    pc1_x: xr.DataArray = da_temp.isel(pca=0)
-    pc1_x.values = sobel_np(pc1_x.values)[0]
-    pc2_x: xr.DataArray = da_temp.isel(pca=1)
-    pc2_x.values = sobel_np(pc2_x.values)[0]
-    pc3_x: xr.DataArray = da_temp.isel(pca=2)
-    pc3_x.values = sobel_np(pc3_x.values)[0]
+    def get_x_sobel(
+        pc_da_temp: xr.DataArray,
+    ) -> Tuple[xr.DataArray, xr.DataArray, xr.DataArray]:
+        pc1_x: xr.DataArray = pc_da_temp.isel(pca=0)
+        pc1_x.values = sobel_np(pc1_x.values)[0]
+        pc2_x: xr.DataArray = pc_da_temp.isel(pca=1)
+        pc2_x.values = sobel_np(pc2_x.values)[0]
+        pc3_x: xr.DataArray = pc_da_temp.isel(pca=2)
+        pc3_x.values = sobel_np(pc3_x.values)[0]
+        return pc1_x, pc2_x, pc3_x
+
+    pc1_x, pc2_x, pc3_x = get_x_sobel(da_temp)
 
     xp.sep_plots(
         [pc1_x, pc2_x, pc3_x],
@@ -213,7 +244,21 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_x_sobel.png")
     plt.clf()
 
+    da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
+    for pc, grad, sobel in [
+        [1, da_x.isel(pca=0), pc1_x],
+        [2, da_x.isel(pca=1), pc2_x],
+        [3, da_x.isel(pca=2), pc3_x],
+    ]:
+        cor = ma.corrcoef(
+            ma.masked_invalid(grad.values.ravel()),
+            ma.masked_invalid(sobel.values.ravel()),
+        )
+        print("$G_x$, X grad comparison", "pc" + str(pc), cor)
+
     lsty.mpl_params()
+
+    # y grad
 
     da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
     xp.sep_plots(
@@ -225,6 +270,8 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_example_pc_y.png")
 
     plt.clf()
+
+    # x gradient for principal components
 
     lsty.mpl_params()
 
@@ -238,7 +285,9 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_example_pc_x.png")
     plt.clf()
 
-    logger.info("8: PC1 y grads.")
+    # Pc y gradients.
+
+    logger.info("8: PC y grads.")
 
     lsty.mpl_params()
 
@@ -247,10 +296,7 @@ def make_all_figures() -> None:
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
         ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
     )
-    pc_y_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_y_grad.png"
-    )
-    plt.savefig(pc_y_grad_name)
+    plt.savefig(fig_prefix + "_y_grad.png")
     plt.clf()
 
     # Appendix
@@ -301,7 +347,12 @@ def make_all_figures() -> None:
     plt.ylabel("Correlation coefficient")
 
     plt.xlim(
-        [uvel_ds.coords[cst.T_COORD].values[0], uvel_ds.coords[cst.T_COORD].values[59]]
+        [
+            uvel_ds.coords[cst.T_COORD].values[0],
+            uvel_ds.coords[cst.T_COORD].values[
+                len(uvel_ds.coords[cst.T_COORD].values) - 1
+            ],
+        ]
     )
     plt.title("Correlation between PC1 y-grad and $U$")
     plt.savefig(fig_prefix + "_pc_y_grad_corr.png")
@@ -318,7 +369,7 @@ def make_all_figures() -> None:
             pca_ds.mean(dim=cst.T_COORD, skipna=True).PCA_VALUES.values.ravel()
         ),
     )
-    print(cor)
+    print("example corr U", cor)
 
     logger.info("A: vvel/ y grad in pc1 over time.")
 
@@ -340,7 +391,12 @@ def make_all_figures() -> None:
     plt.xlabel("Time")
     plt.ylabel("Correlation coefficient")
     plt.xlim(
-        [uvel_ds.coords[cst.T_COORD].values[0], uvel_ds.coords[cst.T_COORD].values[59]]
+        [
+            uvel_ds.coords[cst.T_COORD].values[0],
+            uvel_ds.coords[cst.T_COORD].values[
+                len(uvel_ds.coords[cst.T_COORD].values) - 1
+            ],
+        ]
     )
     plt.title("Correlation between PC1 x-grad and $V$")
     plt.savefig(fig_prefix + "_pc_x_grad_corr.png")

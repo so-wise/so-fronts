@@ -26,7 +26,7 @@ def train_on_interpolated_year(
     remove_init_var: bool = True,
     separate_pca: bool = False,
     interp: bool = True,
-    remake: bool = True,
+    remake: bool = cst.REMAKE,
 ) -> Tuple[pyxpcm.pcm, xr.Dataset]:
     """Train on interpolated year.
 
