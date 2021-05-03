@@ -63,11 +63,13 @@ FEATURES_D: dict = {"THETA": "THETA", "SALT": "SALT"}
 
 # Naming of intermediate files
 INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
+REMAKE = False  # whether or not to prefer remaking the interp file.
 
 # Chosen hyperparameters in the model run:
 RUN_NAME: str = "010"  # TODO --> Make all Data and Figures include RUN_NAME
 SEED: int = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
-np.random.seed(SEED)
+np.random.seed(SEED)  # feed the run name to np random seed - synchronises all
+# random variables used locally to make it reproducible.
 MIN_DEPTH: float = 300  # m
 MAX_DEPTH: float = 2000  # m
 K_LIST = [5, 4, 2, 10]  # K's to make when running batch script.
