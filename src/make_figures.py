@@ -307,20 +307,21 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
+    pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
+    pc1_x, pc2_x, pc3_x = get_x_sobel(da_temp)
+
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
         [
-            ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX, pca=0).differentiate(
-                cst.Y_COORD
-            ),
+            pc1_y,
             uvel_ds.UVEL.isel(time=cst.EXAMPLE_TIME_INDEX),
             ds.PCA_VALUES.isel(pca=0)
             .differentiate(cst.Y_COORD)
             .mean(dim=cst.T_COORD, skipna=True),
             uvel_ds.UVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
-        ["PC1 y-grad", r"$U$ (pcm s$^{-1}$)", "PC1 y-grad", r"$U$ (pcm s$^{-1}$)"],
+        ["PC1 y-grad", r"$U$ (m s$^{-1}$)", "PC1 y-grad", r"$U$ (m s$^{-1}$)"],
     )
     plt.savefig(fig_prefix + "_pc_y_grad.png")
     plt.clf()
@@ -336,9 +337,12 @@ def make_all_figures() -> None:
     cor_list = []
 
     for time_i in range(len(uvel_ds.coords[cst.T_COORD].values)):
+        pc1_y, _, _ = get_y_sobel(
+            xr.open_dataset(cst.DEFAULT_NC).PCA_VALUES.isel(time=time_i)
+        )
         cor = ma.corrcoef(
             ma.masked_invalid(uvel_ds.isel(time=time_i).UVEL.values.ravel()),
-            ma.masked_invalid(pca_ds.isel(time=time_i).PCA_VALUES.values.ravel()),
+            ma.masked_invalid(pc1_y.values.ravel()),
         )
         cor_list.append(cor[1, 0])
 
@@ -359,7 +363,7 @@ def make_all_figures() -> None:
     plt.clf()
 
     #  compare correlations and make correlation graph.
-    logger.info("A: vvel/ y grad over time.")
+    logger.info("A: vvel / y grad over time.")
 
     cor = ma.corrcoef(
         ma.masked_invalid(
@@ -371,17 +375,20 @@ def make_all_figures() -> None:
     )
     print("example corr U", cor)
 
-    logger.info("A: vvel/ y grad in pc1 over time.")
+    logger.info("A: vvel / y grad in pc1 over time.")
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
-    pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.X_COORD)
 
     cor_list = []
 
     for time_i in range(len(uvel_ds.coords[cst.T_COORD].values)):
+        pc1_x, _, _ = get_x_sobel(
+            xr.open_dataset(cst.DEFAULT_NC).isel(time=time_i).PCA_VALUES
+        )
+
         cor = ma.corrcoef(
             ma.masked_invalid(vvel_ds.isel(time=time_i).VVEL.values.ravel()),
-            ma.masked_invalid(pca_ds.isel(time=time_i).PCA_VALUES.values.ravel()),
+            ma.masked_invalid(pc1_x.values.ravel()),
         )
         cor_list.append(cor[1, 0])
 
@@ -398,8 +405,8 @@ def make_all_figures() -> None:
             ],
         ]
     )
-    plt.title("Correlation between PC1 x-grad and $V$")
-    plt.savefig(fig_prefix + "_pc_x_grad_corr.png")
+    plt.title(r"Correlation between $G_{x}$ * PC1 and $V$")
+    plt.savefig(fig_prefix + "_pc_x_sobel_grad_comp.png")
     plt.clf()
 
     # compare meridional velocity to gradient.
@@ -409,20 +416,21 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
+    pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
+    pc1_x, pc2_x, pc3_x = get_x_sobel(da_temp)
+
     xp.sep_plots(
         [
-            ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX, pca=0).differentiate(
-                cst.X_COORD
-            ),
+            pc1_x,
             vvel_ds.VVEL.isel(time=cst.EXAMPLE_TIME_INDEX),
             ds.PCA_VALUES.isel(pca=0)
             .differentiate(cst.X_COORD)
             .mean(dim=cst.T_COORD, skipna=True),
             vvel_ds.VVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
-        ["PC1 x-grad", r"$V$ (pcm s$^{-1}$)", "PC1 x-grad", r"$V$ (pcm s$^{-1}$)"],
+        ["$G_x$ * PC1", r"$V$ (m s$^{-1}$)", "$G_x$ * PC1", r"$V$ (m s$^{-1}$)"],
     )
-    plt.savefig(fig_prefix + "_pc_x_grad.png")
+    plt.savefig(fig_prefix + "_pc_x_sobel_grad_comp.png")
     plt.clf()
 
     logger.info("A: finished.")
