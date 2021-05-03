@@ -1,9 +1,7 @@
 """Label subplots. is the main function"""
-from typing import Sequence, Union
+from typing import Sequence
 import numpy as np
-import pandas as pd
 import matplotlib
-import cftime
 import src.time_wrapper as twr
 
 
@@ -56,36 +54,4 @@ def label_subplots(
             fontsize=fontsize,
             fontweight="bold",
             va="top",
-        )
-
-
-def time_title(
-    ax: matplotlib.axes.Axes,
-    time: Union[np.datetime64, float, cftime.Datetime360Day],
-    date_time_formatter: str = "%Y-%m-%d",
-) -> None:
-    """Add time title to axes.
-
-    Args:
-        ax (matplotlib.axes.Axes): axis to add title to.
-        time (Union[np.datetime64, float, cftime.Datetime360Day]): time string.
-        date_time_formatter (str, optional): Default is "%Y-%m-%d".
-
-    Example:
-        Usage with an xarray.Datarray object::
-            >>> time_title(ax, xr_da.time.values[index])
-    """
-    if isinstance(time, np.datetime64):
-        # use pandas to format time
-        ax.set_title(pd.to_datetime(str(time)).strftime(date_time_formatter))
-    elif isinstance(time, cftime.Datetime360Day):
-        ax.set_title(time.strftime()[0:10])
-    elif isinstance(time, (float, np.floating)):
-        # It would be better to have this as an option
-        ax.set_title("%2.1f months after 1960" % time)
-    else:
-        print(
-            "!Warning!: input of type "
-            + str(type(time))
-            + " does not lead to title plotting."
         )
