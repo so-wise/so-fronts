@@ -114,7 +114,7 @@ def make_all_figures() -> None:
         ds,
     )
 
-    lsty.set_dim(plt.gcf(), ratio=0.8)
+    lsty.set_dim(plt.gcf(), ratio=1.0)
     s3d_plot_name = os.path.join(
         cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_s3d_clusters.png"
     )
