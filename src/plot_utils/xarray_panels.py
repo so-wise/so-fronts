@@ -4,7 +4,6 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
-import cmocean.cm as cmo
 import src.plot_utils.map as mp
 import src.plot_utils.gen_panels as gp
 import src.plot_utils.colors as col
@@ -41,7 +40,7 @@ def sep_plots(
         fig.set_size_inches(2.5 * num_da + 0.2 * num_da, 2.5 * 1.2)
 
     if cmap_list is None:
-        cmap_list = [cmo.balance for x in range(len(da_list))]
+        cmap_list = [cst.DEFAULT_COLORMAP for x in range(len(da_list))]
 
     if min_max_list is not None:
         assert len(min_max_list) == len(da_list)
@@ -175,7 +174,7 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
     fig = plt.gcf()
 
     if len(da_list) >= 3:
-        fig.set_size_inches(5 * num_plots + 0.2 * num_plots, 5 * 1.2)
+        fig.set_size_inches(2.5 * num_plots + 0.2 * num_plots, 2.5 * 1.2)
 
     used_up_columns = 0
     primary_axes_list = []
@@ -229,7 +228,6 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
         plt.suptitle("")
         plt.title("")
         ax1.set_title("")
-        # ax1.coastlines()
         primary_axes_list.append(ax1)
 
     gp.label_subplots(primary_axes_list)
