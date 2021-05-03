@@ -256,49 +256,6 @@ def make_all_figures() -> None:
         )
         print("$G_x$, X grad comparison", "pc" + str(pc), cor)
 
-    lsty.mpl_params()
-
-    # y grad
-
-    da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
-    xp.sep_plots(
-        [da_y.isel(pca=0), da_y.isel(pca=1), da_y.isel(pca=2)],
-        ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
-        [[-20, 20], [-20, 20], [-20, 20]],
-    )
-
-    plt.savefig(fig_prefix + "_example_pc_y.png")
-
-    plt.clf()
-
-    # x gradient for principal components
-
-    lsty.mpl_params()
-
-    da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
-    xp.sep_plots(
-        [da_x.isel(pca=0), da_x.isel(pca=1), da_x.isel(pca=2)],
-        ["PC1 x-grad", "PC2 x-grad", "PC3 x-grad"],
-        [[-20, 20], [-20, 20], [-20, 20]],
-    )
-
-    plt.savefig(fig_prefix + "_example_pc_x.png")
-    plt.clf()
-
-    # Pc y gradients.
-
-    logger.info("8: PC y grads.")
-
-    lsty.mpl_params()
-
-    da_temp = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
-    xp.sep_plots(
-        [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
-        ["PC1 y-grad", "PC2 y-grad", "PC3 y-grad"],
-    )
-    plt.savefig(fig_prefix + "_y_grad.png")
-    plt.clf()
-
     # Appendix
     logger.info("A: Appendix figures.")
 
@@ -307,34 +264,54 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
-    pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
-    pc1_x, pc2_x, pc3_x = get_x_sobel(da_temp)
-
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
+
+    # make mean
+    pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
+
+    tot_y = pc1_x.values
+    tot_y[:] = 0.0
+
+    for i in range(len(uvel_ds.coords[cst.T_COORD].values)):
+        pc1_y, _, _ = get_x_sobel(ds.PCA_VALUES.isel(time=i))
+        tot_y += pc1_y.values
+
+    mean_y = tot_y / len(uvel_ds.coords[cst.T_COORD].values)
+
+    pc2_y.values = mean_y
+
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
         [
             pc1_y,
             uvel_ds.UVEL.isel(time=cst.EXAMPLE_TIME_INDEX),
-            ds.PCA_VALUES.isel(pca=0)
-            .differentiate(cst.Y_COORD)
-            .mean(dim=cst.T_COORD, skipna=True),
+            pc2_y,
             uvel_ds.UVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
-        ["$G_y$ * PC1", r"$U$ (m s$^{-1}$)", "$G_y$ PC1", r"$U$ (m s$^{-1}$)"],
+        ["$G_y$ * PC1", r"$U$ (m s$^{-1}$)", "$G_y$ * PC1", r"$U$ (m s$^{-1}$)"],
     )
     plt.savefig(fig_prefix + "_pc_y_sobel_comp.png")
     plt.clf()
 
+    pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
+    uvel_da = uvel_ds.UVEL.isel(time=cst.EXAMPLE_TIME_INDEX)
+
+    for pc, pc_da in [[1, pc1_y], [2, pc2_y], [3, pc3_y]]:
+        cor = ma.corrcoef(
+            ma.masked_invalid(pc_da.values.ravel()),
+            ma.masked_invalid(uvel_da.values.ravel()),
+        )
+        print("$G_y$ * PC" + str(pc), "UVEL", cor)
+
     # uvel, pca1 y grad over time.
-    logger.info("A: uvel/ y grad overtime.")
+    logger.info("A: uvel / y grad overtime.")
 
     lsty.mpl_params()
 
     uvel_ds = xr.open_dataset(cst.UVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
     pca_ds = xr.open_dataset(cst.DEFAULT_NC).isel(pca=0).differentiate(cst.Y_COORD)
 
-    cor_list = []
+    cor_list = list()
 
     for time_i in range(len(uvel_ds.coords[cst.T_COORD].values)):
         pc1_y, _, _ = get_y_sobel(
@@ -373,13 +350,13 @@ def make_all_figures() -> None:
             pca_ds.mean(dim=cst.T_COORD, skipna=True).PCA_VALUES.values.ravel()
         ),
     )
-    print("example corr U", cor)
+    print("Correlate U, mean", cor)
 
     logger.info("A: vvel / y grad in pc1 over time.")
 
     vvel_ds = xr.open_dataset(cst.VVEL_FILE).isel(Z=cst.EXAMPLE_Z_INDEX)
 
-    cor_list = []
+    cor_list = list()
 
     for time_i in range(len(uvel_ds.coords[cst.T_COORD].values)):
         pc1_x, _, _ = get_x_sobel(
@@ -416,15 +393,28 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
+    # make mean
+
     pc1_x, pc2_x, pc3_x = get_x_sobel(da_temp)
+
+    tot_x = pc1_x.values
+    tot_x[:] = 0.0
+
+    # get mean
+
+    for i in range(len(uvel_ds.coords[cst.T_COORD].values)):
+        pc1_x, _, _ = get_x_sobel(ds.PCA_VALUES.isel(time=i))
+        tot_x += pc1_x.values
+
+    mean_x = tot_x / len(uvel_ds.coords[cst.T_COORD].values)
+
+    pc2_x.values = mean_x
 
     xp.sep_plots(
         [
             pc1_x,
             vvel_ds.VVEL.isel(time=cst.EXAMPLE_TIME_INDEX),
-            ds.PCA_VALUES.isel(pca=0)
-            .differentiate(cst.X_COORD)
-            .mean(dim=cst.T_COORD, skipna=True),
+            pc2_x,
             vvel_ds.VVEL.mean(dim=cst.T_COORD, skipna=True),
         ],
         ["$G_x$ * PC1", r"$V$ (m s$^{-1}$)", "$G_x$ * PC1", r"$V$ (m s$^{-1}$)"],
@@ -433,3 +423,13 @@ def make_all_figures() -> None:
     plt.clf()
 
     logger.info("A: finished.")
+
+    pc1_x, pc2_x, pc3_x = get_x_sobel(da_temp)
+    vvel_da = vvel_ds.VVEL.isel(time=cst.EXAMPLE_TIME_INDEX)
+
+    for pc, pc_da in [[1, pc1_x], [2, pc2_x], [3, pc3_x]]:
+        cor = ma.corrcoef(
+            ma.masked_invalid(pc_da.values.ravel()),
+            ma.masked_invalid(vvel_da.values.ravel()),
+        )
+        print("$G_x$ * PC" + str(pc), "UVEL", cor)

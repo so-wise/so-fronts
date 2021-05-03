@@ -5,7 +5,7 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def move(copy_command: str = "cp") -> None:  # this is ok for unix.
+def move(copy_command: str = "cp") -> None:
     """
     Move the files to the project.
 
