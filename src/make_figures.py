@@ -31,7 +31,15 @@ def make_all_figures() -> None:
     3089 seconds on jasmin.
 
     That is 50 minutes apparently.
+
+    Got this down to 900 seconds on Jasmin.
+
+    So around 15 minutes.
     """
+
+    fig_prefix = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME)
+    data_prefix = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME)
+
     # Create or get the logger
     logger = logging.getLogger(__name__)
     # set log level
@@ -61,8 +69,7 @@ def make_all_figures() -> None:
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
         ["PC1", "PC2", "PC3"],
     )
-    pc_maps_name = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_map.png")
-    plt.savefig(pc_maps_name)
+    plt.savefig(fig_prefix + "_pc_map.png")
     plt.clf()
 
     # FIGURE 2 ## make profiles.
@@ -70,10 +77,8 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
-    temp_name = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_temp.nc")
-    profiles_name = os.path.join(
-        cst.DATA_PATH, "RUN_" + cst.RUN_NAME + "_profiles_temp.nc"
-    )
+    temp_name = data_prefix + "_temp.nc"
+    profiles_name = data_prefix + "_profiles_temp.nc"
     pcm, ds = tim.train_on_interpolated_year(
         time_i=cst.EXAMPLE_TIME_INDEX,
         k_clusters=cst.K_CLUSTERS,
@@ -92,11 +97,7 @@ def make_all_figures() -> None:
     print(profile_ds)
 
     prof.plot_profiles(profile_ds)
-    profiles_plot_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_profiles.png"
-    )
-
-    plt.savefig(profiles_plot_name)
+    plt.savefig(fig_prefix + "_profiles.png")
     plt.clf()
 
     # FIGURE 3: Plot 3d clusters.
@@ -115,10 +116,7 @@ def make_all_figures() -> None:
     )
 
     lsty.set_dim(plt.gcf(), ratio=1.0)
-    s3d_plot_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_s3d_clusters.png"
-    )
-    plt.savefig(s3d_plot_name)
+    plt.savefig(fig_prefix + "_s3d_clusters.png")
     plt.clf()
 
     # FIGURE 4: I metric viridis colormap.
@@ -135,10 +133,7 @@ def make_all_figures() -> None:
         [[0.0, 1.0], [0.0, 1.0]],
         ["viridis", "viridis"],
     )
-    imetric_dual_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_dual.png"
-    )
-    plt.savefig(imetric_dual_name)
+    plt.savefig(fig_prefix + "_i_metric_dual.png")
     plt.clf()
 
     lsty.mpl_params()
@@ -148,10 +143,7 @@ def make_all_figures() -> None:
 
     da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS)
     xp.plot_single_i_metric(da.isel(time=0))
-    imetric_single_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_single.png"
-    )
-    plt.savefig(imetric_single_name)
+    plt.savefig(fig_prefix + "_i_metric_single.png")
     plt.clf()
 
     # FIGURE 6: Plot clusters and i metrics on maps.
@@ -165,10 +157,7 @@ def make_all_figures() -> None:
     print(da)
 
     imap.map_imetric(da_i, da)
-    imetric_single_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_map_i_comp.png"
-    )
-    plt.savefig(imetric_single_name)
+    plt.savefig(fig_prefix + "_map_i_comp.png")
     plt.clf()
 
     # FIGURE 7: Plot different k_clusters cluster multi colour plots.
@@ -182,10 +171,7 @@ def make_all_figures() -> None:
         ]
     )
     plt.tight_layout()
-    imetric_comp_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_i_metric_comp.png"
-    )
-    plt.savefig(imetric_comp_name)
+    plt.savefig(fig_prefix + "_i_metric_comp.png")
     plt.clf()
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
@@ -211,10 +197,7 @@ def make_all_figures() -> None:
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
-    pc_y_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_y_sobel.png"
-    )
-    plt.savefig(pc_y_grad_name)
+    plt.savefig(fig_prefix + "_y_sobel.png")
     plt.clf()
 
     lsty.mpl_params()
@@ -232,7 +215,7 @@ def make_all_figures() -> None:
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
-    plt.savefig(os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_x_sobel.png"))
+    plt.savefig(fig_prefix + "_x_sobel.png")
     plt.clf()
 
     lsty.mpl_params()
@@ -244,9 +227,8 @@ def make_all_figures() -> None:
         [[-20, 20], [-20, 20], [-20, 20]],
     )
 
-    plt.savefig(
-        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pc_y.png")
-    )
+    plt.savefig(fig_prefix + "_example_pc_y.png")
+
     plt.clf()
 
     lsty.mpl_params()
@@ -258,9 +240,7 @@ def make_all_figures() -> None:
         [[-20, 20], [-20, 20], [-20, 20]],
     )
 
-    plt.savefig(
-        os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_example_pc_x.png")
-    )
+    plt.savefig(fig_prefix + "_example_pc_x.png")
     plt.clf()
 
     logger.info("8: PC1 y grads.")
@@ -301,10 +281,7 @@ def make_all_figures() -> None:
         ],
         ["PC1 y-grad", r"$U$ (pcm s$^{-1}$)", "PC1 y-grad", r"$U$ (pcm s$^{-1}$)"],
     )
-    pc_y_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_y_grad.png"
-    )
-    plt.savefig(pc_y_grad_name)
+    plt.savefig(fig_prefix + "_pc_y_grad.png")
     plt.clf()
 
     # uvel, pca1 y grad over time.
@@ -332,10 +309,7 @@ def make_all_figures() -> None:
         [uvel_ds.coords[cst.T_COORD].values[0], uvel_ds.coords[cst.T_COORD].values[59]]
     )
     plt.title("Correlation between PC1 y-grad and $U$")
-    pc_y_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_y_grad_corr.png"
-    )
-    plt.savefig(pc_y_grad_name)
+    plt.savefig(fig_prefix + "_pc_y_grad_corr.png")
     plt.clf()
 
     #  compare correlations and make correlation graph.
@@ -374,10 +348,7 @@ def make_all_figures() -> None:
         [uvel_ds.coords[cst.T_COORD].values[0], uvel_ds.coords[cst.T_COORD].values[59]]
     )
     plt.title("Correlation between PC1 x-grad and $V$")
-    pc_x_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad_corr.png"
-    )
-    plt.savefig(pc_x_grad_name)
+    plt.savefig(fig_prefix + "_pc_x_grad_corr.png")
     plt.clf()
 
     # compare meridional velocity to gradient.
@@ -400,10 +371,7 @@ def make_all_figures() -> None:
         ],
         ["PC1 x-grad", r"$V$ (pcm s$^{-1}$)", "PC1 x-grad", r"$V$ (pcm s$^{-1}$)"],
     )
-    pc_y_grad_name = os.path.join(
-        cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME + "_pc_x_grad.png"
-    )
-    plt.savefig(pc_y_grad_name)
+    plt.savefig(fig_prefix + "_pc_x_grad.png")
     plt.clf()
 
     logger.info("A: finished.")
