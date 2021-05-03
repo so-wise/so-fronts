@@ -150,20 +150,16 @@ def make_all_figures() -> None:
     logger.info("6: Plot cluster/imetric on map.")
 
     lsty.mpl_params()
-
     da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS).isel(time=0)
     da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(rank=0, time=cst.EXAMPLE_TIME_INDEX)
-
-    print(da)
-
     imap.map_imetric(da_i, da)
     plt.savefig(fig_prefix + "_map_i_comp.png")
     plt.clf()
 
     # FIGURE 7: Plot different k_clusters cluster multi colour plots.
     logger.info("7: compare K=2, K=4.")
-    lsty.mpl_params()
 
+    lsty.mpl_params()
     xp.plot_several_pair_i_metrics(
         [
             io.return_pair_i_metric(k_clusters=2).isel(time=0),
@@ -174,10 +170,9 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_i_metric_comp.png")
     plt.clf()
 
-    ds = xr.open_dataset(cst.DEFAULT_NC)
-
     # FIGURE 8: PC1 y grads
-    # TODO: Replace with Sobel.
+
+    ds = xr.open_dataset(cst.DEFAULT_NC)
 
     lsty.mpl_params()
 

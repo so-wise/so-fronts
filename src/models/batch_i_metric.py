@@ -119,7 +119,7 @@ def merge_and_save(k_clusters: int = 5, pca: int = 3) -> None:
 
 def run_through() -> None:
     """Run through."""
-    k_list = [5, 4, 2, 10]
+    k_list = cst.K_LIST
     for k_clusters in k_list:
         run_through_sep(k_clusters=k_clusters)
         merge_and_save(k_clusters=k_clusters)

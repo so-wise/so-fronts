@@ -5,6 +5,7 @@ import os
 import numpy as np
 import pathlib
 from sys import platform
+import cmocean.cm as cmo
 
 # Note: constants should be UPPER_CASE
 
@@ -69,8 +70,12 @@ SEED: int = int(RUN_NAME)  # TODO --> Make GMM training function take random see
 np.random.seed(SEED)
 MIN_DEPTH: float = 300  # m
 MAX_DEPTH: float = 2000  # m
-K_CLUSTERS: int = 5  # number of clusters
+K_LIST = [5, 4, 2, 10]  # K's to make when running batch script.
+K_CLUSTERS: int = 5  # number of clusters for example
 D_PCS: int = 3  # number of principal components
 EXAMPLE_TIME_INDEX: int = 40  # the default time to go for.
 EXAMPLE_Z_INDEX: int = 15  # 15 indexes down.
 ALL_NAME: str = "all"  # starting combination script.
+
+# plotting specifications
+DEFAULT_COLORMAP = cmo.balance

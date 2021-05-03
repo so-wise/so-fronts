@@ -7,24 +7,17 @@
 
 ![I metric for K=5](gifs/boundaries-k5.gif)
 
-## K=2
-
-![I metric for K=2](gifs/boundaries-k2.gif)
-
-## K=4
-
-![I metric for K=4](gifs/boundaries-k4.gif)
-
 ## Short description
 
 A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.6+ (final run for paper used `python==3.8.8`)
 - Anaconda, with `conda` working in shell.
-- `pdflatex` for high quality figures (should still work without).
-- `mkdocs`.
+- `pdflatex` for high quality figures (should work without).
+- `make` in shell.
+- `xarray`, `sklearn`, `cartopy` etc. are the main packages installed.
 
 ## Getting started
 
@@ -68,6 +61,12 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 
    ```bash
    python3 src/data_loading/bsose_download.py
+   ```
+
+- Make I-metric in list:
+
+   ```bash
+   python3 src/models/batch_i_metric.py
    ```
 
 ## Project Organization
@@ -120,32 +119,19 @@ black .
 
 from within the project directory.
 
-
 ## Testing
 
 ```bash
 python3 -m unittest
 ```
 
-## Documentation formatting
+## K=2
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+![I metric for K=2](gifs/boundaries-k2.gif)
 
-## Commands
+## K=4
 
-- `mkdocs new [dir-name]` - Create a new project.
-- `mkdocs serve` - Start the live-reloading docs server.
-- `mkdocs build` - Build the documentation site.
-- `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-```txt
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-```
+![I metric for K=4](gifs/boundaries-k4.gif)
 
 ---
 

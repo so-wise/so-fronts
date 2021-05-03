@@ -118,7 +118,7 @@ def comp_3d(
             )
             ax1.set_xlabel("PC1")
             ax1.set_ylabel("PC2")
-            ax1.set_zlabel("PC3")
+            # ax1.set_zlabel("PC3") # this disappears off the edge of the page.
             primary_axes_list.append(ax1)
 
         if i == 1:
