@@ -134,38 +134,24 @@ python3 -m unittest
 ![I metric for K=4](gifs/boundaries-k4.gif)
 
 ```txt
-$G_x$ * PC1 UVEL [[1.0 -0.9162823730143193]
- [-0.9162823730143193 1.0]]
-$G_x$ * PC2 UVEL [[1.0 -0.25479391542256796]
- [-0.25479391542256796 1.0]]
-$G_x$ * PC3 UVEL [[1.0 0.1557191329423214]
- [0.1557191329423214 1.0]]
-'make_all_figures'  166.38575 s
+$G_x$ * PC1, VVEL, -0.9163
+$G_x$ * PC2, VVEL, -0.2547
+$G_x$ * PC3, VVEL,  0.1557
 
-$G_y$ * PC1 UVEL [[1.0 0.91592759883944]
- [0.91592759883944 1.0]]
-$G_y$ * PC2 UVEL [[1.0 0.24205663778547035]
- [0.24205663778547035 1.0]]
-$G_y$ * PC3 UVEL [[1.0 -0.19210958373782214]
- [-0.19210958373782214 1.0]]
+$G_y$ * PC1, UVEL, 0.9159
+$G_y$ * PC2, UVEL,  0.242
+$G_y$ * PC3, UVEL, -0.1921
 
-$G_x$, X grad comparison pc1 [[1.0 0.9996761062587781]
- [0.9996761062587781 1.0]]
-$G_x$, X grad comparison pc2 [[1.0 0.9983732166812125]
- [0.9983732166812125 1.0]]
-$G_x$, X grad comparison pc3 [[1.0 0.9974882743697615]
- [0.9974882743697615 1.0]]
+$G_x$, X grad comparison pc1, 0.9996
+$G_x$, X grad comparison pc2, 0.998
+$G_x$, X grad comparison pc3, 0.997
 
-$G_y$, Y grad comparison pc1 [[1.0 0.9864205041806637]
- [0.9864205041806637 1.0]]
-$G_y$, Y grad comparison pc2 [[1.0 0.9771320256681648]
- [0.9771320256681648 1.0]]
-$G_y$, Y grad comparison pc3 [[1.0 0.9701485731309335]
- [0.9701485731309335 1.0]]
+$G_y$, Y grad comparison pc1, 0.986
+$G_y$, Y grad comparison pc2, 0.977
+$G_y$, Y grad comparison pc3, 0.970
 
- Correlate U, mean [[1.0 0.9255912295744179]
- [0.9255912295744179 1.0]]
- ```
+Correlate U, mean 0.926
+```
 
 ---
 
