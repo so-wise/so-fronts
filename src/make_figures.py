@@ -273,12 +273,14 @@ def make_all_figures() -> None:
     tot_y[:] = 0.0
 
     for i in range(len(uvel_ds.coords[cst.T_COORD].values)):
-        pc1_y, _, _ = get_x_sobel(ds.PCA_VALUES.isel(time=i))
+        pc1_y, _, _ = get_y_sobel(ds.PCA_VALUES.isel(time=i))
         tot_y += pc1_y.values
 
     mean_y = tot_y / len(uvel_ds.coords[cst.T_COORD].values)
 
     pc2_y.values = mean_y
+
+    pc1_y, _, _ = get_y_sobel(ds.PCA_VALUES.isel(time=i))
 
     ds = xr.open_dataset(cst.DEFAULT_NC)
     xp.sep_plots(
@@ -409,6 +411,8 @@ def make_all_figures() -> None:
     mean_x = tot_x / len(uvel_ds.coords[cst.T_COORD].values)
 
     pc2_x.values = mean_x
+
+    pc1_x, _, _ = get_x_sobel(ds.PCA_VALUES.isel(time=i))
 
     xp.sep_plots(
         [
