@@ -1,6 +1,5 @@
 """The purpose of this is the algorithm in 3D."""
 import numpy as np
-import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import xarray as xr
@@ -98,7 +97,7 @@ def comp_3d(
                 principal_component_da.isel(pca=0).values.ravel(),
                 principal_component_da.isel(pca=1).values.ravel(),
                 principal_component_da.isel(pca=2).values.ravel(),
-                cmap=cm.get_cmap("Set1", len(weights)),
+                cmap=col.cluster_cmap(len(weights)),
                 c=ds.PCM_LABELS.values.ravel() + 1,
                 vmin=0.5,
                 vmax=len(weights) + 0.5,

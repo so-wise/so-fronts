@@ -10,9 +10,18 @@ def cluster_colors(number_clusters: int) -> np.ndarray:
     """Cluster colors.
 
     :param number_clusters: The number of clusters.
+    """
+    return cluster_cmap(number_clusters).colors
+
+
+def cluster_cmap(number_clusters: int):
+    """Cluster cmap.
+
+    :param number_clusters: The number of clusters.
     :return: cmap.
     """
-    return cm.get_cmap("Set1", number_clusters).colors
+    # "Set1"
+    return cm.get_cmap("Dark2", number_clusters)
 
 
 def replacement_color_list(number_of_colors: int) -> list:
