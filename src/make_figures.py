@@ -103,6 +103,8 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_profiles.png")
     plt.clf()
 
+    """
+
     # FIGURE 3: Plot 3d clusters.
     logger.info("Plot 3d clusters.")
 
@@ -172,8 +174,6 @@ def make_all_figures() -> None:
     plt.tight_layout()
     plt.savefig(fig_prefix + "_i_metric_comp.png")
     plt.clf()
-
-    # """
 
     # FIGURE 8: PC1 y grads
 
@@ -437,3 +437,5 @@ def make_all_figures() -> None:
             ma.masked_invalid(vvel_da.values.ravel()),
         )
         print("$G_x$ * PC" + str(pc), "UVEL", cor)
+
+    # """
