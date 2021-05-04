@@ -131,7 +131,9 @@ def plot_single_i_metric(da: xr.DataArray) -> None:
 
 
 @twr.timeit
-def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
+def plot_several_pair_i_metrics(
+    da_list: Sequence[xr.DataArray], plot_ko: bool = True
+) -> None:
     """Plot several pair i metrics.
 
     USAGE:
@@ -144,6 +146,7 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
 
     Args:
         da_list (Sequence[xr.DataArray]): list of dataarrays.
+        plot_ko (bool): whether or not to plot the kim and orsi 2014 fronts.
     """
 
     carree = ccrs.PlateCarree()
@@ -151,8 +154,8 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
 
     pairs_list = []
     width_ratios = []
-    num_pairs = 0
-    num_plots = len(da_list)
+    num_pairs: int = 0
+    num_plots: int = len(da_list)
 
     for i in range(len(da_list)):
         if i != 0:
@@ -229,14 +232,16 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
         plt.suptitle("")
         plt.title("")
         ax1.set_title("")
-        ko.draw_fronts_kim(ax1)
+        if plot_ko:
+            ko.draw_fronts_kim(ax1)
         primary_axes_list.append(ax1)
 
     gp.label_subplots(primary_axes_list)
-    ax1.legend(
-        bbox_to_anchor=(0.0, -0.1, 0, 0),
-        loc="lower right",
-        ncol=2,
-        mode="expand",
-        borderaxespad=0.0,
-    )
+    if plot_ko:
+        ax1.legend(
+            bbox_to_anchor=(0.0, -0.1, 0, 0),
+            loc="lower right",
+            ncol=2,
+            mode="expand",
+            borderaxespad=0.0,
+        )
