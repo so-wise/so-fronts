@@ -101,7 +101,7 @@ def comp_3d(
                 c=ds.PCM_LABELS.values.ravel() + 1,
                 vmin=0.5,
                 vmax=len(weights) + 0.5,
-                alpha=0.5,
+                alpha=1,
             )
 
             # VIEWING ANGLE
@@ -131,6 +131,7 @@ def comp_3d(
             fig = plt.gcf()
 
             for j in range(number_clusters):
+
                 fig, ax1 = pel.plot_ellipsoid(
                     fig, ax1, covariances[j], means[j], weights[j], colors[j]
                 )
@@ -145,11 +146,13 @@ def comp_3d(
                     cmap=cmap_list[j],
                     alpha=0.5,
                 )
+
                 ax1.view_init(30, 60)
 
                 cbar = plt.colorbar(
                     im, cax=cbar_axes[j], orientation="horizontal", ticks=[0, 1]
                 )
+
                 cbar.set_label(da.coords[cst.P_COORD].values[j])
 
             primary_axes_list.append(ax1)

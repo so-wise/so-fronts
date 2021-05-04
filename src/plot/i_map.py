@@ -112,7 +112,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
                 vmax=number_clusters + 0.5,
                 transform=carree,
                 subplot_kws={"projection": map_proj},
-                alpha=0.5,
+                alpha=1,
             )
 
             plt.colorbar(
@@ -140,7 +140,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
                     add_colorbar=False,
                     transform=carree,
                     subplot_kws={"projection": map_proj},
-                    alpha=0.5,
+                    alpha=1,
                 )
 
                 cbar = plt.colorbar(

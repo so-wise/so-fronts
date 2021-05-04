@@ -185,7 +185,7 @@ def plot_list_of_lists(
                     label=label,
                     color=color,
                     transform=ccrs.PlateCarree(),
-                    LineWidth=0.3,
+                    LineWidth=0.5,
                 )
                 not_labelled = False
             else:
@@ -196,7 +196,7 @@ def plot_list_of_lists(
                     markersize=markersize,
                     color=color,
                     transform=ccrs.PlateCarree(),
-                    LineWidth=0.3,
+                    LineWidth=0.5,
                 )
 
 
@@ -248,7 +248,7 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
     keys: list = ["saf", "pf", "saccf", "sbdy"]
     color_dict: dict = {
         "saf": "black",
-        "pf": "grey",
+        "pf": "purple",
         "saccf": "green",
         "sbdy": "olive",
     }
