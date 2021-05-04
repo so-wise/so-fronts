@@ -51,7 +51,7 @@ def southern_ocean_axes_setup(
     ax.coastlines(resolution="50m", linewidth=0.3)
 
     if add_gridlines:
-        ax.gridlines()
+        ax.gridlines(linewidth=0.5)
 
     # Add 2000m isobath (or whatever the max depth is).
 
