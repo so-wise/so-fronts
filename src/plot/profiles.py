@@ -102,7 +102,7 @@ def plot_profiles(ds: xr.Dataset) -> None:
     print("k_clusters", k_clusters)
 
     color_list = col.cluster_colors(k_clusters)
-    ylim = [-1.8, -0.3]
+    ylim = [300, 1800]
 
     def plot_part(mean_name: str, std_name: str) -> None:
         """
@@ -115,14 +115,15 @@ def plot_profiles(ds: xr.Dataset) -> None:
         for i in range(0, k_clusters):
             plt.plot(
                 ds.isel(cluster=i)[mean_name],
-                ds.coords[cst.Z_COORD].values / 1000,
+                -ds.coords[cst.Z_COORD].values,
                 color=color_list[i],
+                linewidth=2,
                 alpha=0.5,
                 label=str(i + 1),
             )
             for sig_mult, alpha in [[1, 0.4]]:
                 plt.fill_betweenx(
-                    ds.coords[cst.Z_COORD].values / 1000,
+                    -ds.coords[cst.Z_COORD].values,
                     ds.isel(cluster=i)[mean_name]
                     - np.multiply(sig_mult, ds.isel(cluster=i)[std_name]),
                     ds.isel(cluster=i)[mean_name]
@@ -134,22 +135,22 @@ def plot_profiles(ds: xr.Dataset) -> None:
     # THETA PLOTTING.
     plt.subplot(1, 2, 1)
     ax1 = plt.gca()
-
     plot_part("theta_mean", "theta_std")
-
     ax1.set_xlabel(r"Potential Temperature, $\theta$ ($^{\circ}\mathrm{C}$)")
-    ax1.set_ylabel("Height (km)")
+    ax1.set_ylabel("Depth (m)")
     ax1.set_ylim(ylim)
+    ax1.set_xlim([-2, 15])
+    ax1.invert_yaxis()
 
     # SALINITY PLOTTING.
     plt.subplot(1, 2, 2)
     ax2 = plt.gca()
-
     plot_part("salt_mean", "salt_std")
-
     ax2.set_xlabel(r"Salinity, $S$ (PSU)")
     ax2.set_ylim(ylim)
+    ax2.set_xlim([34, 35.5])
     ax2.set_yticks([])
+    ax2.invert_yaxis()
     plt.setp(ax2.get_yticklabels(), visible=False)
 
     ax1.legend(
