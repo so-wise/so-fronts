@@ -7,13 +7,11 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   src.configs
    src.data_loading
    src.models
    src.plot
    src.plot_utils
    src.preprocessing
-   src.tests
 
 Submodules
 ----------

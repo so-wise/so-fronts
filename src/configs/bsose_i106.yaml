@@ -1,7 +1,0 @@
-
-coords:
-  X: "XC"
-  Y: "YC"
-  Z: "Z"
-
-data_fields: {'THETA', 'SALT'}
