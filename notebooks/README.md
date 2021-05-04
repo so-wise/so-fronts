@@ -9,7 +9,7 @@ Polished work for reporting and demonstration purposes goes into `notebooks/repo
 
 To avoid having to reload the notebook when you change code from underlying imports, we recommend the following handy initialization cell for jupyter notebooks:
 
-```txt
+```python
 %load_ext autoreload             # loads the autoreload package into ipython kernel
 %autoreload 2                    # sets autoreload mode to automatically reload modules when they change
 %config IPCompleter.greedy=True  # enables tab completion

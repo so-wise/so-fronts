@@ -132,7 +132,7 @@ def plot_single_i_metric(da: xr.DataArray) -> None:
 
 @twr.timeit
 def plot_several_pair_i_metrics(
-    da_list: Sequence[xr.DataArray], plot_ko: bool = True
+    da_list: Sequence[xr.DataArray], plot_ko: bool = False
 ) -> None:
     """Plot several pair i metrics.
 
