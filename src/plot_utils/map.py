@@ -13,13 +13,12 @@ import cartopy.crs as ccrs
 import src.constants as cst
 import src.time_wrapper as twr
 
-# import cartopy.feature
-# import matplotlib.cm as cm
-
 
 @twr.timeit
 def southern_ocean_axes_setup(
-    ax: matplotlib.axes.Axes, fig: matplotlib.figure.Figure
+    ax: matplotlib.axes.Axes,
+    fig: matplotlib.figure.Figure,
+    add_gridlines: bool = True,
 ) -> None:
     """
     This function sets up the subplot so that it is a cartopy map of the southern ocean.
@@ -29,6 +28,7 @@ def southern_ocean_axes_setup(
     Args:
         ax (matplotlib.axes.Axes): The axis object to add the map to.
         fig (matplotlib.figure.Figure): The figure object for the figure in general.
+        add_gridlines (bool): whether or not to add gridlines to the plot.
     """
     carree = ccrs.PlateCarree()
     ax.set_extent([-180, 180, -90, -30], carree)
@@ -48,7 +48,8 @@ def southern_ocean_axes_setup(
     plot_boundary()
     # add coastlines and gridlines
     ax.coastlines(resolution="50m", linewidth=0.3)
-    ax.gridlines()
+    if add_gridlines:
+        ax.gridlines()
 
     # Add 2000m isobath (or whatever the max depth is).
 
