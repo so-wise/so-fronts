@@ -7,6 +7,7 @@ import cartopy.crs as ccrs
 import src.plot_utils.map as mp
 import src.plot_utils.gen_panels as gp
 import src.plot_utils.colors as col
+import src.plot_utils.ko_plot as ko
 import src.time_wrapper as twr
 import src.constants as cst
 
@@ -228,6 +229,14 @@ def plot_several_pair_i_metrics(da_list: Sequence[xr.DataArray]) -> None:
         plt.suptitle("")
         plt.title("")
         ax1.set_title("")
+        ko.draw_fronts_kim(ax1)
         primary_axes_list.append(ax1)
 
     gp.label_subplots(primary_axes_list)
+    ax1.legend(
+        bbox_to_anchor=(0.0, -0.1, 0, 0),
+        loc="lower right",
+        ncol=2,
+        mode="expand",
+        borderaxespad=0.0,
+    )

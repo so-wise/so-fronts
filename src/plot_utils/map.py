@@ -43,6 +43,7 @@ def southern_ocean_axes_setup(
 
     plot_boundary()
     ax.coastlines(resolution="50m", linewidth=0.3)
+    ax.gridlines()
 
     @jit(cache=True)  # significant performance enhancement.
     def find_isobath(
