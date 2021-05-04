@@ -14,7 +14,6 @@ def make_profiles(ds: xr.Dataset) -> xr.Dataset:
     """
     Make cluster profiles.
 
-    TODO: Add sanity check to this step. Look at BSOSE output,
     TODO: and averages the profiles,
     TODO: using zonal mean including all the longitudinal points, in salinity.
 
