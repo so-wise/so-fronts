@@ -20,6 +20,14 @@ src.models.make\_pair\_metric module
    :undoc-members:
    :show-inheritance:
 
+src.models.sobel module
+-----------------------
+
+.. automodule:: src.models.sobel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.models.train\_pyxpcm module
 -------------------------------
 

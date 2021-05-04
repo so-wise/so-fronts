@@ -149,7 +149,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
             primary_axes_list.append(ax1)
             mp.southern_ocean_axes_setup(ax1, fig)
             ax1.set_title("")
-            
+
             # Add KO plot.
             ko.draw_fronts_kim(ax1)
             ax1.legend(
