@@ -31,24 +31,27 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
     width_ratios: list = []
     num_pairs: int = 0
     num_plots: int = 2
-    da_i = da_i + 1
+    da_i: xr.DataArray = da_i + 1
     map_proj = ccrs.SouthPolarStereo()
     carree = ccrs.PlateCarree()
 
     for i in range(num_plots):
 
         if i == 0:
+
             num_pairs += 1
             pairs = np.asarray([1])
             width_ratios.append(0.5)
             pairs_list.append(pairs)
 
         elif i == 1:
+
             width_ratios.append(0.05)
             num_pairs += 1
             pairs = da.coords[cst.P_COORD].values
             cmap_list = col.return_list_of_colormaps(len(pairs), fade_to_white=False)
             pairs_list.append(pairs)
+
             for width in [1 / num_plots / len(pairs) for x in range(len(pairs))]:
                 width_ratios.append(width)
 
@@ -88,7 +91,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
                 gs[0, used_up_columns : used_up_columns + pairs_list[i].shape[0]],
                 projection=map_proj,
             )
-            mp.southern_ocean_axes_setup(ax1, fig)
+            mp.southern_ocean_axes_setup(ax1, fig, add_gridlines=False)
             cbar_axes = [
                 fig.add_subplot(gs[1, used_up_columns + j])
                 for j in range(len(pairs_list[i]))
@@ -147,7 +150,6 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
                 cbar.set_label(da.coords[cst.P_COORD].values[j])
 
             primary_axes_list.append(ax1)
-            mp.southern_ocean_axes_setup(ax1, fig, add_gridlines=False)
             ax1.set_title("")
 
             # Add KO plot.
