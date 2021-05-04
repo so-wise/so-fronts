@@ -103,7 +103,7 @@ def make_all_figures() -> None:
     plt.savefig(fig_prefix + "_profiles.png")
     plt.clf()
 
-    """
+    # """
 
     # FIGURE 3: Plot 3d clusters.
     logger.info("Plot 3d clusters.")
