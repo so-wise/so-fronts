@@ -4,7 +4,6 @@ on the southern ocean map.
 """
 import numpy as np
 import xarray as xr
-import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cartopy.crs as ccrs
@@ -108,7 +107,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
             im = da_i.plot(
                 ax=ax1,
                 add_colorbar=False,
-                cmap=cm.get_cmap("Set1", number_clusters),
+                cmap=col.cluster_cmap(number_clusters),
                 vmin=0.5,
                 vmax=number_clusters + 0.5,
                 transform=carree,
