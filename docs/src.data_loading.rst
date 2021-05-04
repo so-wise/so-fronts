@@ -12,14 +12,6 @@ src.data\_loading.bsose\_download module
    :undoc-members:
    :show-inheritance:
 
-src.data\_loading.bsose\_loading module
----------------------------------------
-
-.. automodule:: src.data_loading.bsose_loading
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 src.data\_loading.io\_names module
 ----------------------------------
 
