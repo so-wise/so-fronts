@@ -45,13 +45,27 @@ def label_subplots(
         subset_labels.append(labels[i + start_from])
 
     for i, label in enumerate(subset_labels):
-        axs.ravel()[i].text(
-            x_pos,
-            y_pos,
-            str("(" + label + ")"),
-            color="black",
-            transform=axs.ravel()[i].transAxes,
-            fontsize=fontsize,
-            fontweight="bold",
-            va="top",
-        )
+        if "AxesSubplot" in axs.ravel()[i].__repr__():
+            axs.ravel()[i].text(
+                x_pos,
+                y_pos,
+                str("(" + label + ")"),
+                color="black",
+                transform=axs.ravel()[i].transAxes,
+                fontsize=fontsize,
+                fontweight="bold",
+                va="top",
+            )
+        elif "Axes3DSubplot" in axs.ravel()[i].__repr__():
+            axs.ravel()[i].text2D(
+                x_pos,
+                y_pos,
+                str("(" + label + ")"),
+                color="black",
+                transform=axs.ravel()[i].transAxes,
+                fontsize=fontsize,
+                fontweight="bold",
+                va="top",
+            )
+        else:
+            assert False

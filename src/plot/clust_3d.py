@@ -7,6 +7,7 @@ import xarray as xr
 import src.models.make_pair_metric as tpi
 import src.plot_utils.ellipses as pel
 import src.plot_utils.colors as col
+import src.plot_utils.gen_panels as gp
 import src.time_wrapper as twr
 import src.constants as cst
 
@@ -68,10 +69,7 @@ def comp_3d(
         print("trying fig", i)
 
         if i == 0:
-            ax1 = fig.add_subplot(
-                gs[0, 0],
-                projection="3d",
-            )
+            ax1 = fig.add_subplot(gs[0, 0], projection="3d", facecolor="white")
             cbar_ax = fig.add_subplot(gs[1, 0])
             used_up_columns += 2
 
@@ -84,6 +82,7 @@ def comp_3d(
             ax1 = fig.add_subplot(
                 gs[0, used_up_columns : used_up_columns + pairs_list[i].shape[0]],
                 projection="3d",
+                facecolor="white",
             )
 
             cbar_axes = [
@@ -118,6 +117,11 @@ def comp_3d(
             )
             ax1.set_xlabel("PC1")
             ax1.set_ylabel("PC2")
+
+            ax1.set_xlim([-25, 25])
+            ax1.set_ylim([-20, 20])
+            ax1.set_zlim([-15, 15])
+
             # ax1.set_zlabel("PC3") # this disappears off the edge of the page.
             primary_axes_list.append(ax1)
 
@@ -153,3 +157,9 @@ def comp_3d(
             ax1.set_xlabel("PC1")
             ax1.set_ylabel("PC2")
             ax1.set_zlabel("PC3")
+
+            ax1.set_xlim([-25, 25])
+            ax1.set_ylim([-20, 20])
+            ax1.set_zlim([-15, 15])
+
+        gp.label_subplots(primary_axes_list)

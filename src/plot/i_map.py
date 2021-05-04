@@ -147,7 +147,7 @@ def map_imetric(da_i: xr.DataArray, da: xr.DataArray) -> None:
                 cbar.set_label(da.coords[cst.P_COORD].values[j])
 
             primary_axes_list.append(ax1)
-            mp.southern_ocean_axes_setup(ax1, fig)
+            mp.southern_ocean_axes_setup(ax1, fig, add_gridlines=False)
             ax1.set_title("")
 
             # Add KO plot.

@@ -23,7 +23,7 @@ def southern_ocean_axes_setup(
     """
     This function sets up the subplot so that it is a cartopy map of the southern ocean.
 
-    Void as the ax and figure objects are pointers not data.
+    returns void as the ax and figure objects are pointers not data.
 
     Args:
         ax (matplotlib.axes.Axes): The axis object to add the map to.
@@ -46,8 +46,10 @@ def southern_ocean_axes_setup(
         ax.set_boundary(circle, transform=ax.transAxes)
 
     plot_boundary()
+
     # add coastlines and gridlines
     ax.coastlines(resolution="50m", linewidth=0.3)
+
     if add_gridlines:
         ax.gridlines()
 
