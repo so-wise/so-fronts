@@ -35,6 +35,10 @@ def southern_ocean_axes_setup(
     fig.subplots_adjust(bottom=0.05, top=0.95, left=0.04, right=0.95, wspace=0.02)
 
     def plot_boundary() -> None:
+        """
+        Makes SO plot boundary into a nice circle
+        of the right size.
+        """
         theta = np.linspace(0, 2 * np.pi, 100)
         center, radius = [0.5, 0.5], 0.45
         verts = np.vstack([np.sin(theta), np.cos(theta)]).T
@@ -42,8 +46,11 @@ def southern_ocean_axes_setup(
         ax.set_boundary(circle, transform=ax.transAxes)
 
     plot_boundary()
+    # add coastlines and gridlines
     ax.coastlines(resolution="50m", linewidth=0.3)
     ax.gridlines()
+
+    # Add 2000m isobath (or whatever the max depth is).
 
     @jit(cache=True)  # significant performance enhancement.
     def find_isobath(
