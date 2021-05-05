@@ -12,4 +12,3 @@ dependencies:
   - pip:
     - -r file:dev-requirements.txt
     - -r file:requirements.txt
-    # - numba<0.52
