@@ -70,7 +70,7 @@ FEATURES_D: dict = {"THETA": "THETA", "SALT": "SALT"}
 
 # Naming of intermediate files
 INTERP_FILE_NAME: str = os.path.join(DATA_PATH, "interp.nc")
-REMAKE: bool = False  # whether or not to prefer remaking the interp file if it doesn't exist.
+REMAKE: bool = False  # whether or not to prefer remaking the interp 
 
 # Chosen hyperparameters in the model run:
 RUN_NAME: str = "010"
