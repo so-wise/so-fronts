@@ -23,6 +23,22 @@ The second method uses Sobel edge detection to highlight rapid changes [Hjelmerv
 This approach produces a more local view of fronts, with the advantage that it can highlight the movement
 of individual eddy-like features (such as the Agulhas rings).
 
+1. Chapman, C. C., Lea, M.-A., Meyer, A., Sall ́ee, J.-B. & Hindell, M.
+    Defining Southern Ocean fronts and their influence on biological and
+    physical processes in a changing climate. Nature Climate Change (2020).
+    https://doi.org/10.1038/s41558-020-0705-4
+
+2. Maze, G. et al. Coherent heat patterns revealed by unsupervised
+    classification of Argo temperature profiles in the North Atlantic Ocean.
+    Progress in Oceanography (2017).
+    https://doi.org/10.1016/j.pocean.2016.12.008
+
+
+3. Hjelmervik, K. B. & Hjelmervik, K. T. Detection of oceanographic fronts
+    on variable water depths using empirical orthogonal functions.
+    IEEE Journal of Oceanic Engineering (2019).
+    https://doi.org/10.1109/JOE.2019.2917456
+
 ## I metric for K=5
 
 ![I metric for K=5](gifs/boundaries-k5.gif)
@@ -69,19 +85,12 @@ of individual eddy-like features (such as the Agulhas rings).
 ├── README.md          <- The top-level README for developers using this project.
 ├── main.py            <- The top-level README for developers using this project.
 |
-├── notebooks          <- Jupyter notebooks. 
-|   |
-│   ├── exploratory    <- Notebooks for initial exploration.
-│   └── reports        <- Polished notebooks for presentations or intermediate results.
-│
-├── report             <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   ├── figures        <- Generated graphics and figures to be used in reporting
-│   └── sections       <- LaTeX sections. The report folder can be linked to your overleaf
-|                         report with github submodules.
+├── figures            <- .png images.
 │
 ├── requirements       <- Directory containing the requirement files.
 │
 ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
+|
 ├── src                <- Source code for use in this project.
 |   |
 │   ├── __init__.py    <- Makes src a Python module
@@ -95,6 +104,8 @@ of individual eddy-like features (such as the Agulhas rings).
 │   ├── plot           <- plotting
 |   |
 │   ├── plot_utils      <- plotting utilities
+|   |
+│   ├── preprocessing   <- preprocessing scripts (to transform to density etc).
 |   |
 |   ├──  tests          <- Scripts for unit tests of your functions
 |   | 
