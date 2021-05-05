@@ -115,13 +115,6 @@ of individual eddy-like features (such as the Agulhas rings).
 └── setup.cfg          <- setup configuration file for linting rules
 ```
 
-
-## Testing
-
-```bash
-python3 -m unittest
-```
-
 ---
 
 Project template created by the

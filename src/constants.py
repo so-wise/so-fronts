@@ -21,7 +21,7 @@ KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 
-# ****DATA LOCATION***
+# start ****DATA LOCATION***
 # This will certainly need to be changed on your macine
 
 # Paths to BSOSE (unique to Jasmin)
@@ -42,7 +42,6 @@ elif platform in ["Darwin", "darwin"]:
 
 else:
     assert False
-
 
 # end ****DATA LOCATION***
 
@@ -90,7 +89,8 @@ ALL_NAME: str = "all"  # starting combination script.
 # plotting specifications
 # This is for diverging colormaps.
 DEFAULT_COLORMAP = cmo.balance
-CLUST_COLORS: str = "Set1"
+# This is for the hard assingment cluster images.
+CLUST_COLORS: str = "Set1" # "Dark1"
 
 # Move plots to location
 FINAL_LOC: str = "../FBSO/images"
