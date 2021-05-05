@@ -2,6 +2,7 @@
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+[![DOI](https://zenodo.org/badge/318541083.svg)](https://zenodo.org/badge/latestdoi/318541083)
 
 ## Short description
 
