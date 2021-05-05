@@ -59,15 +59,9 @@ vscode_pro:
 	mkdir .vscode
 	cp ./.setup_scripts/vscode_settings.jsonc .vscode/settings.json
 
-## Make the documentation
-docs:
-	sh ./.setup_scripts/mkdocs_move_and_compile.sh
-
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################
-
-# TODO: VSCode setup
 
 
 #################################################################################

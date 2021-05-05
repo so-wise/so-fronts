@@ -25,17 +25,7 @@ def make_all_figures() -> None:
     """
     Make all the figures in the paper in a sequence.
 
-    Takes about 8 minutes or so to run on my laptop.
-
-    Seems to take much longer on jasmin.
-
-    3089 seconds on jasmin.
-
-    That is 50 minutes apparently.
-
-    Got this down to 900 seconds on Jasmin.
-
-    So around 15 minutes.
+    Takes roughly 15 minutes  on jasmin.
     """
 
     fig_prefix = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME)

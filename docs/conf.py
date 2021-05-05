@@ -17,9 +17,9 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "SOF-AGU"
+project = "so-fronts"
 copyright = "2021, Simon Thomas"  # pylint: disable=redefined-builtin
-author = "Simon D. A. Thomas"
+author = "Simon Thomas"
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,29 +31,15 @@ author = "Simon D. A. Thomas"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
-    "sphinx.ext.intersphinx",
-    # "vacumm.sphinxext.fortran_domain",
-    # "vacumm.sphinxext.fortran_autodoc",
-    "sphinx.ext.autodoc",
+    "sphinx.ext.intersphinx",    
     "sphinx.ext.napoleon",
     "sphinx_autodoc_typehints",
     "recommonmark",
     "sphinx_markdown_tables",
     "nbsphinx",
-    # "sphinx.ext.todo",
     "sphinx.ext.mathjax",
 ]
 
-
-fortran_src = [
-    "ocean/SRC/",
-]
-
-fortran_ext = ["F"]
-
-# fortran_ext = ["*.f", "*.f90", "*.f95", "*.F"]
-
-fortran_indent = 4
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.8", None),
@@ -105,8 +91,8 @@ html_theme_options = {
 # This adds the 'edit on github' banner on top right corner
 html_context = {
     "display_github": True,
-    "github_user": "sdat2",
-    "github_repo": "seager19",
+    "github_user": "so-wise",
+    "github_repo": "so-fronts",
     "github_version": "main/docs/",
 }
 
