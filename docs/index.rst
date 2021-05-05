@@ -3,23 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-AGU 2020 OS022-08
-==============================
 
 Abstract
---------
+========
 
-Fronts are ubiquitous in the climate system. In the Southern Ocean, fronts delineate water masses, which correspond to upwelling and downwelling branches of the overturning circulation. A robust understanding of Southern Ocean fronts is key to projecting future changes in overturning and the associated air-sea partitioning of heat and carbon. Classically, oceanographers define Southern Ocean fronts as a small number of continuous linear features that encircle Antarctica. However, modern observational and theoretical developments are challenging this traditional framework to accommodate more localized views of fronts [Chapman et al. 2020]. In this work, we present two related methods for calculating fronts from oceanographic data. The first method uses unsupervised classification (specifically, Gaussian Mixture Modeling or GMM) and an interclass metric to define fronts. This approach produces a discontinuous, probabilistic view of front location, emphasising the fact that the boundaries between water masses are not uniformly sharp across the entire Southern Ocean. The second method uses Sobel edge detection to highlight rapid changes [Hjelmervik & Hjelmervik, 2019]. This approach produces a more local view of fronts, with the advantage that it can highlight the movement of individual eddy-like features (such as the Agulhas rings). The fronts detected using the Sobel method are moderately correlated with the magnitude of the velocity field, which is consistent with the theoretically expected spatial coincidence of fronts and jets. We will present our python GitHub repository, which will allow researchers to easily apply these methods to their own datasets.
-
-
-.. image:: img/abs_fig.png
-  :width: 500
-  :alt: abstract figure.
-
-Figure caption
---------------
-
-Two methods for interpretable front detection. Solid lines represent classical fronts. (a) The “inter-class” metric, which indicates the probability that a grid cell is a boundary between two classes. The classes are defined by GMM of principal component values (PCs) derived from both temperature and salinity. The different colors indicate different class boundaries. (b) Sobel edge detection: approximately the magnitude of the spatial gradient of the PCs divided by each field’s standard deviation, which highlights locations of rapid change.
+ In this work, we present two related methods for calculating fronts from oceanographic data. fronts, with the advantage that it can highlight the movement of individual eddy-like features (such as the Agulhas rings). We will present our python GitHub repository, which will allow researchers to easily apply these methods to their own datasets.
 
 .. toctree::
    :maxdepth: 3
@@ -28,6 +16,7 @@ Two methods for interpretable front detection. Solid lines represent classical f
    self
    src
    README.md
+   gallery.md
    current
    configs.md
    philosophy.md
