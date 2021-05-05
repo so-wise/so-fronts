@@ -1,4 +1,4 @@
-# Identifying Southern Ocean fronts using unsupervised classification and edge detection
+# IDefining Southern Ocean fronts using unsupervised classification
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
@@ -27,14 +27,6 @@ of individual eddy-like features (such as the Agulhas rings).
 
 ![I metric for K=5](gifs/boundaries-k5.gif)
 
-
-## Requirements
-
-- Python 3.6+ (final run for paper used `python==3.8.8`)
-- Anaconda, with `conda` working in shell.
-- `pdflatex` for high quality figures (should work without).
-- `make` in shell.
-- `xarray`, `sklearn`, `cartopy` etc. are the main packages installed.
 
 ## Getting started
 
@@ -114,6 +106,14 @@ of individual eddy-like features (such as the Agulhas rings).
 │
 └── setup.cfg          <- setup configuration file for linting rules
 ```
+
+## Requirements
+
+- Python 3.6+ (final run for paper used `python==3.8.8`)
+- Anaconda, with `conda` working in shell.
+- `pdflatex` for high quality figures (should work without).
+- `make` in shell.
+- `xarray`, `sklearn`, `cartopy` etc. are the main packages installed.
 
 ---
 
