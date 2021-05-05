@@ -35,3 +35,7 @@ sphinx-markdown-tables
 recommonmark
 nbsphinx
 pandoc
+
+# downloads
+requests
+zipfile38

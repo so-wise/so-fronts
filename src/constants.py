@@ -21,7 +21,7 @@ KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 
-# ****DATA LOCATION*** 
+# ****DATA LOCATION***
 # This will certainly need to be changed on your macine
 
 # Paths to BSOSE (unique to Jasmin)
@@ -44,7 +44,7 @@ else:
     assert False
 
 
-# end ****DATA LOCATION*** 
+# end ****DATA LOCATION***
 
 # Salt, Theta, Uvel, Vvel
 SALT_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
@@ -90,7 +90,7 @@ ALL_NAME: str = "all"  # starting combination script.
 # plotting specifications
 # This is for diverging colormaps.
 DEFAULT_COLORMAP = cmo.balance
-CLUST_COLORS = "Set1"
+CLUST_COLORS: str = "Set1"
 
 # Move plots to location
-FINAL_LOC = "../FBSO/images"
+FINAL_LOC: str = "../FBSO/images"

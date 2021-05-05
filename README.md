@@ -73,8 +73,9 @@ of individual eddy-like features (such as the Agulhas rings).
 
 ```txt
 ├── LICENSE
-├── Makefile           <- Makefile with commands like `make init` or `make lint-requirements`
+├── Makefile           <- Makefile with commands like `make env` or `make `
 ├── README.md          <- The top-level README for developers using this project.
+├── main.py            <- The top-level README for developers using this project.
 |
 ├── notebooks          <- Jupyter notebooks. 
 |   |
