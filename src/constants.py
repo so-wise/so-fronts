@@ -14,7 +14,7 @@ constants_path = os.path.realpath(__file__)
 SRC_PATH = os.path.dirname(constants_path)
 PROJECT_PATH = os.path.dirname(SRC_PATH)
 DATA_PATH = os.path.join(PROJECT_PATH, "nc")
-FIGURE_PATH = os.path.join(PROJECT_PATH, "report", "figures")
+FIGURE_PATH = os.path.join(PROJECT_PATH, "figures")
 KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 
 # Data directory on GWS
