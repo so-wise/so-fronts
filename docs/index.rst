@@ -19,7 +19,7 @@ Abstract
    gallery.md
    current
    configs.md
-   philosophy.md
+   phil.md
    about.md
 
 

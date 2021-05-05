@@ -1,4 +1,4 @@
-# Philosophy
+# Unsupervised classification
 
 ## Perception
 
