@@ -3,13 +3,30 @@
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
-## K=5
+## Short description
+
+In the Southern Ocean, fronts delineate water masses, which correspond to upwelling
+and downwelling branches of the overturning circulation. Classically, oceanographers
+define Southern Ocean fronts as a small number of continuous linear features that
+encircle Antarctica. However, modern observational and theoretical developments are
+challenging this traditional framework to accommodate more localized views of fronts
+[Chapman et al. 2020].
+
+Here we present code for implementing two related methods for calculating fronts from
+oceanographic data. The first method uses unsupervised classification (specifically,
+Gaussian Mixture Modeling or GMM) and a novel interclass metric to define fronts.
+This approach produces a discontinuous, probabilistic view of front location,
+emphasising the fact that the boundaries between water masses are not uniformly sharp
+across the entire Southern Ocean.
+
+The second method uses Sobel edge detection to highlight rapid changes [Hjelmervik & Hjelmervik, 2019].
+This approach produces a more local view of fronts, with the advantage that it can highlight the movement
+of individual eddy-like features (such as the Agulhas rings).
+
+## I metric for K=5
 
 ![I metric for K=5](gifs/boundaries-k5.gif)
 
-## Short description
-
-A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 
 ## Requirements
 
@@ -33,29 +50,7 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
      conda activate ./env
      ```
 
-- Make the documentation and load it in your web browser:
-
-    ```bash
-    make docs
-    ```
-
-- Make your Jupyter notebooks more functional with timings etc.:
-
-    ```bash
-    make jupyter_pro
-    ```
-
-- To see the other options in the `Makefile` type:
-
-    ```bash
-    make help
-    ```
-
-- Run tests:
-
-   ```bash
-   python -m unittest
-   ```
+- Change the settings in `src.constants` to set download location etc.
 
 - Download data (`get_zip`  1694.64639 s):
 
@@ -63,10 +58,15 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
    python3 src/data_loading/bsose_download.py
    ```
 
-- Make I-metric in list:
+- Make I-metric:
 
    ```bash
    python3 src/models/batch_i_metric.py
+   ```
+
+- Make figures:
+   ```bash
+   python3 main.py
    ```
 
 ## Project Organization
@@ -76,9 +76,8 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 ├── Makefile           <- Makefile with commands like `make init` or `make lint-requirements`
 ├── README.md          <- The top-level README for developers using this project.
 |
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-|   |                     the creator's initials, and a short `-` delimited description, e.g.
-|   |                     `1.0_jqp_initial-data-exploration`.
+├── notebooks          <- Jupyter notebooks. 
+|   |
 │   ├── exploratory    <- Notebooks for initial exploration.
 │   └── reports        <- Polished notebooks for presentations or intermediate results.
 │
@@ -94,11 +93,9 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 |   |
 │   ├── __init__.py    <- Makes src a Python module
 |   |
-|   ├── configs        <- config files for hydra (e.g. BSOSE coordinates)
 │   │
 │   ├── data_loading   <- Scripts to download or generate data
 │   │
-│   ├── simulation     <- Scripts to turn raw data into clean data and features for modeling
 |   |
 │   ├── plotting       <- plotting
 │   │
@@ -107,17 +104,6 @@ A `python3` repository which should reproduce `OS022-08` from AGU 2020.
 └── setup.cfg          <- setup configuration file for linting rules
 ```
 
-## Code formatting
-
-To automatically format your code, make sure you
-have `black` installed (`pip install black`) and call:
-
-```bash
-
-black . 
-```
-
-from within the project directory.
 
 ## Testing
 
@@ -133,25 +119,6 @@ python3 -m unittest
 
 ![I metric for K=4](gifs/boundaries-k4.gif)
 
-```txt
-$G_x$ * PC1, VVEL, -0.9163
-$G_x$ * PC2, VVEL, -0.2547
-$G_x$ * PC3, VVEL,  0.1557
-
-$G_y$ * PC1, UVEL, 0.9159
-$G_y$ * PC2, UVEL,  0.242
-$G_y$ * PC3, UVEL, -0.1921
-
-$G_x$, X grad comparison pc1, 0.9996
-$G_x$, X grad comparison pc2, 0.998
-$G_x$, X grad comparison pc3, 0.997
-
-$G_y$, Y grad comparison pc1, 0.986
-$G_y$, Y grad comparison pc2, 0.977
-$G_y$, Y grad comparison pc3, 0.970
-
-Correlate U, mean 0.926
-```
 
 ---
 
