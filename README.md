@@ -93,13 +93,23 @@ of individual eddy-like features (such as the Agulhas rings).
 |   |
 │   ├── __init__.py    <- Makes src a Python module
 |   |
+│   ├── data           <- KO fronts to plot.
 │   │
-│   ├── data_loading   <- Scripts to download or generate data
+│   ├── data_loading   <- Scripts to download and name data.
 │   │
+│   ├── models         <- Make I metric, sobel edge detection.
+│   │
+│   ├── plot           <- plotting
 |   |
-│   ├── plotting       <- plotting
-│   │
-│   └── tests          <- Scripts for unit tests of your functions
+│   ├── plot_utils      <- plotting utilities
+|   |
+|   ├──  tests          <- Scripts for unit tests of your functions
+|   | 
+|   ├── animate.py       <- animate i metric.
+|   ├── constants.py     <- constains majority of run parameters to change.
+|   ├── make_figures.py  <- make figures in one long script.
+|   ├── move_figures.py  <- move figures script (unnecessary).
+|   └── time_wrapper.py  <- time wrapper to time parts of program.
 │
 └── setup.cfg          <- setup configuration file for linting rules
 ```
@@ -110,15 +120,6 @@ of individual eddy-like features (such as the Agulhas rings).
 ```bash
 python3 -m unittest
 ```
-
-## K=2
-
-![I metric for K=2](gifs/boundaries-k2.gif)
-
-## K=4
-
-![I metric for K=4](gifs/boundaries-k4.gif)
-
 
 ---
 
