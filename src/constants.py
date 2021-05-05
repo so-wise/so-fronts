@@ -21,7 +21,7 @@ KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
 
-# start ****DATA LOCATION***
+# start ****DATA LOCATION section***
 # This will certainly need to be changed on your macine
 
 # Paths to BSOSE (unique to Jasmin)
@@ -43,7 +43,7 @@ elif platform in ["Darwin", "darwin"]:
 else:
     assert False
 
-# end ****DATA LOCATION***
+# end ****DATA LOCATION section***
 
 # Salt, Theta, Uvel, Vvel
 SALT_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
@@ -69,17 +69,18 @@ VAR_NAME_LIST: list = ["SALT", "THETA"]
 FEATURES_D: dict = {"THETA": "THETA", "SALT": "SALT"}
 
 # Naming of intermediate files
-INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
-REMAKE = False  # whether or not to prefer remaking the interp file if it doesn't exist.
+INTERP_FILE_NAME: str = os.path.join(DATA_PATH, "interp.nc")
+REMAKE: bool = False  # whether or not to prefer remaking the interp file if it doesn't exist.
 
 # Chosen hyperparameters in the model run:
 RUN_NAME: str = "010"
 SEED: int = int(RUN_NAME)
 np.random.seed(SEED)  # feed the run name to np random seed - synchronises all
+
 # random variables used locally to make it reproducible.
 MIN_DEPTH: float = 300  # m
 MAX_DEPTH: float = 2000  # m
-K_LIST = [5, 4, 2, 10]  # K's to make when running batch script.
+K_LIST: list = [5, 4, 2, 10]  # K's to make when running batch script.
 K_CLUSTERS: int = 5  # number of clusters for example
 D_PCS: int = 3  # number of principal components
 EXAMPLE_TIME_INDEX: int = 40  # the default time to go for.

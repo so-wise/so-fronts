@@ -1,4 +1,4 @@
-.PHONY: clean lint format env jupyter_pro vscode_pro docs
+.PHONY: clean lint format env jupyter_pro vscode_pro
 #################################################################################
 # GLOBALS                                                                       #
 #################################################################################
