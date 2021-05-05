@@ -1,4 +1,4 @@
-# IDefining Southern Ocean fronts using unsupervised classification
+# Defining Southern Ocean fronts using unsupervised classification
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
@@ -23,7 +23,7 @@ The second method uses Sobel edge detection to highlight rapid changes [Hjelmerv
 This approach produces a more local view of fronts, with the advantage that it can highlight the movement
 of individual eddy-like features (such as the Agulhas rings).
 
-1. Chapman, C. C., Lea, M.-A., Meyer, A., Sall ́ee, J.-B. & Hindell, M.
+1. Chapman, C. C., Lea, M.-A., Meyer, A., Sallee, J.-B. & Hindell, M.
     Defining Southern Ocean fronts and their influence on biological and
     physical processes in a changing climate. Nature Climate Change (2020).
     https://doi.org/10.1038/s41558-020-0705-4
@@ -121,11 +121,9 @@ of individual eddy-like features (such as the Agulhas rings).
 
 ## Requirements
 
-- Python 3.6+ (final run for paper used `python==3.8.8`)
 - Anaconda, with `conda` working in shell.
-- `pdflatex` for high quality figures (should work without).
 - `make` in shell.
-- `xarray`, `sklearn`, `cartopy` etc. are the main packages installed.
+- Python 3.6+ (final run for paper used `python==3.8.8`)
 
 ---
 
