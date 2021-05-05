@@ -1,4 +1,4 @@
-"""Xarray panels."""
+"""Xarray panels scripts."""
 from typing import Sequence, Union, List
 import xarray as xr
 import matplotlib.pyplot as plt

@@ -21,7 +21,7 @@ def cluster_cmap(number_clusters: int):
     :return: cmap.
     """
     # "Dark1"
-    return cm.get_cmap("Set1", number_clusters)
+    return cm.get_cmap(cst.CLUST_COLORS, number_clusters)
 
 
 def replacement_color_list(number_of_colors: int) -> list:

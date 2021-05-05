@@ -13,8 +13,6 @@ import src.time_wrapper as twr
 @twr.timeit
 def plot_ellipsoid_test() -> None:
     """
-    https://stackoverflow.com/questions/7819498/plotting-ellipsoid-with-matplotlib
-
     Plot ellipsoid test. Runs from unittest.
 
     """

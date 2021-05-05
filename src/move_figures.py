@@ -15,7 +15,7 @@ def move(copy_command: str = "cp") -> None:
 
     """
     run_name = "010"
-    final_loc = "../FBSO/images"
+    final_loc = cst.FINAL_LOC
     fig_prefix = os.path.join(cst.FIGURE_PATH, "RUN_" + run_name)
     name_dict = {
         fig_prefix + "_pc_map.png": "figure-1.png",

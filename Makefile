@@ -4,7 +4,7 @@
 #################################################################################
 
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-PROJECT_NAME = sof-agu
+PROJECT_NAME = so-fronts
 PYTHON_INTERPRETER = python3
 PYTHON_ENV_VERSION = 3.8
 
