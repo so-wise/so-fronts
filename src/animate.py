@@ -14,8 +14,6 @@ import src.constants as cst
 import src.data_loading.io_names as io
 import src.time_wrapper as twr
 
-mpl_params(use_tex=False, dpi=200)
-
 
 @twr.timeit
 def animate_imetric(
@@ -29,6 +27,8 @@ def animate_imetric(
         k_clusters (int, opitonal): k clusters. Defaults to cst.K_CLUSTERS.
 
     """
+    mpl_params(use_tex=False, dpi=200)
+
     file_name = io.return_name(k_clusters, cst.D_PCS) + "pair.nc"
 
     if not os.path.exists(file_name):

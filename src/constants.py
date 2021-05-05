@@ -20,7 +20,11 @@ KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 # Data directory on GWS
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
 
-# Paths to different BSOSE-i106 files (unique to my machine):
+
+# ****DATA LOCATION*** 
+# This will certainly need to be changed on your macine
+
+# Paths to BSOSE (unique to Jasmin)
 if platform in ["Linux", "linux"]:
     GEN_DATA_PATH: str = os.path.join(GWS_DATA_DIR, "bsose_data")
     BSOSE_PATH: str = os.path.join(GEN_DATA_PATH, "bsose_stuv")
@@ -28,6 +32,7 @@ if platform in ["Linux", "linux"]:
         str(GWS_DATA_DIR) + "/nc/i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
     )
 
+# Paths to different BSOSE-i106 files (unique to my machine):
 elif platform in ["Darwin", "darwin"]:
     BSOSE_PATH: str = os.path.join("/Users", "simon", "bsose_monthly")
     GEN_DATA_PATH: str = BSOSE_PATH
@@ -37,6 +42,9 @@ elif platform in ["Darwin", "darwin"]:
 
 else:
     assert False
+
+
+# end ****DATA LOCATION*** 
 
 # Salt, Theta, Uvel, Vvel
 SALT_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
@@ -56,18 +64,18 @@ P_COORD: str = "pair"
 CLUST_COORD: str = "cluster"
 
 # Particular names within BSOSE-i106
-DEPTH_NAME: str = "Depth"
+DEPTH_NAME: str = D_COORD
 USELESS_LIST: list = ["iter", "Depth", "rA", "drF", "hFacC"]
 VAR_NAME_LIST: list = ["SALT", "THETA"]
 FEATURES_D: dict = {"THETA": "THETA", "SALT": "SALT"}
 
 # Naming of intermediate files
 INTERP_FILE_NAME = os.path.join(DATA_PATH, "interp.nc")
-REMAKE = False  # whether or not to prefer remaking the interp file.
+REMAKE = False  # whether or not to prefer remaking the interp file if it doesn't exist.
 
 # Chosen hyperparameters in the model run:
-RUN_NAME: str = "010"  # TODO --> Make all Data and Figures include RUN_NAME
-SEED: int = int(RUN_NAME)  # TODO --> Make GMM training function take random seed.
+RUN_NAME: str = "010"
+SEED: int = int(RUN_NAME)
 np.random.seed(SEED)  # feed the run name to np random seed - synchronises all
 # random variables used locally to make it reproducible.
 MIN_DEPTH: float = 300  # m
@@ -80,4 +88,9 @@ EXAMPLE_Z_INDEX: int = 15  # 15 indexes down.
 ALL_NAME: str = "all"  # starting combination script.
 
 # plotting specifications
+# This is for diverging colormaps.
 DEFAULT_COLORMAP = cmo.balance
+CLUST_COLORS = "Set1"
+
+# Move plots to location
+FINAL_LOC = "../FBSO/images"

@@ -50,8 +50,6 @@ def make_all_figures() -> None:
     )
     lsty.mpl_params()
 
-    # """
-
     # FIGURE 1: pc maps.
     logger.info("Making pc maps.")
 
@@ -92,8 +90,6 @@ def make_all_figures() -> None:
     prof.plot_profiles(profile_ds)
     plt.savefig(fig_prefix + "_profiles.png")
     plt.clf()
-
-    # """
 
     # FIGURE 3: Plot 3d clusters.
     logger.info("Plot 3d clusters.")
@@ -428,4 +424,3 @@ def make_all_figures() -> None:
         )
         print("$G_x$ * PC" + str(pc), "UVEL", cor)
 
-    # """
