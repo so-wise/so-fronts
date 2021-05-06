@@ -26,11 +26,6 @@ def is_too_far(
 ) -> bool:
     """Check if points are too far apart to draw a line between.
 
-    I suspect it will run into difficulties at the IDL
-    TODO fix this bug
-    TODO make this work out the distance in the correct space, without using the
-    TODO cartesian approximation (this would solve line breaks at greenwich meridian).
-
     Args:
         lat_a (float, optional): [description]. Defaults to 0.0.
         lat_b (float, optional): [description]. Defaults to 0.0.
@@ -117,7 +112,6 @@ def plot_list_of_lists(
     and cannot be falsified.
     If one's prediction can't predict anything, it is just wrong,
     and one must try something else.
-    TODO, need to break up into more lols (maybe every 10 points).
 
     Args:
         ax (matplotlib.axes.Axes): [description]

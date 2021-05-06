@@ -124,7 +124,6 @@ def replacement_color_list(number_of_colors: int) -> list:
     return color_list
 
 
-@twr.timeit
 def return_list_of_colormaps(number: int, fade_to_white: bool = True) -> list:
     """
     Retunr list of colormaps.
@@ -202,7 +201,6 @@ def _fading_colormap_rgb(from_rgb: Tuple, fade_to_white: bool = True):
     return cmap
 
 
-@twr.timeit
 def fading_colormap(from_color: str, fade_to_white: bool = True):
     """Takes a hex or color name, and returns a fading color map.
 

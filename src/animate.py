@@ -27,7 +27,7 @@ def animate_imetric(
         k_clusters (int, opitonal): k clusters. Defaults to cst.K_CLUSTERS.
 
     """
-    mpl_params(use_tex=False, dpi=200)
+    mpl_params(use_tex=False, dpi=800)
 
     file_name = io.return_name(k_clusters, cst.D_PCS) + "pair.nc"
 
