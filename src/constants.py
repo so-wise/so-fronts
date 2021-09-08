@@ -18,7 +18,7 @@ FIGURE_PATH = os.path.join(PROJECT_PATH, "figures")
 KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 
 # Data directory on GWS
-GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2")
+GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2/OLD")
 
 
 # start ****DATA LOCATION section***
@@ -53,38 +53,38 @@ UVEL_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Uvel.nc
 
 # COORDS within BSOSE-i106
 Z_COORD: str = "Z"
-D_COORD: str = "Depth"
+D_COORD: str = "Depth" # this is actually a variable, not the same as the others
 Y_COORD: str = "YC"
 X_COORD: str = "XC"
 T_COORD: str = "time"
 
 # COORDS created in my variables
-P_COORD: str = "pair"
-CLUST_COORD: str = "cluster"
+P_COORD: str = "pair" # the name for the paired i metric dimension/coordinate
+CLUST_COORD: str = "cluster" # the name for the cluster coordinate/ dimension
 
 # Particular names within BSOSE-i106
 DEPTH_NAME: str = D_COORD
-USELESS_LIST: list = ["iter", "Depth", "rA", "drF", "hFacC"]
-VAR_NAME_LIST: list = ["SALT", "THETA"]
-FEATURES_D: dict = {"THETA": "THETA", "SALT": "SALT"}
+USELESS_LIST: list = ["iter", "Depth", "rA", "drF", "hFacC"] # list of variables from BSOSE to discard before processing
+VAR_NAME_LIST: list = ["SALT", "THETA"] # variables used in to fit the pcm model on
+FEATURES_D: dict = {"THETA": "THETA", "SALT": "SALT"} # Mapping for within pyxpcm
 
 # Naming of intermediate files
 INTERP_FILE_NAME: str = os.path.join(DATA_PATH, "interp.nc")
 REMAKE: bool = False  # whether or not to prefer remaking the interp
 
 # Chosen hyperparameters in the model run:
-RUN_NAME: str = "010"
-SEED: int = int(RUN_NAME)
+RUN_NAME: str = "010"  # the seed as a string
+SEED: int = int(RUN_NAME) # the seed as an int
 np.random.seed(SEED)  # feed the run name to np random seed - synchronises all
 
 # random variables used locally to make it reproducible.
-MIN_DEPTH: float = 300  # m
-MAX_DEPTH: float = 2000  # m
+MIN_DEPTH: float = 300  # the depth of the minimum cut off (m)
+MAX_DEPTH: float = 2000  # the depth of the maximum cut off (m)
 K_LIST: list = [5, 4, 2, 10]  # K's to make when running batch script.
-K_CLUSTERS: int = 5  # number of clusters for example
-D_PCS: int = 3  # number of principal components
+K_CLUSTERS: int = 5  # number of clusters for the main example figure.
+D_PCS: int = 3  # number of principal components to be used.
 EXAMPLE_TIME_INDEX: int = 40  # the default time to go for.
-EXAMPLE_Z_INDEX: int = 15  # 15 indexes down.
+EXAMPLE_Z_INDEX: int = 0  # Surface layer.
 ALL_NAME: str = "all"  # starting combination script.
 
 # plotting specifications
