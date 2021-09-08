@@ -1,8 +1,12 @@
 # Defining Southern Ocean fronts using unsupervised classification
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
- <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-[![DOI](https://zenodo.org/badge/318541083.svg)](https://zenodo.org/badge/latestdoi/318541083)
+  <a href=https://www.python.org/downloads/release/python-388/><img src='https://img.shields.io/badge/python-3.8-blue.svg' alt='Python version 3.8 used' /></a>
+ <a href="https://github.com/psf/black"><img alt="Python code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+ <img src='https://readthedocs.org/projects/so-fronts/badge/?version=latest' alt='Documentation Status / link to documentation' />
+ <a href=https://zenodo.org/badge/latestdoi/318541083><img src='https://zenodo.org/badge/318541083.svg' alt='Most recent Zenodo release' /></a>
+
+## Paper: https://doi.org/10.5194/os-2021-40
 
 ## Short description
 
@@ -34,7 +38,6 @@ of individual eddy-like features (such as the Agulhas rings).
     Progress in Oceanography (2017).
     https://doi.org/10.1016/j.pocean.2016.12.008,
     https://doi.org/10.5281/zenodo.3906236
-
 
 3. Hjelmervik, K. B. & Hjelmervik, K. T. Detection of oceanographic fronts
     on variable water depths using empirical orthogonal functions.
@@ -101,7 +104,7 @@ of individual eddy-like features (such as the Agulhas rings).
 │   │
 │   ├── data_loading   <- Scripts to download and name data.
 │   │
-│   ├── models         <- Make I metric, sobel edge detection.
+│   ├── models         <- Make I metric, Sobel edge detection.
 │   │
 │   ├── plot           <- plotting
 |   |
@@ -111,11 +114,11 @@ of individual eddy-like features (such as the Agulhas rings).
 |   |
 |   ├──  tests          <- Scripts for unit tests of your functions
 |   | 
-|   ├── animate.py       <- animate i metric.
-|   ├── constants.py     <- constains majority of run parameters to change.
+|   ├── animate.py       <- animate i-metric.
+|   ├── constants.py     <- constains majority of run parameters that can be changed.
 |   ├── make_figures.py  <- make figures in one long script.
 |   ├── move_figures.py  <- move figures script (unnecessary).
-|   └── time_wrapper.py  <- time wrapper to time parts of program.
+|   └── time_wrapper.py  <- time wrapper to time parts of the program.
 │
 └── setup.cfg          <- setup configuration file for linting rules
 ```
