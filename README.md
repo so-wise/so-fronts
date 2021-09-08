@@ -1,10 +1,10 @@
 # Defining Southern Ocean fronts using unsupervised classification
 
- [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-  <a href=https://www.python.org/downloads/release/python-388/><img src='https://img.shields.io/badge/python-3.8-blue.svg' alt='Python version 3.8 used' /></a>
- <a href="https://github.com/psf/black"><img alt="Python code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
- <img src='https://readthedocs.org/projects/so-fronts/badge/?version=latest' alt='Documentation Status / link to documentation' />
- <a href=https://zenodo.org/badge/latestdoi/318541083><img src='https://zenodo.org/badge/318541083.svg' alt='Most recent Zenodo release' /></a>
+<a href=https://opensource.org/licenses/MIT><img src='https://img.shields.io/badge/License-MIT-blue.svg' alt='License: MIT' /></a>
+<a href=https://www.python.org/downloads/release/python-388/><img src='https://img.shields.io/badge/python-3.8-blue.svg' alt='Python version 3.8.8 used' /></a>
+<a href="https://github.com/psf/black"><img alt="Python code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<img src='https://readthedocs.org/projects/so-fronts/badge/?version=latest' alt='Documentation Status / link to documentation' />
+<a href=https://zenodo.org/badge/latestdoi/318541083><img src='https://zenodo.org/badge/318541083.svg' alt='Most recent Zenodo release' /></a>
 
 ## Paper: https://doi.org/10.5194/os-2021-40
 
@@ -24,8 +24,10 @@ This approach produces a discontinuous, probabilistic view of front location,
 emphasising the fact that the boundaries between water masses are not uniformly sharp
 across the entire Southern Ocean.
 
-The second method uses Sobel edge detection to highlight rapid changes [Hjelmervik & Hjelmervik, 2019].
-This approach produces a more local view of fronts, with the advantage that it can highlight the movement
+The second method uses Sobel edge detection to highlight
+rapid changes [Hjelmervik & Hjelmervik, 2019].
+This approach produces a more local view of fronts,
+with the advantage that it can highlight the movement
 of individual eddy-like features (such as the Agulhas rings).
 
 1. Chapman, C. C., Lea, M.-A., Meyer, A., Sallee, J.-B. & Hindell, M.
@@ -78,6 +80,7 @@ of individual eddy-like features (such as the Agulhas rings).
    ```
 
 - Make figures:
+
    ```bash
    python3 main.py
    ```
@@ -86,41 +89,42 @@ of individual eddy-like features (such as the Agulhas rings).
 
 ```txt
 ├── LICENSE
-├── Makefile           <- Makefile with commands like `make env` or `make `
-├── README.md          <- The top-level README for developers using this project.
-├── main.py            <- The top-level README for developers using this project.
+├── Makefile             <- Makefile with commands like `make env` or `make `
+├── README.md            <- The top-level README for developers using this project.
+├── main.py              <- The top-level README for developers using this project.
 |
-├── figures            <- .png images.
+├── figures              <- .png images with non-enumerated names.
 │
-├── requirements       <- Directory containing the requirement files.
+├── requirements         <- Directory containing the requirement files.
 │
-├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
+├── setup.py             <- makes project pip installable (pip install -e .) so src can be imported
 |
-├── src                <- Source code for use in this project.
+├── src                  <- Source code for use in this project.
 |   |
-│   ├── __init__.py    <- Makes src a Python module
+│   ├── __init__.py      <- Makes src a Python module
 |   |
-│   ├── data           <- KO fronts to plot.
+│   ├── data             <- KO fronts to plot, other data.
 │   │
-│   ├── data_loading   <- Scripts to download and name data.
+│   ├── data_loading     <- Scripts to download and name data.
 │   │
-│   ├── models         <- Make I metric, Sobel edge detection.
+│   ├── models           <- Make I-metric and Sobel edge detection directory.
 │   │
-│   ├── plot           <- plotting
+│   ├── plot             <- plotting directory
 |   |
-│   ├── plot_utils      <- plotting utilities
+│   ├── plot_utils       <- plotting utilities directory
 |   |
-│   ├── preprocessing   <- preprocessing scripts (to transform to density etc).
+│   ├── preprocessing    <- preprocessing scripts (to transform to density etc.).
 |   |
-|   ├──  tests          <- Scripts for unit tests of your functions
+|   ├──  tests           <- Scripts for unit tests of your functions
 |   | 
 |   ├── animate.py       <- animate i-metric.
-|   ├── constants.py     <- constains majority of run parameters that can be changed.
-|   ├── make_figures.py  <- make figures in one long script.
-|   ├── move_figures.py  <- move figures script (unnecessary).
+|   ├── constants.py     <- contains majority of run parameters that can be changed.
+|   ├── make_figures.py  <- make all figures in one long script.
+|   ├── move_figures.py  <- Move figures script (now unnecessary). 
+|   |                       Changes figure names to Figure-X.png etc.
 |   └── time_wrapper.py  <- time wrapper to time parts of the program.
 │
-└── setup.cfg          <- setup configuration file for linting rules
+└── setup.cfg            <- setup configuration file for linting rules
 ```
 
 ## Requirements
@@ -129,7 +133,7 @@ of individual eddy-like features (such as the Agulhas rings).
 - `make` in shell.
 - Python 3.6+ (final run for paper used `python==3.8.8`)
 
----
+--------------------------------------------------------
 
 Project template created by the
 [Cambridge AI4ER Cookiecutter](https://github.com/ai4er-cdt/ai4er-cookiecutter).
