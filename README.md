@@ -50,7 +50,6 @@ of individual eddy-like features (such as the Agulhas rings).
 
 ![I metric for K=5](gifs/boundaries-k5.gif)
 
-
 ## Getting started
 
 - Make the environment:
