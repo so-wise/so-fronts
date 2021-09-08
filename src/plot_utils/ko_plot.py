@@ -1,5 +1,5 @@
 """A program by sdat2 to plot the Southern Ocean with a variety of fronts.
-   Currently plots Kim and Orsi 2014 (KO)
+   Currently plots Kim and Orsi 2014 (KO).
 
 Usage:
     Example usage::
