@@ -109,7 +109,12 @@ def make_all_figures() -> None:
     axs[1, 0].plot(pcm._reducer["all"].components_[0, lz:], zs)
     axs[1, 1].plot(pcm._reducer["all"].components_[1, lz:], zs)
     axs[1, 2].plot(pcm._reducer["all"].components_[2, lz:], zs)
-    axs[1, 0].set_ylabel("Depth")
+    axs[1, 0].set_ylabel("Depth [m]")
+    axs[1, 0].set_xlabel("PC1")
+    axs[1, 1].set_xlabel("PC2")
+    axs[1, 2].set_xlabel("PC3")
+    axs[0, 1].set_title("Temperature [dimensionless]")
+    axs[1, 1].set_title("Salinity [dimensionless]")
     plt.savefig("figures/RUN_010_pca_plot.png")
     plt.clf()
 
