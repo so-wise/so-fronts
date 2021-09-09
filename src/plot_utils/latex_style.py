@@ -1,11 +1,12 @@
 """Plotting style file.
 
-import src.plotting_utilities.latex_style as lsty
-usage
+import src.plot_utils.latex_style as lsty
+
+usage:
 
 ds = xr.open_dataset('example.nc')
 
-sps.ds_for_grahing(ds).plot()
+lsty.ds_for_grahing(ds).plot()
 """
 from typing import Tuple
 from sys import platform
