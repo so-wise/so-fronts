@@ -7,7 +7,10 @@
 Abstract
 ========
 
- In this work, we present two related methods for calculating fronts from oceanographic data. fronts, with the advantage that it can highlight the movement of individual eddy-like features (such as the Agulhas rings). We will present our python GitHub repository, which will allow researchers to easily apply these methods to their own datasets.
+In this work, we present two related methods for calculating fronts from oceanographic data.
+fronts, with the advantage that it can highlight the movement of individual eddy-like
+features (such as the Agulhas rings). We will present our python GitHub repository, which
+will allow researchers to easily apply these methods to their own datasets.
 
  Paper: https://doi.org/10.5194/os-2021-40
 
