@@ -66,7 +66,7 @@ of individual eddy-like features (such as the Agulhas rings).
 
 - Change the settings in `src.constants` to set download location etc.
 
-- Download data (`get_zip`  1694.64639 s):
+- Download data (`get_zip`: 1694.64639 s):
 
    ```bash
    python3 src/data_loading/bsose_download.py
@@ -90,13 +90,13 @@ of individual eddy-like features (such as the Agulhas rings).
 ├── LICENSE
 ├── Makefile             <- Makefile with commands like `make env` or `make `
 ├── README.md            <- The top-level README for developers using this project.
-├── main.py              <- The top-level README for developers using this project.
+├── main.py              <- The main python script to run.
 |
 ├── figures              <- .png images with non-enumerated names.
 │
 ├── requirements         <- Directory containing the requirement files.
 │
-├── setup.py             <- makes project pip installable (pip install -e .) so src can be imported
+├── setup.py             <- makes project pip installable (pip install -e .) so src can be imported from jupyter notebooks etc.
 |
 ├── src                  <- Source code for use in this project.
 |   |
@@ -108,7 +108,7 @@ of individual eddy-like features (such as the Agulhas rings).
 │   │
 │   ├── models           <- Make I-metric and Sobel edge detection directory.
 │   │
-│   ├── plot             <- plotting directory
+│   ├── plot             <- plotting functions directory
 |   |
 │   ├── plot_utils       <- plotting utilities directory
 |   |

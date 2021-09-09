@@ -68,8 +68,6 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
-    temp_name = data_prefix + "_temp.nc"
-    profiles_name = data_prefix + "_profiles_temp.nc"
     pcm, ds = tim.train_on_interpolated_year(
         time_i=cst.EXAMPLE_TIME_INDEX,
         k_clusters=cst.K_CLUSTERS,
@@ -79,7 +77,25 @@ def make_all_figures() -> None:
         remove_init_var=False,
     )
 
+    temp_name = data_prefix + "_temp.nc"
+    profiles_name = data_prefix + "_profiles_temp.nc"
+
+    # pcm._reducer['all'].components_[0, :]
+    # pcm._reducer['all'].components_[1, :]
+    # pcm._reducer['all'].components_[2, :]
+    # pcm._scaler['SALT'].mean_
+    # pcm._scaler['SALT'].var_
+    # pcm._scaler['THETA'].mean_
+    # pcm._scaler['THETA'].var_
+
     ds.to_netcdf(path=temp_name)
+
+    _, axs = plt.subplots(1, 2, sharex=True)
+
+    axs[0].plot(-ds.coords[cst.Z_COORD].values, pcm._scaler['SALT'].mean_)
+    axs[1].plot(-ds.coords[cst.Z_COORD].values, pcm._scaler['THETA'].mean_)
+    plt.savefig("figures/RUN_010_mean_plot.png")
+
     ds = xr.open_dataset(temp_name)
     profile_ds = prof.make_profiles(ds)
     profile_ds.to_netcdf(path=profiles_name)
