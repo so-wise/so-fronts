@@ -90,11 +90,25 @@ def make_all_figures() -> None:
 
     ds.to_netcdf(path=temp_name)
 
-    _, axs = plt.subplots(1, 2, sharex=True)
-
-    axs[0].plot(-ds.coords[cst.Z_COORD].values, pcm._scaler['SALT'].mean_)
-    axs[1].plot(-ds.coords[cst.Z_COORD].values, pcm._scaler['THETA'].mean_)
+    _, axs = plt.subplots(1, 2, sharey=True)
+    zs = [-x for x in range(300, 2000, 10)]
+    lz = len(zs)
+    axs[0].plot(zs, pcm._scaler["THETA"].mean_)
+    axs[0].set_xlabel(r"Temperature [$^{\circ}$]")
+    axs[1].plot(zs, pcm._scaler["SALT"].mean_)
+    axs[1].set_xlabel(r"Salinity [psu]")
     plt.savefig("figures/RUN_010_mean_plot.png")
+    plt.clf()
+
+    _, axs = plt.subplots(2, 3, sharey=True)
+    axs[0, 0].plot(zs, pcm._reducer["all"].components_[0, :lz])
+    axs[0, 1].plot(zs, pcm._reducer["all"].components_[1, :lz])
+    axs[0, 2].plot(zs, pcm._reducer["all"].components_[2, :lz])
+    axs[1, 0].plot(zs, pcm._reducer["all"].components_[0, lz:])
+    axs[1, 1].plot(zs, pcm._reducer["all"].components_[1, lz:])
+    axs[1, 2].plot(zs, pcm._reducer["all"].components_[2, lz:])
+    plt.savefig("figures/RUN_010_pca_plot.png")
+    plt.clf()
 
     ds = xr.open_dataset(temp_name)
     profile_ds = prof.make_profiles(ds)
