@@ -76,6 +76,10 @@ def make_all_figures() -> None:
         max_depth=cst.MAX_DEPTH,
         remove_init_var=False,
     )
+    return pcm, ds
+
+
+def good():
 
     temp_name = data_prefix + "_temp.nc"
     profiles_name = data_prefix + "_profiles_temp.nc"
