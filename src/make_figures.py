@@ -78,22 +78,6 @@ def make_all_figures() -> None:
         remove_init_var=False,
     )
 
-    # Make figures A5 and A6:
-
-    # Figure A5: mean/std of profiles for salinity
-    prep.mean_std_plot(pcm)
-    plt.savefig(fig_prefix + "_mean_plot.png", bbox_inches="tight")
-    plt.clf()
-
-    lsty.mpl_params()
-
-    # Figure A6: effect of pca on profiles (mirrors Figure 4 in Pauthenet et al. 2017)
-    prep.pauth17_pca_profiles(pcm)
-    plt.savefig(fig_prefix + "_pca_real_space_plot.png", bbox_inches="tight")
-    plt.clf()
-
-    lsty.mpl_params()
-
     # new prefixes for saving gmm cluster profiles etc.
 
     temp_name = data_prefix + "_temp.nc"
@@ -110,6 +94,7 @@ def make_all_figures() -> None:
     print(profile_ds)
 
     prof.plot_profiles(profile_ds)
+    lsty.set_dim(plt.gcf())
     plt.savefig(fig_prefix + "_profiles.png")
     plt.clf()
 
@@ -128,7 +113,7 @@ def make_all_figures() -> None:
         ds,
     )
 
-    lsty.set_dim(plt.gcf(), ratio=1.0)
+    lsty.set_dim(plt.gcf())
     plt.savefig(fig_prefix + "_s3d_clusters.png")
     plt.clf()
 
@@ -446,3 +431,18 @@ def make_all_figures() -> None:
         )
         print("$G_x$ * PC" + str(pc), "UVEL", cor)
 
+    # Make figures A5 and A6:
+
+    # Figure A5: mean/std of profiles for salinity
+    prep.mean_std_plot(pcm)
+    plt.savefig(fig_prefix + "_mean_plot.png", bbox_inches="tight")
+    plt.clf()
+
+    lsty.mpl_params()
+
+    # Figure A6: effect of pca on profiles (mirrors Figure 4 in Pauthenet et al. 2017)
+    prep.pauth17_pca_profiles(pcm)
+    plt.savefig(fig_prefix + "_pca_real_space_plot.png", bbox_inches="tight")
+    plt.clf()
+
+    lsty.mpl_params()
