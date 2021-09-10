@@ -30,6 +30,8 @@ def move(copy_command: str = "cp") -> None:
         fig_prefix + "_pc_y_sobel_corr.png": "figure-A2.png",
         fig_prefix + "_pc_x_sobel_comp.png": "figure-A3.png",
         fig_prefix + "_pc_x_sobel_corr.png": "figure-A4.png",
+        fig_prefix + "_mean_plot.png": "figure-A5.png",
+        fig_prefix + "_pca_real_space_plot.png": "figure-A6.png",
     }
     for key in name_dict:
         os.system(
