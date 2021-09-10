@@ -94,13 +94,14 @@ def make_all_figures() -> None:
 
     lsty.mpl_params()
 
-    # new prefixes.
+    # new prefixes for saving gmm cluster profiles etc.
 
     temp_name = data_prefix + "_temp.nc"
     profiles_name = data_prefix + "_profiles_temp.nc"
 
     ds.to_netcdf(path=temp_name)
 
+    # MAKE/PLOT PROFILES
     ds = xr.open_dataset(temp_name)
     profile_ds = prof.make_profiles(ds)
     profile_ds.to_netcdf(path=profiles_name)
