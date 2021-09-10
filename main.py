@@ -1,9 +1,9 @@
 """Run key scripts."""
 # from src.animate import animate_imetric
 import src.move_figures as mov
-# import src.make_figures as mf
+import src.make_figures as mf
 
-# mf.make_all_figures()
+mf.make_all_figures()
 
 mov.move()
 
