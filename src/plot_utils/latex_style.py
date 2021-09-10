@@ -109,10 +109,10 @@ def mpl_params(quality: str = "high", use_tex: bool = True, dpi: int = 600) -> N
 
     Examples:
         Basic setting the plotting defaults::
-            >>> mpl_defaults()
+            >>> mpl_params()
 
         Setting defaults for a jupyter notebook::
-            >>> mpl_defaults(use_tex=False, dpi=150)
+            >>> mpl_params(use_tex=False, dpi=150)
 
     """
     print(quality)
