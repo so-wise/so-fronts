@@ -1,4 +1,4 @@
-"""Cluster profiles."""
+"""Cluster profiles plots."""
 import numpy as np
 import matplotlib.pyplot as plt
 import xarray as xr
@@ -13,10 +13,7 @@ import src.constants as cst
 @twr.timeit
 def make_profiles(ds: xr.Dataset) -> xr.Dataset:
     """
-    Make cluster profiles.
-
-    TODO: and averages the profiles,
-    TODO: using zonal mean including all the longitudinal points, in salinity.
+    Make cluster profiles (mean and std dev).
 
     Args:
         ds (xr.Dataset): the dataset.

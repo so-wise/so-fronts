@@ -95,3 +95,8 @@ CLUST_COLORS: str = "Set1" # "Dark1"
 
 # Move plots to location
 FINAL_LOC: str = "../FBSO/images"
+
+
+# infor for profile plots
+ZS = [-x for x in range(300, 2000, 10)] # Z levels.
+LZ = len(ZS) # number of Z levels.

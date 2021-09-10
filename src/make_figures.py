@@ -15,6 +15,7 @@ import src.models.train_pyxpcm as tim
 import src.plot.clust_3d as c3d
 import src.plot.i_map as imap
 import src.plot.profiles as prof
+import src.plot.preprocessing_profiles as prep
 import src.data_loading.io_names as io
 from src.models.sobel import sobel_np
 import src.time_wrapper as twr
@@ -76,21 +77,22 @@ def make_all_figures() -> None:
         max_depth=cst.MAX_DEPTH,
         remove_init_var=False,
     )
-    return pcm, ds
 
+    # Make figures A5 and A6:
 
-def good():
+    # Figure A5: mean/std of profiles for salinity
+    prep.mean_std_plot(pcm)
+    plt.savefig("figures/RUN_010_mean_plot.png")
+    plt.clf()
+
+    # Figure A6: effect of pca on profiles (mirrors Figure 4 in Pauthenet et al. 2017)
+    prep.pauth17_pca_profiles(pcm)
+    plt.savefig("figures/RUN_010_pca_real_space_plot.png", bbox_inches="tight")
+
+    # new prefixes.
 
     temp_name = data_prefix + "_temp.nc"
     profiles_name = data_prefix + "_profiles_temp.nc"
-
-    # pcm._reducer['all'].components_[0, :]
-    # pcm._reducer['all'].components_[1, :]
-    # pcm._reducer['all'].components_[2, :]
-    # pcm._scaler['SALT'].mean_
-    # pcm._scaler['SALT'].var_
-    # pcm._scaler['THETA'].mean_
-    # pcm._scaler['THETA'].var_
 
     ds.to_netcdf(path=temp_name)
 
