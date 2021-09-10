@@ -6,7 +6,7 @@
 <img src='https://readthedocs.org/projects/so-fronts/badge/?version=latest' alt='Documentation Status / link to documentation' />
 <a href=https://zenodo.org/badge/latestdoi/318541083><img src='https://zenodo.org/badge/318541083.svg' alt='Most recent Zenodo release' /></a>
 
-## Paper: https://doi.org/10.5194/os-2021-40
+## Paper: <https://doi.org/10.5194/os-2021-40>
 
 ## Short description
 

@@ -26,6 +26,8 @@ def mean_std_plot(pcm_ob: pyxpcm.pcm) -> None:
     axs[1].fill_betweenx(
         ZS, mn - std, mn + std, alpha=0.5, label="Standard deviation of samples"
     )
+    axs[0].set_ylim(min(ZS), max(ZS))
+    gp.label_subplots(axs,x_pos=-0.05, y_pos=1.1, fontsize=14)
     axs[1].legend(
         bbox_to_anchor=(0, 1.05, 0, 0),
         loc="lower right",
@@ -34,8 +36,6 @@ def mean_std_plot(pcm_ob: pyxpcm.pcm) -> None:
         borderaxespad=0.0,
         frameon=False,
     )
-    axs[0].set_ylim(min(ZS), max(ZS))
-    gp.label_subplots(axs,x_pos=-0.05, y_pos=1.1, fontsize=14)
 
 def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
     """Pauthenet and Roquet 2017 Figure 4 replication.
@@ -50,21 +50,21 @@ def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
     axs[0, 1].plot(mn, ZS, color="black")
     axs[0, 2].plot(mn, ZS, color="black")
     axs[0, 0].plot(
-        mn + std * pcm_ob._reducer["all"].components_[0, :LZ],
+        mn + std * pcm_ob._reducer["all"].components_[0, LZ:],
         ZS,
         color="red",
         label="+1 Unit of PC",
     )
-    axs[0, 1].plot(mn + std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="red")
-    axs[0, 2].plot(mn + std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="red")
+    axs[0, 1].plot(mn + std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="red")
+    axs[0, 2].plot(mn + std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="red")
     axs[0, 0].plot(
-        mn - std * pcm_ob._reducer["all"].components_[0, :LZ],
+        mn - std * pcm_ob._reducer["all"].components_[0, LZ:],
         ZS,
         color="blue",
         label="-1 Unit of PC",
     )
-    axs[0, 1].plot(mn - std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="blue")
-    axs[0, 2].plot(mn - std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="blue")
+    axs[0, 1].plot(mn - std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="blue")
+    axs[0, 2].plot(mn - std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="blue")
     axs[0, 0].set_ylim(min(ZS), max(ZS))
     axs[0, 0].set_ylabel("Depth [m]")
     axs[0, 0].set_xlabel("PC1")
@@ -75,12 +75,12 @@ def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
     axs[1, 0].plot(mn, ZS, color="black")
     axs[1, 1].plot(mn, ZS, color="black")
     axs[1, 2].plot(mn, ZS, color="black")
-    axs[1, 0].plot(mn + std * pcm_ob._reducer["all"].components_[0, LZ:], ZS, color="red")
-    axs[1, 1].plot(mn + std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="red")
-    axs[1, 2].plot(mn + std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="red")
-    axs[1, 0].plot(mn - std * pcm_ob._reducer["all"].components_[0, LZ:], ZS, color="blue")
-    axs[1, 1].plot(mn - std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="blue")
-    axs[1, 2].plot(mn - std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="blue")
+    axs[1, 0].plot(mn + std * pcm_ob._reducer["all"].components_[0, :LZ], ZS, color="red")
+    axs[1, 1].plot(mn + std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="red")
+    axs[1, 2].plot(mn + std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="red")
+    axs[1, 0].plot(mn - std * pcm_ob._reducer["all"].components_[0, :LZ], ZS, color="blue")
+    axs[1, 1].plot(mn - std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="blue")
+    axs[1, 2].plot(mn - std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="blue")
     axs[1, 0].set_ylabel("Depth [m]")
     axs[1, 0].set_xlabel("PC1")
     axs[1, 1].set_xlabel("PC2")

@@ -82,12 +82,17 @@ def make_all_figures() -> None:
 
     # Figure A5: mean/std of profiles for salinity
     prep.mean_std_plot(pcm)
-    plt.savefig("figures/RUN_010_mean_plot.png")
+    plt.savefig(fig_prefix + "_mean_plot.png", bbox_inches="tight")
     plt.clf()
+
+    lsty.mpl_params()
 
     # Figure A6: effect of pca on profiles (mirrors Figure 4 in Pauthenet et al. 2017)
     prep.pauth17_pca_profiles(pcm)
-    plt.savefig("figures/RUN_010_pca_real_space_plot.png", bbox_inches="tight")
+    plt.savefig(fig_prefix + "_pca_real_space_plot.png", bbox_inches="tight")
+    plt.clf()
+
+    lsty.mpl_params()
 
     # new prefixes.
 
