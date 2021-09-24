@@ -18,20 +18,20 @@ def move(copy_command: str = "cp") -> None:
     final_loc = cst.FINAL_LOC
     fig_prefix = os.path.join(cst.FIGURE_PATH, "RUN_" + run_name)
     name_dict = {
-        fig_prefix + "_pc_map.png": "figure-1.png",
-        fig_prefix + "_s3d_clusters.png": "figure-2.png",
-        fig_prefix + "_i_metric_dual.png": "figure-3.png",
-        fig_prefix + "_map_i_comp.png": "figure-4.png",
-        fig_prefix + "_profiles.png": "figure-5.png",
-        fig_prefix + "_y_sobel.png": "figure-6.png",
-        fig_prefix + "_i_metric_comp.png": "figure-7.png",
-        fig_prefix + "_i_metric_single.png": "figure-8.png",
-        fig_prefix + "_pc_y_sobel_comp.png": "figure-A1.png",
-        fig_prefix + "_pc_y_sobel_corr.png": "figure-A2.png",
-        fig_prefix + "_pc_x_sobel_comp.png": "figure-A3.png",
-        fig_prefix + "_pc_x_sobel_corr.png": "figure-A4.png",
-        fig_prefix + "_mean_plot.png": "figure-A5.png",
-        fig_prefix + "_pca_real_space_plot.png": "figure-A6.png",
+        fig_prefix + "_pc_map" + cst.FIGURE_TYPE: "figure-1" + cst.FIGURE_TYPE,
+        fig_prefix + "_s3d_clusters" + cst.FIGURE_TYPE: "figure-2" + cst.FIGURE_TYPE,
+        fig_prefix + "_i_metric_dual" + cst.FIGURE_TYPE: "figure-3" + cst.FIGURE_TYPE,
+        fig_prefix + "_map_i_comp" + cst.FIGURE_TYPE: "figure-4" + cst.FIGURE_TYPE,
+        fig_prefix + "_profiles" + cst.FIGURE_TYPE: "figure-5" + cst.FIGURE_TYPE,
+        fig_prefix + "_y_sobel" + cst.FIGURE_TYPE: "figure-6" + cst.FIGURE_TYPE,
+        fig_prefix + "_i_metric_comp" + cst.FIGURE_TYPE: "figure-7" + cst.FIGURE_TYPE,
+        fig_prefix + "_i_metric_single" + cst.FIGURE_TYPE: "figure-8" + cst.FIGURE_TYPE,
+        fig_prefix + "_pc_y_sobel_comp" + cst.FIGURE_TYPE: "figure-A1" + cst.FIGURE_TYPE,
+        fig_prefix + "_pc_y_sobel_corr" + cst.FIGURE_TYPE: "figure-A2" + cst.FIGURE_TYPE,
+        fig_prefix + "_pc_x_sobel_comp" + cst.FIGURE_TYPE: "figure-A3" + cst.FIGURE_TYPE,
+        fig_prefix + "_pc_x_sobel_corr" + cst.FIGURE_TYPE: "figure-A4" + cst.FIGURE_TYPE,
+        fig_prefix + "_mean_plot" + cst.FIGURE_TYPE: "figure-B1" + cst.FIGURE_TYPE,
+        fig_prefix + "_pca_real_space_plot" + cst.FIGURE_TYPE: "figure-B2" + cst.FIGURE_TYPE,
     }
     for key in name_dict:
         os.system(

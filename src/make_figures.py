@@ -61,7 +61,7 @@ def make_all_figures() -> None:
         [da_temp.isel(pca=0), da_temp.isel(pca=1), da_temp.isel(pca=2)],
         ["PC1", "PC2", "PC3"],
     )
-    plt.savefig(fig_prefix + "_pc_map.png")
+    plt.savefig(fig_prefix + "_pc_map" + cst.FIGURE_TYPE)
     plt.clf()
 
     # FIGURE 2 ## make profiles.
@@ -95,7 +95,7 @@ def make_all_figures() -> None:
 
     prof.plot_profiles(profile_ds)
     lsty.set_dim(plt.gcf())
-    plt.savefig(fig_prefix + "_profiles.png")
+    plt.savefig(fig_prefix + "_profiles" + cst.FIGURE_TYPE)
     plt.clf()
 
     # FIGURE 3: Plot 3d clusters.
@@ -114,7 +114,7 @@ def make_all_figures() -> None:
     )
 
     lsty.set_dim(plt.gcf())
-    plt.savefig(fig_prefix + "_s3d_clusters.png")
+    plt.savefig(fig_prefix + "_s3d_clusters" + cst.FIGURE_TYPE)
     plt.clf()
 
     # FIGURE 4: I metric viridis colormap.
@@ -131,7 +131,7 @@ def make_all_figures() -> None:
         [[0.0, 1.0], [0.0, 1.0]],
         ["viridis", "viridis"],
     )
-    plt.savefig(fig_prefix + "_i_metric_dual.png")
+    plt.savefig(fig_prefix + "_i_metric_dual" + cst.FIGURE_TYPE)
     plt.clf()
 
     lsty.mpl_params()
@@ -141,7 +141,7 @@ def make_all_figures() -> None:
 
     da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS)
     xp.plot_single_i_metric(da.isel(time=0))
-    plt.savefig(fig_prefix + "_i_metric_single.png")
+    plt.savefig(fig_prefix + "_i_metric_single" + cst.FIGURE_TYPE)
     plt.clf()
 
     # FIGURE 6: Plot clusters and i metrics on maps.
@@ -151,7 +151,7 @@ def make_all_figures() -> None:
     da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS).isel(time=0)
     da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(rank=0, time=cst.EXAMPLE_TIME_INDEX)
     imap.map_imetric(da_i, da)
-    plt.savefig(fig_prefix + "_map_i_comp.png")
+    plt.savefig(fig_prefix + "_map_i_comp" + cst.FIGURE_TYPE)
     plt.clf()
 
     # FIGURE 7: Plot different k_clusters cluster multi colour plots.
@@ -165,7 +165,7 @@ def make_all_figures() -> None:
         ]
     )
     plt.tight_layout()
-    plt.savefig(fig_prefix + "_i_metric_comp.png")
+    plt.savefig(fig_prefix + "_i_metric_comp" + cst.FIGURE_TYPE)
     plt.clf()
 
     # FIGURE 8: PC1 y grads
@@ -196,7 +196,7 @@ def make_all_figures() -> None:
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
-    plt.savefig(fig_prefix + "_y_sobel.png")
+    plt.savefig(fig_prefix + "_y_sobel" + cst.FIGURE_TYPE)
     plt.clf()
 
     da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
@@ -234,7 +234,7 @@ def make_all_figures() -> None:
         [[-40, 40], [-40, 40], [-40, 40]],
     )
 
-    plt.savefig(fig_prefix + "_x_sobel.png")
+    plt.savefig(fig_prefix + "_x_sobel" + cst.FIGURE_TYPE)
     plt.clf()
 
     da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
@@ -285,7 +285,7 @@ def make_all_figures() -> None:
         ],
         ["$G_y$ * PC1", r"$U$ (m s$^{-1}$)", "$G_y$ * PC1", r"$U$ (m s$^{-1}$)"],
     )
-    plt.savefig(fig_prefix + "_pc_y_sobel_comp.png")
+    plt.savefig(fig_prefix + "_pc_y_sobel_comp" + cst.FIGURE_TYPE)
     plt.clf()
 
     pc1_y, pc2_y, pc3_y = get_y_sobel(da_temp)
@@ -331,7 +331,7 @@ def make_all_figures() -> None:
         ]
     )
     plt.title(r"Correlation between $G_{y}$ * PC1 and $U$")
-    plt.savefig(fig_prefix + "_pc_y_sobel_corr.png")
+    plt.savefig(fig_prefix + "_pc_y_sobel_corr" + cst.FIGURE_TYPE)
     plt.clf()
 
     #  compare correlations and make correlation graph.
@@ -378,7 +378,7 @@ def make_all_figures() -> None:
         ]
     )
     plt.title(r"Correlation between $G_{x}$ * PC1 and $V$")
-    plt.savefig(fig_prefix + "_pc_x_sobel_corr.png")
+    plt.savefig(fig_prefix + "_pc_x_sobel_corr" + cst.FIGURE_TYPE)
     plt.clf()
 
     # compare meridional velocity to gradient.
@@ -416,7 +416,7 @@ def make_all_figures() -> None:
         ],
         ["$G_x$ * PC1", r"$V$ (m s$^{-1}$)", "$G_x$ * PC1", r"$V$ (m s$^{-1}$)"],
     )
-    plt.savefig(fig_prefix + "_pc_x_sobel_comp.png")
+    plt.savefig(fig_prefix + "_pc_x_sobel_comp" + cst.FIGURE_TYPE)
     plt.clf()
 
     logger.info("A: finished.")
@@ -435,14 +435,14 @@ def make_all_figures() -> None:
 
     # Figure A5: mean/std of profiles for salinity
     prep.mean_std_plot(pcm)
-    plt.savefig(fig_prefix + "_mean_plot.png", bbox_inches="tight")
+    plt.savefig(fig_prefix + "_mean_plot" + cst.FIGURE_TYPE, bbox_inches="tight")
     plt.clf()
 
     lsty.mpl_params()
 
     # Figure A6: effect of pca on profiles (mirrors Figure 4 in Pauthenet et al. 2017)
     prep.pauth17_pca_profiles(pcm)
-    plt.savefig(fig_prefix + "_pca_real_space_plot.png", bbox_inches="tight")
+    plt.savefig(fig_prefix + "_pca_real_space_plot" + cst.FIGURE_TYPE, bbox_inches="tight")
     plt.clf()
 
     lsty.mpl_params()

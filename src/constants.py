@@ -20,6 +20,8 @@ KO_PATH = os.path.join(SRC_PATH, "data", "kim_(&orsi)_altimetric_fronts")
 # Data directory on GWS
 GWS_DATA_DIR = pathlib.Path("/gws/nopw/j04/ai4er/users/sdat2/OLD")
 
+# Figure type
+FIGURE_TYPE = ".pdf"
 
 # start ****DATA LOCATION section***
 # This will certainly need to be changed on your macine
