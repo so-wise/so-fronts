@@ -16,6 +16,8 @@ will allow researchers to easily apply these methods to their own datasets.
 
    Preprint: https://doi.org/10.5194/os-2021-40
 
+   Presentation at AGU2021: https://doi.org/10.1002/essoar.10507114.1
+
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
