@@ -12,7 +12,9 @@ fronts, with the advantage that it can highlight the movement of individual eddy
 features (such as the Agulhas rings). We will present our python GitHub repository, which
 will allow researchers to easily apply these methods to their own datasets.
 
- Paper: https://doi.org/10.5194/os-2021-40
+   Paper: https://doi.org/10.5194/os-17-1545-2021
+
+   Preprint: https://doi.org/10.5194/os-2021-40
 
 .. toctree::
    :maxdepth: 3
