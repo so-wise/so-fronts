@@ -94,7 +94,7 @@ def set_dim(
 
 
 @twr.timeit
-def mpl_params(quality: str = "high", use_tex: bool = True, dpi: int = 600) -> None:
+def mpl_params(quality: str = "high", use_tex: bool = False, dpi: int = 600) -> None:
     """Apply plotting style to produce nice looking figures.
 
     Call this at the start of a script which uses `matplotlib`.

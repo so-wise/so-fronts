@@ -232,14 +232,8 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
 
     latitudes: dict = {}
     longitudes: dict = {}
-    files_names: list = [
-        "pf_kim.txt",
-        "saccf_kim.txt",
-        "saf_kim.txt",
-        "sbdy_kim.txt",
-    ]
-    files: list = [os.path.join(cst.KO_PATH, x) for x in files_names]
     keys: list = ["saf", "pf", "saccf", "sbdy"]
+    files: list = [os.path.join(cst.KO_PATH, key + "_kim.txt") for key in keys]
     color_dict: dict = {
         "saf": "black",
         "pf": "purple",
