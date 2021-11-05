@@ -225,7 +225,7 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
                 lol_of_xs=lol_xs,
                 lol_of_ys=lol_ys,
                 color=color_dict[key],
-                markersize=marker_size_dict[key],
+                markersize=size_dict[key],
                 label=label_dict[key],
                 line_type="-",
             )
@@ -233,15 +233,14 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
     latitudes: dict = {}
     longitudes: dict = {}
     keys: list = ["saf", "pf", "saccf", "sbdy"]
-    files: list = [os.path.join(cst.KO_PATH, key + "_kim.txt") for key in keys]
+    files_dict = {key: os.path.join(cst.KO_PATH, key + "_kim.txt") for key in keys}
     color_dict: dict = {
         "saf": "black",
         "pf": "purple",
         "saccf": "green",
         "sbdy": "olive",
     }
-    # label_dict = {"saf": "SAF-KO", "pf": "PF-KO", "saccf":
-    #               "SACCF-KO", "sbdy": "SBDY-KO", "stf": "STF-O"}
+
     label_dict: dict = {
         "saf": "SAF",
         "pf": "PF",
@@ -249,28 +248,25 @@ def draw_fronts_kim(ax: matplotlib.axes.Axes) -> None:
         "sbdy": "SBDY",
     }
 
-    marker_size_dict: dict = {
+    size_dict: dict = {
         "saf": 0.15,
         "pf": 0.30,
         "saccf": 0.20,
         "sbdy": 0.10,
     }
 
-    for file_no in range(len(files)):
+    for key in keys:
         tmp_longitude = []
         tmp_latitude = []
-        start = False  # Whether to skip the first line
-        with open(files[file_no]) as file:
+
+        with open(files_dict[key]) as file:
             for line in file:
-                #  print(line)
-                if not start:
-                    line_elements = [float(elt.strip()) for elt in line.split("\t")]
-                    tmp_longitude.append(float(line_elements[0]))
-                    tmp_latitude.append(float(line_elements[1]))
-                else:
-                    start = False
-        longitudes[keys[file_no]] = tmp_longitude
-        latitudes[keys[file_no]] = tmp_latitude
+                line_elements = [float(elt.strip()) for elt in line.split("\t")]
+                tmp_longitude.append(float(line_elements[0]))
+                tmp_latitude.append(float(line_elements[1]))
+
+        longitudes[key] = tmp_longitude
+        latitudes[key] = tmp_latitude
 
     multi_line_map_plot()
 
@@ -288,4 +284,5 @@ def run_so_map() -> None:
 
 
 if __name__ == "__main__":
+    # python src/plot_utils/ko_plot.py
     run_so_map()
