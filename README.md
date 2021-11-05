@@ -6,7 +6,11 @@
 <img src='https://readthedocs.org/projects/so-fronts/badge/?version=latest' alt='Documentation Status / link to documentation' />
 <a href=https://zenodo.org/badge/latestdoi/318541083><img src='https://zenodo.org/badge/318541083.svg' alt='Most recent Zenodo release' /></a>
 
-## Paper: <https://doi.org/10.5194/os-2021-40>
+## Paper: <https://doi.org/10.5194/os-17-1545-2021>
+
+## Preprint: <https://doi.org/10.5194/os-2021-40>
+
+## Presentation at AGU2021: <https://doi.org/10.1002/essoar.10507114.1>
 
 ## Short description
 
