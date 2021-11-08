@@ -29,7 +29,8 @@ def make_all_figures():
 
     Takes roughly 15 minutes  on jasmin.
     """
-    fig_list = [1, 2, 3, 4, 5, 6, 7, 8, "A1", "A2", "A3", "A4", "B1", "B2"]
+    # fig_list = [1, 2, 3, 4, 5, 6, 7, 8, "A1", "A2", "A3", "A4", "B1", "B2"]
+    fig_list = [4]
 
     fig_prefix = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME)
     data_prefix = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME)
