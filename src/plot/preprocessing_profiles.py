@@ -146,6 +146,7 @@ def pauth17_pca_profiles_new(pcm_ob: pyxpcm.pcm) -> None:
     comp["SALT"] = reducer.components_[:, LZ:]
     comp["THETA"] = reducer.components_[:, :LZ]
     ev = reducer.explained_variance_
+    sv = reducer.singular_values_
 
     # mean and variance containing objects
     scaler = {}
@@ -173,6 +174,8 @@ def pauth17_pca_profiles_new(pcm_ob: pyxpcm.pcm) -> None:
         axs[row[quantity], 0].set_ylim(min(ZS), max(ZS))
         axs[row[quantity], 0].set_ylabel("Depth [m]")
         for i in range(len(ev)):
+            print("explained variance", ev[i])
+            print("singular value", sv[i])
             axs[row[quantity], i].plot(
                 mean[quantity], ZS, color="black", **labels["mean"]
             )
