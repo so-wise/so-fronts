@@ -30,7 +30,7 @@ def make_all_figures():
     Takes roughly 15 minutes  on jasmin.
     """
     # fig_list = [1, 2, 3, 4, 5, 6, 7, 8, "A1", "A2", "A3", "A4", "B1", "B2"]
-    fig_list = [4]
+    fig_list = [4]  # ["B1", "B2"]
 
     fig_prefix = os.path.join(cst.FIGURE_PATH, "RUN_" + cst.RUN_NAME)
     data_prefix = os.path.join(cst.DATA_PATH, "RUN_" + cst.RUN_NAME)
@@ -41,10 +41,7 @@ def make_all_figures():
     logger.setLevel(logging.INFO)
 
     # pylint: disable=logging-not-lazy
-    logger.info(
-        "Starting make_all_figures, "
-        + " should take about about 8 minutes."
-    )
+    logger.info("Starting make_all_figures, " + " should take about about 8 minutes.")
     print(
         "settings:\n",
         "cst.EXAMPLE_TIME_INDEX",
@@ -70,7 +67,7 @@ def make_all_figures():
         plt.savefig(fig_prefix + "_pc_map" + cst.FIGURE_TYPE)
         plt.clf()
 
-    if np.any([x in fig_list for x in [2, 5]]):
+    if np.any([x in fig_list for x in [2, 5, "B1", "B2"]]):
         ## make profiles.
         logger.info("Making profiles.")
 
@@ -162,7 +159,9 @@ def make_all_figures():
 
         lsty.mpl_params()
         da = io.return_pair_i_metric(k_clusters=cst.K_CLUSTERS).isel(time=0)
-        da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(rank=0, time=cst.EXAMPLE_TIME_INDEX)
+        da_i = xr.open_dataset(cst.DEFAULT_NC).A_B.isel(
+            rank=0, time=cst.EXAMPLE_TIME_INDEX
+        )
         imap.map_imetric(da_i, da)
         plt.savefig(fig_prefix + "_map_i_comp" + cst.FIGURE_TYPE)
         plt.clf()
@@ -216,7 +215,9 @@ def make_all_figures():
         plt.savefig(fig_prefix + "_y_sobel" + cst.FIGURE_TYPE)
         plt.clf()
 
-        da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.Y_COORD)
+        da_y = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(
+            cst.Y_COORD
+        )
         for pc, grad, sobel in [
             [1, da_y.isel(pca=0), pc1_y],
             [2, da_y.isel(pca=1), pc2_y],
@@ -254,7 +255,9 @@ def make_all_figures():
         plt.savefig(fig_prefix + "_x_sobel" + cst.FIGURE_TYPE)
         plt.clf()
 
-        da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(cst.X_COORD)
+        da_x = ds.PCA_VALUES.isel(time=cst.EXAMPLE_TIME_INDEX).differentiate(
+            cst.X_COORD
+        )
         for pc, grad, sobel in [
             [1, da_x.isel(pca=0), pc1_x],
             [2, da_x.isel(pca=1), pc2_x],

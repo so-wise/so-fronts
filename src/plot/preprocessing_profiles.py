@@ -6,6 +6,7 @@ import src.plot_utils.gen_panels as gp
 import src.plot_utils.latex_style as lsty
 from src.constants import ZS, LZ
 
+
 def mean_std_plot(pcm_ob: pyxpcm.pcm) -> None:
     """Plot the mean and the standard deviation of the profiles.
 
@@ -27,7 +28,7 @@ def mean_std_plot(pcm_ob: pyxpcm.pcm) -> None:
         ZS, mn - std, mn + std, alpha=0.5, label="Standard deviation of samples"
     )
     axs[0].set_ylim(min(ZS), max(ZS))
-    gp.label_subplots(axs,x_pos=-0.05, y_pos=1.1, fontsize=14)
+    gp.label_subplots(axs, x_pos=-0.05, y_pos=1.1, fontsize=14)
     axs[1].legend(
         bbox_to_anchor=(0, 1.05, 0, 0),
         loc="lower right",
@@ -36,6 +37,7 @@ def mean_std_plot(pcm_ob: pyxpcm.pcm) -> None:
         borderaxespad=0.0,
         frameon=False,
     )
+
 
 def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
     """Pauthenet and Roquet 2017 Figure 4 replication.
@@ -55,16 +57,24 @@ def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
         color="red",
         label="+1 Unit of PC",
     )
-    axs[0, 1].plot(mn + std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="red")
-    axs[0, 2].plot(mn + std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="red")
+    axs[0, 1].plot(
+        mn + std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="red"
+    )
+    axs[0, 2].plot(
+        mn + std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="red"
+    )
     axs[0, 0].plot(
         mn - std * pcm_ob._reducer["all"].components_[0, LZ:],
         ZS,
         color="blue",
         label="-1 Unit of PC",
     )
-    axs[0, 1].plot(mn - std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="blue")
-    axs[0, 2].plot(mn - std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="blue")
+    axs[0, 1].plot(
+        mn - std * pcm_ob._reducer["all"].components_[1, LZ:], ZS, color="blue"
+    )
+    axs[0, 2].plot(
+        mn - std * pcm_ob._reducer["all"].components_[2, LZ:], ZS, color="blue"
+    )
     axs[0, 0].set_ylim(min(ZS), max(ZS))
     axs[0, 0].set_ylabel("Depth [m]")
     axs[0, 0].set_xlabel("PC1")
@@ -75,12 +85,24 @@ def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
     axs[1, 0].plot(mn, ZS, color="black")
     axs[1, 1].plot(mn, ZS, color="black")
     axs[1, 2].plot(mn, ZS, color="black")
-    axs[1, 0].plot(mn + std * pcm_ob._reducer["all"].components_[0, :LZ], ZS, color="red")
-    axs[1, 1].plot(mn + std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="red")
-    axs[1, 2].plot(mn + std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="red")
-    axs[1, 0].plot(mn - std * pcm_ob._reducer["all"].components_[0, :LZ], ZS, color="blue")
-    axs[1, 1].plot(mn - std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="blue")
-    axs[1, 2].plot(mn - std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="blue")
+    axs[1, 0].plot(
+        mn + std * pcm_ob._reducer["all"].components_[0, :LZ], ZS, color="red"
+    )
+    axs[1, 1].plot(
+        mn + std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="red"
+    )
+    axs[1, 2].plot(
+        mn + std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="red"
+    )
+    axs[1, 0].plot(
+        mn - std * pcm_ob._reducer["all"].components_[0, :LZ], ZS, color="blue"
+    )
+    axs[1, 1].plot(
+        mn - std * pcm_ob._reducer["all"].components_[1, :LZ], ZS, color="blue"
+    )
+    axs[1, 2].plot(
+        mn - std * pcm_ob._reducer["all"].components_[2, :LZ], ZS, color="blue"
+    )
     axs[1, 0].set_ylabel("Depth [m]")
     axs[1, 0].set_xlabel("PC1")
     axs[1, 1].set_xlabel("PC2")
@@ -96,6 +118,97 @@ def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
         borderaxespad=0.0,
         frameon=False,
     )
-    lsty.set_dim(fig, fraction_of_line_width=1.1, ratio=(5 ** 0.5 - 1)+0.1)
-    gp.label_subplots([axs[0,0], axs[1, 0]],x_pos=-0.05, y_pos=1.1, fontsize=14)
+    lsty.set_dim(fig, fraction_of_line_width=1.1, ratio=(5 ** 0.5 - 1) + 0.1)
+    gp.label_subplots([axs[0, 0], axs[1, 0]], x_pos=-0.05, y_pos=1.1, fontsize=14)
     plt.tight_layout()
+
+
+def pauth17_pca_profiles_new(pcm_ob: pyxpcm.pcm) -> None:
+    """
+    And I wrote this next code to plot the deviation from the mean profile, you add or remove ‘EOFs_realc’. You can add a factor in front if you want to exaggerate the deviation from the mean profile (and mention it in the caption, in Pauthenet2017 we multiply modes 3 to 6 by a factor 2 to amplify the deformation and make the figure readable) :
+    """
+    S = np.sqrt(
+        reducer.explained_variance_ * Xn.shape[0]
+    )  # These are the singular values
+    Z = np.dot(
+        Xn - reducer.mean_, np.transpose(reducer.components_)
+    )  # This is simply Xr or the principal components
+    Ztilde = Z / np.sqrt(S)  # Normalized PCs
+    EOFs_realc = (
+        np.dot(np.transpose(Ztilde), Xc) / Xc.shape[0]
+    )  # Regression on any collection of profiles
+
+    # Indexes to retrieve either Temperature or Salinity (for the plot)
+    nd = 1001
+    nn = np.array([range(0, nd), range(nd, (nd * 2))])
+    fig, ax = plt.subplots(
+        nrows=3,
+        ncols=2,
+        figsize=(8, 15),
+        dpi=80,
+        facecolor="w",
+        edgecolor="k",
+        sharey="row",
+    )
+    for ie in range(0, 3):  # Three first PCs
+        for dd in range(0, 2):  # Temperature and salinity
+            ax[ie, dd].plot(
+                np.transpose(
+                    scaler.mean_[
+                        nn[
+                            dd,
+                        ]
+                    ]
+                ),
+                DPTmodel,
+                c="black",
+            )
+            ax[ie, dd].plot(
+                np.transpose(
+                    scaler.mean_[
+                        nn[
+                            dd,
+                        ]
+                    ]
+                    + EOFs_realc[
+                        ie,
+                        [
+                            nn[
+                                dd,
+                            ]
+                        ],
+                    ]
+                ),
+                DPTmodel,
+                c="red",
+            )
+            ax[ie, dd].plot(
+                np.transpose(
+                    scaler.mean_[
+                        nn[
+                            dd,
+                        ]
+                    ]
+                    - EOFs_realc[
+                        ie,
+                        [
+                            nn[
+                                dd,
+                            ]
+                        ],
+                    ]
+                ),
+                DPTmodel,
+                c="blue",
+            )
+            if dd == 0:
+                ax[ie, dd].set_xlim([4, 26])
+            if dd == 1:
+                ax[ie, dd].set_xlim([34.8, 37.1])
+            ax[ie, dd].set_ylabel("Depth")
+            ax[ie, dd].grid(True)
+            ax[ie, dd].set_title(
+                "PC%i (%i %%)" % (ie + 1, round(np.array(V * 100)[ie], 1))
+            )
+    ax[2, 0].set_xlabel("Temperature (real units)")
+    ax[2, 1].set_xlabel("Salinity (real units)")
