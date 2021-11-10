@@ -1,4 +1,6 @@
-"""Make graphs to show how the preprocessing step has worked."""
+"""Make graphs to show how the preprocessing step has worked.
+
+These are graphs B1 and B2 in appendix B of the paper."""
 import numpy as np
 import matplotlib.pyplot as plt
 import pyxpcm
@@ -124,9 +126,17 @@ def pauth17_pca_profiles(pcm_ob: pyxpcm.pcm) -> None:
 
 
 def pauth17_pca_profiles_new(pcm_ob: pyxpcm.pcm) -> None:
-    """
+    """Pauthenet and Roquet 2017 Figure 4 replication [corrected].
+
+    Args:
+        pcm_ob (pyxpcm.pcm): The profile classification model.
+
     And I wrote this next code to plot the deviation from the mean profile, you add or remove ‘EOFs_realc’. You can add a factor in front if you want to exaggerate the deviation from the mean profile (and mention it in the caption, in Pauthenet2017 we multiply modes 3 to 6 by a factor 2 to amplify the deformation and make the figure readable) :
     """
+    reducer = pcm_ob._reducer["ALL"]
+    scaler_salt = pcm_ob._scaler["SALT"]
+    scaler_theta = pcm_ob._scaler["THETA"]
+
     S = np.sqrt(
         reducer.explained_variance_ * Xn.shape[0]
     )  # These are the singular values
