@@ -131,11 +131,81 @@ def pauth17_pca_profiles_new(pcm_ob: pyxpcm.pcm) -> None:
     Args:
         pcm_ob (pyxpcm.pcm): The profile classification model.
 
-    And I wrote this next code to plot the deviation from the mean profile, you add or remove ‘EOFs_realc’. You can add a factor in front if you want to exaggerate the deviation from the mean profile (and mention it in the caption, in Pauthenet2017 we multiply modes 3 to 6 by a factor 2 to amplify the deformation and make the figure readable) :
+
+    # Comment from Etienne:
+
+    And I wrote this next code to plot the deviation from the mean profile,
+    you add or remove ‘EOFs_realc’. You can add a factor in front if you want
+     to exaggerate the deviation from the mean profile (and mention it in the
+     caption, in Pauthenet2017 we multiply modes 3 to 6 by a factor 2 to amplify
+      the deformation and make the figure readable).
     """
+    # the pca object.
     reducer = pcm_ob._reducer["ALL"]
-    scaler_salt = pcm_ob._scaler["SALT"]
-    scaler_theta = pcm_ob._scaler["THETA"]
+    comp = {}
+    comp["SALT"] = reducer.components_[:, LZ:]
+    comp["THETA"] = reducer.components_[:, :LZ]
+    ev = reducer.explained_variance_
+
+    # mean and variance containing objects
+    scaler = {}
+    scaler["SALT"] = pcm_ob._scaler["SALT"]
+    scaler["THETA"] = pcm_ob._scaler["THETA"]
+
+    mean = {}
+    std_dev = {}
+    for key in scaler:
+        mean[key] = scaler[key].mean_
+        std_dev[key] = np.sqrt(scaler[key].var_)
+
+    row = {"THETA": 0, "SALT": 1}
+
+    fig, axs = plt.subplots(len(row.keys()), len(ev), sharey=True)
+    labels = {
+        "mean": {},
+        "minus": {"label": "-1 Unit of PC"},
+        "plus": {"label": "-1 Unit of PC"},
+    }
+
+    first = True
+
+    for quantity in row:
+        axs[row[quantity], 0].set_ylim(min(ZS), max(ZS))
+        axs[row[quantity], 0].set_ylabel("Depth [m]")
+        for i in range(len(ev)):
+            axs[row[quantity], i].plot(
+                mean[quantity], ZS, color="black", **labels["mean"]
+            )
+            axs[row[quantity], i].plot(
+                mean[quantity] - std_dev[quantity] * scaler[quantity][i, :],
+                ZS,
+                color="blue",
+                **labels["minus"]
+            )
+            axs[row[quantity], i].plot(
+                mean[quantity] + std_dev[quantity] * scaler[quantity][i, :],
+                ZS,
+                color="blue",
+                **labels["plus"]
+            )
+            axs[row[quantity], i].set_xlabel("PC" + str(i + 1))
+            if first == True:
+                labels = {"mean": {}, "minus": {}, "plus": {}}
+                first = False
+
+    axs[0, 1].set_title(r"Potential Temperature, $\theta$ [$^{\circ}$C]")
+    axs[1, 1].set_title(r"Salinity, $S$ [psu]")
+    axs[0, 0].legend(
+        bbox_to_anchor=(0.25, 1.1, 3, 0),
+        loc="lower right",
+        ncol=3,
+        mode="expand",
+        borderaxespad=0.0,
+        frameon=False,
+    )
+    lsty.set_dim(fig, fraction_of_line_width=1.1, ratio=(5 ** 0.5 - 1) + 0.1)
+    gp.label_subplots([axs[0, 0], axs[1, 0]], x_pos=-0.05, y_pos=1.1, fontsize=14)
+    plt.tight_layout()
 
     S = np.sqrt(
         reducer.explained_variance_ * Xn.shape[0]
