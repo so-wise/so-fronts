@@ -37,18 +37,18 @@ of individual eddy-like features (such as the Agulhas rings).
 1. Chapman, C. C., Lea, M.-A., Meyer, A., Sallee, J.-B. & Hindell, M.
     Defining Southern Ocean fronts and their influence on biological and
     physical processes in a changing climate. Nature Climate Change (2020).
-    https://doi.org/10.1038/s41558-020-0705-4
+    <https://doi.org/10.1038/s41558-020-0705-4>
 
 2. Maze, G. et al. Coherent heat patterns revealed by unsupervised
     classification of Argo temperature profiles in the North Atlantic Ocean.
     Progress in Oceanography (2017).
-    https://doi.org/10.1016/j.pocean.2016.12.008,
-    https://doi.org/10.5281/zenodo.3906236
+    <https://doi.org/10.1016/j.pocean.2016.12.008>,
+    <https://doi.org/10.5281/zenodo.3906236>
 
 3. Hjelmervik, K. B. & Hjelmervik, K. T. Detection of oceanographic fronts
     on variable water depths using empirical orthogonal functions.
     IEEE Journal of Oceanic Engineering (2019).
-    https://doi.org/10.1109/JOE.2019.2917456
+    <https://doi.org/10.1109/JOE.2019.2917456>
 
 ## I metric for K=5
 
