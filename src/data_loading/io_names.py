@@ -58,7 +58,7 @@ def return_name(k_clusters: int, pca_components: int) -> str:
         str: file names.
     """
     return (
-        str(cst.GWS_DATA_DIR)
+        str(cst.GEN_ROOT)
         + "/nc/i-metric-joint-k-"
         + str(k_clusters)
         + "-d-"
@@ -118,7 +118,7 @@ def _return_pair_name(k_clusters: int, pca_components: int) -> str:
 
     """
     return (
-        str(cst.GWS_DATA_DIR)
+        str(cst.GEN_ROOT)
         + "nc/pair-i-metric-k-"
         + str(k_clusters)
         + "-d-"
@@ -138,7 +138,7 @@ def _return_pair_folder(k_clusters: int, pca_components: int) -> str:
 
     """
     folder = (
-        str(cst.GWS_DATA_DIR)
+        str(cst.GEN_ROOT)
         + "/nc/pair-i-metric-k-"
         + str(k_clusters)
         + "-d-"
