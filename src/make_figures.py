@@ -1,4 +1,5 @@
-"""Make figures: run through all the paper figures and make them.
+"""
+Make figures: run through all the paper figures and make them.
 
 Takes roughly 5 minutes the first time it is run.
 """
