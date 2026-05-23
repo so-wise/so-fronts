@@ -34,8 +34,9 @@ jobs:
 
       - name: Install unit-test runtime dependencies
         run: |
-          python -m pip install numpy xarray matplotlib cmocean gsw
+          python -m pip install "numpy<2" xarray matplotlib cmocean gsw
           python -m pip install "https://github.com/sdat2/pyxpcm/archive/sof-agu.zip"
+          python -m pip install --upgrade "numpy<2"
 
       - name: Run unit tests
         env:

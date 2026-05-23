@@ -10,7 +10,9 @@ import matplotlib.pyplot as plt
 
 try:
     import src.plot_utils.ellipses as ell
-except ModuleNotFoundError:
+except Exception:
+    # Optional plotting stack can fail for reasons other than missing modules
+    # (for example, incompatible transitive dependency versions).
     ell = None
 
 
