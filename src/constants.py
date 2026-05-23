@@ -24,27 +24,35 @@ FIGURE_TYPE: Literal[".png", ".pdf"] = ".png"
 
 # start ****DATA LOCATION section***
 # This will certainly need to be changed on your machine
+GEN_ROOT: str = DATA_PATH
+DEFAULT_NC: str = os.path.join(GEN_ROOT, "i-metric-joint-k-5-d-3.nc")
 
-# Paths to BSOSE (unique to Jasmin)
+# Keep the historical Linux vs Darwin defaults, but prefer folders that
+# already exist so the code remains robust when moved between machines.
 if platform in ["Linux", "linux"]:
-    # Data directory on GWS
-    GEN_ROOT = DATA_PATH  # "/gws/nopw/j04/ai4er/users/sdat2/OLD")
-    GEN_DATA_PATH: str = os.path.join(GEN_ROOT, "bsose_data")
-    BSOSE_PATH: str = os.path.join(GEN_DATA_PATH, "bsose_stuv")
-    DEFAULT_NC: str = os.path.join(
-        GEN_ROOT, "i-metric-joint-k-5-d-3.nc"  # not valid in jasmin.
-    )
-
-# Paths to different BSOSE-i106 files (unique to my machine):
-elif platform in ["Darwin", "darwin"]:
-    # GEN_ROOT = os.path.join("/Users", "simon")
-    GEN_ROOT: str = DATA_PATH
-    BSOSE_PATH: str = os.path.join(GEN_ROOT, "bsose_monthly")
-    GEN_DATA_PATH: str = BSOSE_PATH
-    DEFAULT_NC: str = os.path.join(DATA_PATH, "i-metric-joint-k-5-d-3.nc")
-
+    _preferred_data_dirs = [
+        os.path.join(GEN_ROOT, "bsose_data"),
+        os.path.join(GEN_ROOT, "bsose_monthly"),
+    ]
 else:
-    assert False
+    _preferred_data_dirs = [
+        os.path.join(GEN_ROOT, "bsose_monthly"),
+        os.path.join(GEN_ROOT, "bsose_data"),
+    ]
+
+GEN_DATA_PATH: str = next(
+    (path for path in _preferred_data_dirs if os.path.isdir(path)),
+    _preferred_data_dirs[0],
+)
+
+_bsose_candidates = [
+    os.path.join(GEN_DATA_PATH, "bsose_stuv"),
+    GEN_DATA_PATH,
+]
+BSOSE_PATH: str = next(
+    (path for path in _bsose_candidates if os.path.isdir(path)),
+    _bsose_candidates[0],
+)
 
 # end ****DATA LOCATION section***
 
@@ -56,10 +64,10 @@ os.makedirs(GEN_DATA_PATH, exist_ok=True)
 os.makedirs(BSOSE_PATH, exist_ok=True)
 
 # Salt, Theta, Uvel, Vvel
-SALT_FILE: str = os.path.join(BSOSE_PATH, "bsose_stuv", "bsose_i106_2008to2012_monthly_Salt.nc")
-THETA_FILE: str = os.path.join(BSOSE_PATH, "bsose_stuv", "bsose_i106_2008to2012_monthly_Theta.nc")
-VVEL_FILE: str = os.path.join(BSOSE_PATH, "bsose_stuv", "bsose_i106_2008to2012_monthly_Vvel.nc")
-UVEL_FILE: str = os.path.join(BSOSE_PATH, "bsose_stuv", "bsose_i106_2008to2012_monthly_Uvel.nc")
+SALT_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Salt.nc")
+THETA_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Theta.nc")
+VVEL_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Vvel.nc")
+UVEL_FILE: str = os.path.join(BSOSE_PATH, "bsose_i106_2008to2012_monthly_Uvel.nc")
 
 # COORDS within BSOSE-i106
 Z_COORD: str = "Z"

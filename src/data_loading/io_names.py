@@ -57,12 +57,9 @@ def return_name(k_clusters: int, pca_components: int) -> str:
     Returns:
         str: file names.
     """
-    return (
-        str(cst.GEN_ROOT)
-        + "/nc/i-metric-joint-k-"
-        + str(k_clusters)
-        + "-d-"
-        + str(pca_components)
+    return os.path.join(
+        cst.DATA_PATH,
+        "i-metric-joint-k-" + str(k_clusters) + "-d-" + str(pca_components),
     )
 
 
@@ -76,17 +73,13 @@ def return_plot_folder(k_clusters: int, pca_components: int) -> str:
     Returns:
         str: file names.
     """
-    folder = (
-        "../FBSO-Report/"
-        + "images/i-metric-joint-k-"
-        + str(k_clusters)
-        + "-d-"
-        + str(pca_components)
-        + "/"
+    folder = os.path.join(
+        cst.FIGURE_PATH,
+        "i-metric-joint-k-" + str(k_clusters) + "-d-" + str(pca_components),
     )
     if not os.path.exists(folder):
         os.makedirs(folder)
-    return folder
+    return os.path.join(folder, "")
 
 
 def return_folder(k_clusters: int, pca_components: int) -> str:
@@ -100,7 +93,7 @@ def return_folder(k_clusters: int, pca_components: int) -> str:
         str: file names.
 
     """
-    folder = return_name(k_clusters, pca_components) + "/"
+    folder = os.path.join(return_name(k_clusters, pca_components), "")
     if not os.path.exists(folder):
         os.makedirs(folder)
     return folder
@@ -117,12 +110,9 @@ def _return_pair_name(k_clusters: int, pca_components: int) -> str:
         str: file names.
 
     """
-    return (
-        str(cst.GEN_ROOT)
-        + "nc/pair-i-metric-k-"
-        + str(k_clusters)
-        + "-d-"
-        + str(pca_components)
+    return os.path.join(
+        cst.DATA_PATH,
+        "pair-i-metric-k-" + str(k_clusters) + "-d-" + str(pca_components),
     )
 
 
@@ -137,14 +127,7 @@ def _return_pair_folder(k_clusters: int, pca_components: int) -> str:
         str: file names.
 
     """
-    folder = (
-        str(cst.GEN_ROOT)
-        + "/nc/pair-i-metric-k-"
-        + str(k_clusters)
-        + "-d-"
-        + str(pca_components)
-        + "/"
-    )
+    folder = os.path.join(_return_pair_name(k_clusters, pca_components), "")
     if not os.path.exists(folder):
         os.makedirs(folder)
     return folder

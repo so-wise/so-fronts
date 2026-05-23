@@ -1,5 +1,6 @@
 """Preprocessing script to transform to different quantities."""
 from typing import Tuple
+import os
 import numpy as np
 import gsw
 import xarray as xr
@@ -7,12 +8,15 @@ import src.constants as cst
 
 xr.set_options(keep_attrs=True)
 
+RHO_DIR: str = os.path.join(cst.DATA_PATH, "rho")
+DENSITY_NC_PATH: str = os.path.join(cst.DATA_PATH, "density.nc")
+
 
 def return_density(
     pt_values: np.ndarray,
     practical_salt_values: np.ndarray,
     lon_values: np.ndarray,
-    lat_values: np.ndrray,
+    lat_values: np.ndarray,
     z_values: np.ndarray,
 ) -> Tuple[np.array, np.ndarray, np.ndarray]:
     """
@@ -204,9 +208,8 @@ def test_density_da(
 def create_whole_density_netcdf() -> None:
     """Create density netcdf."""
 
-    main_dir = "/Users/simon/bsose_monthly/"
-    salt = main_dir + "bsose_i106_2008to2012_monthly_Salt.nc"
-    salt_nc = xr.open_dataset(salt)
+    os.makedirs(RHO_DIR, exist_ok=True)
+    salt_nc = xr.open_dataset(cst.SALT_FILE)
 
     for time_i in range(salt_nc.dims[cst.T_COORD]):
 
@@ -227,7 +230,10 @@ def create_whole_density_netcdf() -> None:
 
         density_da.coords[cst.T_COORD].attrs = salt_nc.coords[cst.T_COORD].attrs
 
-        density_da.to_netcdf("nc/rho/density_" + str(time_i) + ".nc", format="netcdf4")
+        density_da.to_netcdf(
+            os.path.join(RHO_DIR, "density_" + str(time_i) + ".nc"),
+            format="netcdf4",
+        )
 
 
 def merge_whole_density_netcdf() -> xr.DataArray:
@@ -238,7 +244,7 @@ def merge_whole_density_netcdf() -> xr.DataArray:
     """
 
     rho_da = xr.open_mfdataset(
-        "nc/rho/*.nc",
+        os.path.join(RHO_DIR, "*.nc"),
         concat_dim="time",
         combine="by_coords",
         data_vars="minimal",
@@ -257,7 +263,7 @@ def save_density_netcdf(rho_da: xr.DataArray) -> None:
         rho_da (xr.DataArray): [description]
     """
 
-    xr.save_mfdataset([rho_da], ["nc/Density.nc"], format="NETCDF4")
+    xr.save_mfdataset([rho_da], [DENSITY_NC_PATH], format="NETCDF4")
 
 
 def reload_density_netcdf() -> xr.Dataset:
@@ -267,18 +273,20 @@ def reload_density_netcdf() -> xr.Dataset:
         xr.Dataset: open the density netcdf.
     """
 
-    return xr.open_dataset("nc/density.nc")
+    return xr.open_dataset(DENSITY_NC_PATH)
 
 
 def x_grad() -> None:
     """
     Save x grad.
     """
-    density_da = xr.open_mfdataset("nc/density.nc", decode_cf=False).astype("float32")
+    density_da = xr.open_mfdataset(DENSITY_NC_PATH, decode_cf=False).astype("float32")
     grad_da = density_da.Density.differentiate(cst.X_COORD).astype("float32")
     density_da["x_grad"] = grad_da
     grad_ds = density_da.drop("Density").astype("float32")
-    xr.save_mfdataset([grad_ds], ["nc/density_grad_x.nc"], format="NETCDF4")
+    xr.save_mfdataset(
+        [grad_ds], [os.path.join(cst.DATA_PATH, "density_grad_x.nc")], format="NETCDF4"
+    )
 
 
 def y_grad(set_ok: bool = False) -> None:
@@ -288,7 +296,7 @@ def y_grad(set_ok: bool = False) -> None:
         set (bool, optional): take y gradient of density. Defaults to False.
     """
     density_da = xr.open_mfdataset(
-        "nc/density.nc", decode_cf=False, parallel=True
+        DENSITY_NC_PATH, decode_cf=False, parallel=True
     ).astype("float32")
     grad_da = (
         density_da.Density.astype("float32")
@@ -297,12 +305,16 @@ def y_grad(set_ok: bool = False) -> None:
     )
     del density_da
     if not set_ok:
-        grad_da.to_netcdf("nc/density_grad_y_da.nc", engine="netcdf4")
+        grad_da.to_netcdf(
+            os.path.join(cst.DATA_PATH, "density_grad_y_da.nc"), engine="netcdf4"
+        )
     else:
         grad_ds = grad_da.to_dataset().astype("float32")
         # density_da['y_grad'] = grad_da
         # grad_ds = density_da.drop('Density')
-        xr.save_mfdataset([grad_ds], ["nc/density_grad_y.nc"], format="NETCDF4")
+        xr.save_mfdataset(
+            [grad_ds], [os.path.join(cst.DATA_PATH, "density_grad_y.nc")], format="NETCDF4"
+        )
 
 
 def take_derivative_density(
@@ -320,7 +332,7 @@ def take_derivative_density(
     chunk_d = {cst.T_COORD: 1, cst.Z_COORD: 52, cst.Y_COORD: 588, cst.X_COORD: 2160}
 
     density_ds = xr.open_mfdataset(
-        "nc/density.nc",
+        DENSITY_NC_PATH,
         # engine=engine,
         # decode_cf=False,
         chunks=chunk_d,
@@ -342,5 +354,7 @@ def take_derivative_density(
 
     # .astype(typ).chunk(chunks=chunk_d)
     xr.save_mfdataset(
-        [grad_ds], ["nc/density_grad_" + dimension + ".nc"], format="NETCDF4"
+        [grad_ds],
+        [os.path.join(cst.DATA_PATH, "density_grad_" + dimension + ".nc")],
+        format="NETCDF4",
     )
