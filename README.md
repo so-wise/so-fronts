@@ -62,11 +62,23 @@ of individual eddy-like features (such as the Agulhas rings).
     make env
     ```
 
+    or with `micromamba`
+
+    ```bash
+    micromamba create -f requirements/environment.yml -p ./env
+    ```
+
 - Activate the environment in conda:
 
-     ```bash
-     conda activate ./env
-     ```
+    ```bash
+    conda activate ./env
+
+    micromamba activate ./env
+    ```
+
+    ```bash
+    micromamba activate ./env 
+    ```
 
 - Change the settings in `src.constants` to set download location etc.
 

@@ -10,7 +10,7 @@ wandb
 xarray==0.15
 netcdf4
 scikit-learn
-matplotlib==3.2.2
+matplotlib
 
 # pynio
 numba

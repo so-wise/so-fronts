@@ -6,8 +6,8 @@ channels:
 dependencies:
   - python=3.8
   - xarray==0.15
-  - cartopy
-  - matplotlib==3.2.2
+  - cartopy==0.18
+  - matplotlib
   - pip
   - pip:
     - -r dev-requirements.txt

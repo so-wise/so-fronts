@@ -1,4 +1,5 @@
-"""Make figures: run through all the paper figures and make them.
+"""
+Make figures: run through all the paper figures and make them.
 
 Takes roughly 5 minutes the first time it is run.
 """
@@ -23,7 +24,7 @@ import src.time_wrapper as twr
 
 
 @twr.timeit
-def make_all_figures():
+def make_all_figures() -> None:
     """
     Make all the figures in the paper in a sequence.
 
